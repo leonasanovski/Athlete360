@@ -57,7 +57,7 @@ frontend/src/environments/environment.ts
 *.tmp
 *.bak
 *.orig
-
+####
 # ========== OPTIONAL ==========
 # Mac OS trash
 .Trashes
