@@ -1,0 +1,73 @@
+# ========== GLOBAL IGNORE ==========
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Logs
+*.log
+
+# ========== BACKEND (Spring Boot / Gradle) ==========
+# Build
+/backend/build/
+/backend/out/
+/backend/bin/
+/backend/target/
+
+# Gradle
+/backend/.gradle/
+/backend/gradle-app.setting
+
+# Maven (in case)
+**/dependency-reduced-pom.xml
+**/buildNumber.properties
+**/.mvn
+**/mvnw
+**/mvnw.cmd
+
+# Spring-specific
+/backend/*.jar
+/backend/*.war
+
+# ========== FRONTEND (Angular) ==========
+# Node modules
+/frontend/node_modules/
+
+/frontend/dist/
+/frontend/.angular/cache/
+/frontend/.angular/
+
+# Package manager files
+/frontend/package-lock.json
+/frontend/yarn.lock
+
+# Angular environment (optional if secrets)
+frontend/src/environments/environment.prod.ts
+frontend/src/environments/environment.ts
+
+# ========== GLOBAL IGNORE FOR TEMP / SYSTEM ==========
+*.class
+*.swp
+*.swo
+*.tmp
+*.bak
+*.orig
+
+# ========== OPTIONAL ==========
+# Mac OS trash
+.Trashes
+
+# Coverage and reports
+/coverage/
+/test-output/
+/jacoco.exec
+
+# ========== GIT ==========
+# Ignore Git itself (when cleaning)
+*.git/
+*.gitignore
