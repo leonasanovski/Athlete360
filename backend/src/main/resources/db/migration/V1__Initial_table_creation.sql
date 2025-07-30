@@ -5,19 +5,19 @@ CREATE TYPE RecommendationType as ENUM ('TRAINING', 'DIET', 'SUPPLEMENT');
 CREATE TYPE RestrictionLevel AS ENUM ('NORMAL','HARD','EXTREME');
 
 --doctor entity
-CREATE TABLE Doctor
+CREATE TABLE doctor
 (
-    doctor_id                SERIAL PRIMARY KEY,
+    doctor_id                BIGSERIAL  PRIMARY KEY,
     first_name               VARCHAR(50)        NOT NULL,
     last_name                VARCHAR(50)        NOT NULL,
-    specialization VARCHAR(100)       not null,
+    specialization           VARCHAR(100)       NOT NULL,
     email                    VARCHAR(50) UNIQUE NOT NULL
 );
 
 --patient entity
-CREATE TABLE Patient
+CREATE TABLE patient
 (
-    patient_id         SERIAL PRIMARY KEY,
+    patient_id         BIGSERIAL PRIMARY KEY,
     first_name         VARCHAR(100)        NOT NULL,
     last_name          VARCHAR(100)        NOT NULL,
     date_of_birth      Date                NOT NULL,
@@ -27,11 +27,11 @@ CREATE TABLE Patient
 );
 
 --athlete report entity
-CREATE TABLE AthleteReport
+CREATE TABLE athlete_report
 (
-    report_id                 SERIAL PRIMARY KEY,
-    doctor_id                 INTEGER NOT NULL,
-    patient_id                INTEGER NOT NULL,
+    report_id                 BIGSERIAL PRIMARY KEY,
+    doctor_id                 BIGINT NOT NULL,
+    patient_id                BIGINT NOT NULL,
     created_at                TIMESTAMP DEFAULT current_timestamp,
     -- Cardiovascular Metrics
     vo2_max                   DECIMAL(5, 2) NOT NULL, -- maximal oxygen uptake capacity (ml/kg/min)
@@ -63,37 +63,37 @@ CREATE TABLE AthleteReport
     iron                      DECIMAL(5, 1) NOT NULL, -- serum iron (μg/dL)
     testosterone              DECIMAL(6, 1) NOT NULL, -- testosterone level (ng/dL)
     cortisol                  DECIMAL(4, 1) NOT NULL, -- stress hormone level (μg/dL)
-    CONSTRAINT fk_report_doctor FOREIGN KEY (doctor_id) REFERENCES Doctor (doctor_id) ON DELETE RESTRICT,
-    CONSTRAINT fk_report_patient FOREIGN KEY (patient_id) REFERENCES Patient (patient_id) ON DELETE RESTRICT,
+    CONSTRAINT fk_report_doctor FOREIGN KEY (doctor_id) REFERENCES doctor (doctor_id) ON DELETE RESTRICT,
+    CONSTRAINT fk_report_patient FOREIGN KEY (patient_id) REFERENCES patient (patient_id) ON DELETE RESTRICT,
     CONSTRAINT chk_body_fat_percentage CHECK (body_fat_percentage >= 0 AND body_fat_percentage <= 100),
     CONSTRAINT chk_core_stability CHECK (core_stability_score >= 0 AND core_stability_score <= 100)
 );
 
 --athlete report final summary entity
-CREATE TABLE Summary
+CREATE TABLE summary
 (
-    summary_id         SERIAL PRIMARY KEY,
-    report_id          INTEGER NOT NULL UNIQUE,
+    summary_id         BIGSERIAL PRIMARY KEY,
+    report_id          BIGINT NOT NULL UNIQUE,
     summarized_content TEXT    NOT NULL, --the summarized context will be from the recommendations made for the report
-    CONSTRAINT fk_summary_report FOREIGN KEY (report_id) REFERENCES AthleteReport (report_id) ON DELETE RESTRICT
+    CONSTRAINT fk_summary_report FOREIGN KEY (report_id) REFERENCES athlete_report (report_id) ON DELETE RESTRICT
 );
 
 --entry mood text entity
-CREATE TABLE Mood
+CREATE TABLE mood
 (
-    mood_id          SERIAL PRIMARY KEY,
-    patient_id       INTEGER NOT NULL,
+    mood_id          BIGSERIAL PRIMARY KEY,
+    patient_id       BIGINT NOT NULL,
     mood_level       VARCHAR(50) NOT NULL,
     mood_description VARCHAR(200) NOT NULL,
     created_at       timestamp DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT fk_mood_patient FOREIGN KEY (patient_id) REFERENCES Patient (patient_id) ON DELETE RESTRICT
+    CONSTRAINT fk_mood_patient FOREIGN KEY (patient_id) REFERENCES patient (patient_id) ON DELETE RESTRICT
 );
 
 --recommendation table (supertype)
-CREATE TABLE Recommendation
+CREATE TABLE recommendation
 (
-    recommendation_id         SERIAL PRIMARY KEY,
-    report_id                 INTEGER            NOT NULL,
+    recommendation_id         BIGSERIAL PRIMARY KEY,
+    report_id                 BIGINT            NOT NULL,
     type                      RecommendationType NOT NULL,
     restriction_level         RestrictionLevel   NOT NULL DEFAULT 'NORMAL',
     label                     VARCHAR(70)        NOT NULL,
@@ -104,5 +104,5 @@ CREATE TABLE Recommendation
     target_goal               TEXT               NOT NULL,
     effectiveness_rating      INTEGER CHECK (effectiveness_rating BETWEEN 1 AND 10),
     doctor_personalized_notes TEXT               NOT NULL,
-    CONSTRAINT fk_recommendation_report FOREIGN KEY (report_id) REFERENCES AthleteReport (report_id) ON DELETE RESTRICT
+    CONSTRAINT fk_recommendation_report FOREIGN KEY (report_id) REFERENCES athlete_report (report_id) ON DELETE RESTRICT
 );

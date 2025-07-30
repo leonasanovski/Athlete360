@@ -4,18 +4,18 @@ import jakarta.persistence.*
 import jakarta.validation.constraints.Email
 
 @Entity
-@Table(name = "entity")
+@Table(name = "doctor")
 data class Doctor(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "doctor_id", nullable = false)
     val doctorId: Long? = null,
 
-    @Column(name = "doctor_name", nullable = false)
-    val doctorName: String,
+    @Column(name = "first_name", nullable = false)
+    val firstName: String,
 
-    @Column(name = "doctor_surname", nullable = false)
-    val doctorSurname: String,
+    @Column(name = "last_name", nullable = false)
+    val lastName: String,
 
     @Column(name = "specialization", nullable = false)
     val specialization: String,
