@@ -2,6 +2,8 @@ package sorsix.internship.backend.model
 
 import jakarta.persistence.*
 import jakarta.validation.constraints.Email
+import org.hibernate.annotations.JdbcTypeCode
+import org.hibernate.type.SqlTypes
 import sorsix.internship.backend.model.enum.Gender
 import sorsix.internship.backend.model.enum.SportsmanCategory
 import java.time.LocalDate
@@ -25,12 +27,12 @@ data class Patient(
 
     @Enumerated(EnumType.STRING)
     @Column(name = "gender", nullable = false)
-    @org.hibernate.annotations.JdbcTypeCode(org.hibernate.type.SqlTypes.NAMED_ENUM)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     var gender: Gender = Gender.MALE,
 
     @Enumerated(EnumType.STRING)
     @Column(name = "sportsman_category", nullable = false)
-    @org.hibernate.annotations.JdbcTypeCode(org.hibernate.type.SqlTypes.NAMED_ENUM)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     var sportsmanCategory: SportsmanCategory = SportsmanCategory.RECREATION,
 
     @Email

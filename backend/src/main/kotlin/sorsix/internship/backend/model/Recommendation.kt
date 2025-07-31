@@ -1,6 +1,8 @@
 package sorsix.internship.backend.model
 
 import jakarta.persistence.*
+import org.hibernate.annotations.JdbcTypeCode
+import org.hibernate.type.SqlTypes
 import sorsix.internship.backend.model.enum.RecommendationType
 import sorsix.internship.backend.model.enum.RestrictionLevel
 
@@ -18,12 +20,12 @@ data class Recommendation(
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    @org.hibernate.annotations.JdbcTypeCode(org.hibernate.type.SqlTypes.NAMED_ENUM)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     val type: RecommendationType,
 
     @Enumerated(EnumType.STRING)
     @Column(name = "restriction_level", nullable = false)
-    @org.hibernate.annotations.JdbcTypeCode(org.hibernate.type.SqlTypes.NAMED_ENUM)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     val restrictionLevel: RestrictionLevel = RestrictionLevel.NORMAL,
 
     @Column(nullable = false, length = 70)
