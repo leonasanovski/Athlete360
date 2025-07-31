@@ -35,8 +35,8 @@ data class AthleteReport(
     @Column(name = "body_fat_percentage", nullable = false)
     val bodyFatPercentage: BigDecimal,
 
-    @Column(name = "lean_muscle_mass", nullable = false)
-    val leanMuscleMass: BigDecimal,
+    @Column(name = "lean_muscle_mass")
+    val leanMuscleMass: BigDecimal? = null,
 
     @Column(name = "bone_density", nullable = false)
     val boneDensity: BigDecimal,
@@ -47,26 +47,26 @@ data class AthleteReport(
     @Column(name = "weight", nullable = false)
     val weight: BigDecimal,
 
-    @Column(name = "one_rep_max_bench", nullable = false)
-    val oneRepMaxBench: BigDecimal,
+    @Column(name = "one_rep_max_bench")
+    val oneRepMaxBench: BigDecimal? = null,
 
-    @Column(name = "one_rep_max_squat", nullable = false)
-    val oneRepMaxSquat: BigDecimal,
+    @Column(name = "one_rep_max_squat")
+    val oneRepMaxSquat: BigDecimal? = null,
 
-    @Column(name = "one_rep_max_deadlift", nullable = false)
-    val oneRepMaxDeadlift: BigDecimal,
+    @Column(name = "one_rep_max_deadlift")
+    val oneRepMaxDeadlift: BigDecimal? = null,
 
-    @Column(name = "jump_height", nullable = false)
-    val jumpHeight: BigDecimal,
+    @Column(name = "jump_height")
+    val jumpHeight: BigDecimal? = null,
 
     @Column(name = "average_run_per_kilometer", nullable = false)
     val averageRunPerKilometer: BigDecimal,
 
-    @Column(name = "shoulder_flexibility", nullable = false)
-    val shoulderFlexibility: Int,
+    @Column(name = "shoulder_flexibility")
+    val shoulderFlexibility: Int? = null,
 
-    @Column(name = "hip_flexibility", nullable = false)
-    val hipFlexibility: Int,
+    @Column(name = "hip_flexibility")
+    val hipFlexibility: Int? = null,
 
     @Column(name = "balance_time", nullable = false)
     val balanceTime: BigDecimal,

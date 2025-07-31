@@ -39,19 +39,19 @@ CREATE TABLE athlete_report
     under_pressure_heart_rate INTEGER NOT NULL ,       -- maximum heart rate during exercise
     -- Body Composition & Anthropometry
     body_fat_percentage       DECIMAL(4, 1) NOT NULL, -- body composition analysis (%)
-    lean_muscle_mass          DECIMAL(5, 1) NOT NULL, -- muscle tissue measurement (kg)
+    lean_muscle_mass          DECIMAL(5, 1), -- muscle tissue measurement (kg)
     bone_density              DECIMAL(4, 2) NOT NULL, -- skeletal health assessment (g/cm²)
     height                    DECIMAL(5, 1) NOT NULL, -- height in cm
     weight                    DECIMAL(5, 1) NOT NULL, -- weight in kg
     -- Strength & Power Metrics
-    one_rep_max_bench         DECIMAL(5, 1) NOT NULL, -- 1RM bench press (kg)
-    one_rep_max_squat         DECIMAL(5, 1) NOT NULL, -- 1RM squat (kg)
-    one_rep_max_deadlift      DECIMAL(5, 1) NOT NULL, -- 1RM deadlift (kg)
-    jump_height               DECIMAL(4, 1) NOT NULL, -- explosive power measurement (cm)
+    one_rep_max_bench         DECIMAL(5, 1), -- 1RM bench press (kg)
+    one_rep_max_squat         DECIMAL(5, 1), -- 1RM squat (kg)
+    one_rep_max_deadlift      DECIMAL(5, 1), -- 1RM deadlift (kg)
+    jump_height               DECIMAL(4, 1), -- explosive power measurement (cm)
     average_run_per_kilometer DECIMAL(4, 2) NOT NULL, -- how many seconds are needed averagely to run 1 km (seconds)
     -- Flexibility & Stability
-    shoulder_flexibility      INTEGER NOT NULL ,       -- shoulder range of motion (degrees)
-    hip_flexibility           INTEGER NOT NULL ,       -- hip range of motion (degrees)
+    shoulder_flexibility      INTEGER,       -- shoulder range of motion (degrees)
+    hip_flexibility           INTEGER,       -- hip range of motion (degrees)
     balance_time              DECIMAL(4, 1) NOT NULL, -- stability assessment (seconds)
     reaction_time             DECIMAL(5, 3) NOT NULL, -- neuromuscular response speed (seconds)
     core_stability_score      INTEGER NOT NULL ,       -- trunk strength score (0-100)
