@@ -18,10 +18,12 @@ data class Recommendation(
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @org.hibernate.annotations.JdbcTypeCode(org.hibernate.type.SqlTypes.NAMED_ENUM)
     val type: RecommendationType,
 
     @Enumerated(EnumType.STRING)
     @Column(name = "restriction_level", nullable = false)
+    @org.hibernate.annotations.JdbcTypeCode(org.hibernate.type.SqlTypes.NAMED_ENUM)
     val restrictionLevel: RestrictionLevel = RestrictionLevel.NORMAL,
 
     @Column(nullable = false, length = 70)

@@ -24,11 +24,13 @@ data class Patient(
     var dateOfBirth: LocalDate = LocalDate.now(),
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "gender", nullable = false)
+    @org.hibernate.annotations.JdbcTypeCode(org.hibernate.type.SqlTypes.NAMED_ENUM)
     var gender: Gender = Gender.MALE,
 
     @Enumerated(EnumType.STRING)
     @Column(name = "sportsman_category", nullable = false)
+    @org.hibernate.annotations.JdbcTypeCode(org.hibernate.type.SqlTypes.NAMED_ENUM)
     var sportsmanCategory: SportsmanCategory = SportsmanCategory.RECREATION,
 
     @Email
