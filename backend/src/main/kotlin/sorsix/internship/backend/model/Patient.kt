@@ -15,17 +15,17 @@ data class Patient(
     var patientId: Long? = null,
 
     @Column(name = "first_name", nullable = false)
-    var firstName: String,
+    var firstName: String = "",
 
     @Column(name = "last_name", nullable = false)
-    var lastName: String,
+    var lastName: String = "",
 
     @Column(name = "date_of_birth", nullable = false)
-    var dateOfBirth: LocalDate,
+    var dateOfBirth: LocalDate = LocalDate.now(),
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    var gender: Gender,
+    var gender: Gender = Gender.MALE,
 
     @Enumerated(EnumType.STRING)
     @Column(name = "sportsman_category", nullable = false)
@@ -33,5 +33,5 @@ data class Patient(
 
     @Email
     @Column(nullable = false, unique = true)
-    var email: String
+    var email: String = ""
 )
