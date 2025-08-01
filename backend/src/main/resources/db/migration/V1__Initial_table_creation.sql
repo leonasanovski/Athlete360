@@ -18,12 +18,15 @@ CREATE TABLE doctor
 CREATE TABLE patient
 (
     patient_id         BIGSERIAL PRIMARY KEY,
+    doctor_id          BIGINT,
     first_name         VARCHAR(100)        NOT NULL,
     last_name          VARCHAR(100)        NOT NULL,
     date_of_birth      Date                NOT NULL,
     gender             Gender              NOT NULL,
     sportsman_category SportsmanCategory default 'RECREATION',
-    email              VARCHAR(100) UNIQUE NOT NULL
+    email              VARCHAR(100) UNIQUE NOT NULL,
+
+    CONSTRAINT fk_patient_doctor FOREIGN KEY (doctor_id) REFERENCES doctor(doctor_id) ON DELETE RESTRICT
 );
 
 --athlete report entity

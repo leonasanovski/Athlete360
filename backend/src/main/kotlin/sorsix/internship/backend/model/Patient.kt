@@ -14,28 +14,32 @@ data class Patient(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "patient_id")
-    var patientId: Long? = null,
+    val patientId: Long? = null,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "doctor_id", nullable = false)
+    val doctor: Doctor,
 
     @Column(name = "first_name", nullable = false)
-    var firstName: String = "",
+    val firstName: String,
 
     @Column(name = "last_name", nullable = false)
-    var lastName: String = "",
+    val lastName: String,
 
     @Column(name = "date_of_birth", nullable = false)
-    var dateOfBirth: LocalDate = LocalDate.now(),
+    val dateOfBirth: LocalDate = LocalDate.now(),
 
     @Enumerated(EnumType.STRING)
     @Column(name = "gender", nullable = false)
     @JdbcTypeCode(SqlTypes.NAMED_ENUM)
-    var gender: Gender = Gender.MALE,
+    val gender: Gender = Gender.MALE,
 
     @Enumerated(EnumType.STRING)
     @Column(name = "sportsman_category", nullable = false)
     @JdbcTypeCode(SqlTypes.NAMED_ENUM)
-    var sportsmanCategory: SportsmanCategory = SportsmanCategory.RECREATION,
+    val sportsmanCategory: SportsmanCategory = SportsmanCategory.RECREATION,
 
     @Email
     @Column(nullable = false, unique = true)
-    var email: String = ""
+    val email: String
 )

@@ -22,5 +22,5 @@ data class Doctor(
 
     @Email
     @Column(nullable = false, unique = true)
-    var email: String
+    val email: String
 )

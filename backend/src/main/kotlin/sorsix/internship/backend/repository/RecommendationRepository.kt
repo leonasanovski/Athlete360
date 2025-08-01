@@ -6,4 +6,5 @@ import sorsix.internship.backend.model.Recommendation
 
 @Repository
 interface RecommendationRepository : JpaRepository<Recommendation, Long> {
+    fun findByReportReportId(reportId: Long): List<Recommendation>
 }

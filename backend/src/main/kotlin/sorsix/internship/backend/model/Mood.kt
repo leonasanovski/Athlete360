@@ -11,7 +11,7 @@ data class Mood(
     @Column(name = "mood_id")
     val moodId: Long? = null,
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_id", nullable = false)
     val patient: Patient,
 

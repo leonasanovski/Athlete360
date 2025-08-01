@@ -6,4 +6,5 @@ import sorsix.internship.backend.model.Mood
 
 @Repository
 interface MoodRepository : JpaRepository<Mood, Long> {
+    fun findByPatientPatientId(patientId: Long): List<Mood>
 }

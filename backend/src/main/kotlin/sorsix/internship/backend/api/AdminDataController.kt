@@ -41,9 +41,16 @@ class AdminDataController(
 
     @PostMapping("/create-sample-patients")
     fun createSamplePatients(): ResponseEntity<String> {
+        val doc1 = doctorRepository
+            .findById(1L)
+            .orElseThrow { IllegalStateException("Doc not found") }
+        val doc2 = doctorRepository
+            .findById(2L)
+            .orElseThrow { IllegalStateException("Doc not found") }
 
         val patients = listOf(
             Patient(
+                doctor = doc1,
                 firstName = "Leon",
                 lastName = "Asanovski",
                 dateOfBirth = LocalDate.parse("2003-04-11"),
@@ -52,6 +59,7 @@ class AdminDataController(
                 email = "leon.asanovski@sorsix.com"
             ),
             Patient(
+                doctor = doc2,
                 firstName = "Strahil",
                 lastName = "Pavloski",
                 dateOfBirth = LocalDate.parse("1987-09-29"),
