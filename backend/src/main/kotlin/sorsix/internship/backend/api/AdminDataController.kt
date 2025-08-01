@@ -9,6 +9,7 @@ import sorsix.internship.backend.model.Doctor
 import sorsix.internship.backend.model.Patient
 import sorsix.internship.backend.model.enum.Gender
 import sorsix.internship.backend.model.enum.SportsmanCategory
+import sorsix.internship.backend.repository.AthleteReportRepository
 import sorsix.internship.backend.repository.DoctorRepository
 import sorsix.internship.backend.repository.PatientRepository
 import java.time.LocalDate
@@ -17,7 +18,8 @@ import java.time.LocalDate
 @RequestMapping("/api/admin")//todo make it only for admins
 class AdminDataController(
     private val doctorRepository: DoctorRepository,
-    private val patientRepository: PatientRepository
+    private val patientRepository: PatientRepository,
+    private val athleteReportRepository: AthleteReportRepository
 ) {
     @PostMapping("/create-sample-doctors")
     fun createSampleDoctors(): ResponseEntity<String> {
@@ -75,10 +77,13 @@ class AdminDataController(
 
     @GetMapping("/status")
     fun getDataStatus(): ResponseEntity<Map<String, Any>> {
-        return ResponseEntity.ok(mapOf(
-            "doctors_count" to doctorRepository.count(),
-            "patients_count" to patientRepository.count(),
-            "message" to "Admin controller is working"
-        ))
+        return ResponseEntity.ok(
+            mapOf(
+                "doctors_count" to doctorRepository.count(),
+                "patients_count" to patientRepository.count(),
+                "report_count" to athleteReportRepository.count(),
+                "message" to "Admin controller is working"
+            )
+        )
     }
 }
