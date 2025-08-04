@@ -3,6 +3,8 @@ CREATE TYPE Gender AS ENUM ('MALE', 'FEMALE');
 CREATE TYPE SportsmanCategory AS ENUM ('RECREATION','AMATEUR', 'SEMI_PROFESSIONAL', 'PROFESSIONAL');
 CREATE TYPE RecommendationType as ENUM ('TRAINING', 'DIET', 'SUPPLEMENT');
 CREATE TYPE RestrictionLevel AS ENUM ('NORMAL','HARD','EXTREME');
+CREATE TYPE MoodProgress AS ENUM ('GOOD','BAD','STALL');
+CREATE TYPE MoodEmotions AS ENUM ('EXCITED','HAPPY','NEUTRAL','TIRED','STRESSED','SAD');
 
 --doctor entity
 CREATE TABLE doctor
@@ -84,12 +86,15 @@ CREATE TABLE summary
 --entry mood text entity
 CREATE TABLE mood
 (
-    mood_id          BIGSERIAL PRIMARY KEY,
-    patient_id       BIGINT       NOT NULL,
-    mood_level       VARCHAR(50)  NOT NULL,
-    mood_description VARCHAR(200) NOT NULL,
-    created_at       timestamp DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT fk_mood_patient FOREIGN KEY (patient_id) REFERENCES patient (patient_id) ON DELETE RESTRICT
+    mood_id             BIGSERIAL PRIMARY KEY,
+    patient_id          BIGINT       NOT NULL,
+    mood_progress       MoodProgress NOT NULL,
+    mood_emotion        MoodEmotions NOT NULL,
+    hours_slept_average INT          NOT NULL,
+    mood_description    TEXT         NOT NULL,
+    created_at          timestamp DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_mood_patient FOREIGN KEY (patient_id) REFERENCES patient (patient_id) ON DELETE RESTRICT,
+    CONSTRAINT chk_hours_slept_per_day CHECK ( hours_slept_average < 24 and hours_slept_average > 0 )
 );
 
 --recommendation table (supertype)
