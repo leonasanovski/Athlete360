@@ -1,19 +1,30 @@
 package sorsix.internship.backend.service.impl
 
 import org.springframework.stereotype.Service
+import sorsix.internship.backend.components.MetricsFlagHelper
 import sorsix.internship.backend.dto.AthleteReportCreateRequest
 import sorsix.internship.backend.dto.AthleteReportResponse
+import sorsix.internship.backend.dto.MetricFlagDTO
+import sorsix.internship.backend.dto.ReportMetricFlaggerDTO
 import sorsix.internship.backend.model.AthleteReport
+import sorsix.internship.backend.model.enum.FlagLevel
+import sorsix.internship.backend.model.enum.Gender
 import sorsix.internship.backend.repository.AthleteReportRepository
 import sorsix.internship.backend.repository.DoctorRepository
 import sorsix.internship.backend.repository.PatientRepository
 import sorsix.internship.backend.service.AthleteReportService
+import java.math.BigDecimal
+import java.math.RoundingMode
+import java.time.LocalDate
+import java.time.Period
+import kotlin.math.pow
 
 @Service
 class AthleteReportServiceImpl(
     private val athleteReportRepository: AthleteReportRepository,
     private val doctorRepository: DoctorRepository,
-    private val patientRepository: PatientRepository
+    private val patientRepository: PatientRepository,
+    private val metricsFlagHelper: MetricsFlagHelper
 ) : AthleteReportService {
 
     override fun create(requestObject: AthleteReportCreateRequest): Long {
@@ -93,5 +104,34 @@ class AthleteReportServiceImpl(
             testosterone = report.testosterone,
             cortisol = report.cortisol
         )
+    }
+
+    override fun reportMetricsFlagging(reportId: Long): ReportMetricFlaggerDTO {
+        val report = athleteReportRepository.findById(reportId)
+            .orElseThrow { NoSuchElementException("Report with id = $reportId not found") }
+        val flagger = ReportMetricFlaggerDTO()
+        flagger.vo2Max = metricsFlagHelper.flagVo2Max(
+            report.vo2Max.toDouble(),
+            Period.between(report.patient.dateOfBirth, LocalDate.now()).years,
+            report.patient.gender == Gender.MALE
+        )
+        flagger.restingHeartRate = metricsFlagHelper.flagRestingHeartRate(report.restingHeartRate)
+        flagger.underPressureHeartRate = metricsFlagHelper.flagUnderPressureHeartRate(
+            report.underPressureHeartRate,
+            Period.between(report.patient.dateOfBirth, LocalDate.now()).years
+        )
+        flagger.leanMuscleMass = report.leanMuscleMass?.let {
+            metricsFlagHelper.flagLeanMass(report.weight, it)
+        }
+        flagger.bodyFatPercentage = metricsFlagHelper.flagBodyFat(report.bodyFatPercentage)
+        flagger.boneDensity = metricsFlagHelper.flagBoneDensity(report.boneDensity)
+        flagger.bmi = metricsFlagHelper.flagBMI(report.weight.toDouble(), report.height.toDouble())
+        flagger.hemoglobin = metricsFlagHelper.flagHemoglobin(report.hemoglobin, report.patient.gender == Gender.MALE)
+        flagger.glucose = metricsFlagHelper.flagGlucose(report.glucose)
+        flagger.vitaminD = metricsFlagHelper.flagVitaminD(report.vitaminD)
+        flagger.iron = metricsFlagHelper.flagIron(report.iron)
+        flagger.testosterone = metricsFlagHelper.flagTestosterone(report.testosterone)
+        flagger.cortisol = metricsFlagHelper.flagCortisol(report.cortisol)
+        return flagger
     }
 }

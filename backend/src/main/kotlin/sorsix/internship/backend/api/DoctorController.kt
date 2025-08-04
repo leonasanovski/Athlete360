@@ -8,14 +8,22 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import sorsix.internship.backend.dto.DoctorCreateRequest
+import sorsix.internship.backend.model.AthleteReport
 import sorsix.internship.backend.model.Doctor
+import sorsix.internship.backend.repository.AthleteReportRepository
 import sorsix.internship.backend.repository.DoctorRepository
+import sorsix.internship.backend.service.DoctorService
+import kotlin.reflect.jvm.internal.impl.load.java.lazy.descriptors.DeclaredMemberIndex.Empty
 
 @RestController
 @RequestMapping("/api/doctor")
-class DoctorController(val doctorRepository: DoctorRepository) {
+class DoctorController(
+    val doctorRepository: DoctorRepository,
+    val doctorService: DoctorService,
+) {
 
     @GetMapping
     fun getAllDoctors(): List<Doctor> = doctorRepository.findAll()
@@ -39,5 +47,15 @@ class DoctorController(val doctorRepository: DoctorRepository) {
             .findById(id)
             .orElseThrow { NoSuchElementException("Doctor not found") }
         return ResponseEntity.ok(d)
+    }
+
+    @GetMapping("/reports")
+    fun getReportsForProvidedDoctor(@RequestParam doctorId: Long): ResponseEntity<Any> {
+        return try {
+            val reports = doctorService.getReportsForDoctor(doctorId)
+            ResponseEntity.ok(reports)
+        } catch (ex: NoSuchElementException) {
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.message)
+        }
     }
 }

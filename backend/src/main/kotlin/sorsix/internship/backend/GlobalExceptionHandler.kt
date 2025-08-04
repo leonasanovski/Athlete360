@@ -24,4 +24,5 @@ class GlobalExceptionHandler {
     @ExceptionHandler(NoSuchElementException::class)
     fun handleNotFound(ex: NoSuchElementException): ResponseEntity<String> =
         ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.message)
+
 }
