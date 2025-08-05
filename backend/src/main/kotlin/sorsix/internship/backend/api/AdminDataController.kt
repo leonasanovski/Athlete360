@@ -1,10 +1,7 @@
 package sorsix.internship.backend.api
 
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import sorsix.internship.backend.model.Doctor
 import sorsix.internship.backend.model.Patient
 import sorsix.internship.backend.model.enum.Gender
@@ -14,6 +11,8 @@ import sorsix.internship.backend.repository.DoctorRepository
 import sorsix.internship.backend.repository.PatientRepository
 import java.time.LocalDate
 
+
+@CrossOrigin(origins = ["http://localhost:4200"])
 @RestController
 @RequestMapping("/api/admin")//todo make it only for admins
 class AdminDataController(

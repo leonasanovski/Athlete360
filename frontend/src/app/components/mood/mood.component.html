@@ -1,0 +1,13 @@
+<p>Showing the moods:</p>
+<ul>
+  @for (mood of mood_objects; track mood.moodId) {
+    <li>
+      <p><strong>Emotion:</strong> {{ mood.moodEmotion }}</p>
+      <p><strong>Progress:</strong> {{ mood.moodProgress }}</p>
+      <p><strong>Hours Slept:</strong> {{ mood.hoursSleptAverage }}</p>
+      <p><strong>Description:</strong> {{ mood.moodDescription }}</p>
+      <p><strong>Patient:</strong> {{ mood.patientName }}</p>
+      <p><strong>Created At:</strong> {{ mood.createdAt | date: 'short' }}</p>
+    </li>
+  }
+</ul>

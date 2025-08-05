@@ -10,6 +10,8 @@ import sorsix.internship.backend.model.AthleteReport
 import sorsix.internship.backend.repository.AthleteReportRepository
 import sorsix.internship.backend.service.AthleteReportService
 
+
+@CrossOrigin(origins = ["http://localhost:4200"])
 @RestController
 @RequestMapping("/api/reports")
 class AthleteReportController(
