@@ -1,6 +1,7 @@
 package sorsix.internship.backend.dto
 
 import jakarta.validation.constraints.NotNull
+import sorsix.internship.backend.model.enum.AthleteReportStatus
 import java.math.BigDecimal
 
 data class AthleteReportCreateRequest (
@@ -10,6 +11,9 @@ data class AthleteReportCreateRequest (
 
     @field:NotNull(message = "Patient ID is required")
     val patientId: Long?,
+
+    @field:NotNull
+    val status: AthleteReportStatus,
 
     @field:NotNull
     val vo2Max: BigDecimal?,

@@ -5,6 +5,7 @@ CREATE TYPE RecommendationType as ENUM ('TRAINING', 'DIET', 'SUPPLEMENT');
 CREATE TYPE RestrictionLevel AS ENUM ('NORMAL','HARD','EXTREME');
 CREATE TYPE MoodProgress AS ENUM ('GOOD','BAD','STALL');
 CREATE TYPE MoodEmotions AS ENUM ('EXCITED','HAPPY','NEUTRAL','TIRED','STRESSED','SAD');
+CREATE TYPE AthleteReportStatus AS ENUM ('GOOD', 'IMPROVED', 'FOLLOWUP');
 
 --doctor entity
 CREATE TABLE doctor
@@ -38,6 +39,7 @@ CREATE TABLE athlete_report
     doctor_id                 BIGINT        NOT NULL,
     patient_id                BIGINT        NOT NULL,
     created_at                TIMESTAMP DEFAULT current_timestamp,
+    status                    AthleteReportStatus NOT NULL,
     -- Cardiovascular Metrics
     vo2_max                   DECIMAL(5, 2) NOT NULL, -- maximal oxygen uptake capacity (ml/kg/min)
     resting_heart_rate        INTEGER       NOT NULL, -- beats per minute

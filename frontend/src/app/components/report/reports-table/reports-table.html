@@ -1,0 +1,22 @@
+<table class="table w-100">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Doctor</th>
+    <th scope="col">Status</th>
+    <th scope="col">Date</th>
+    <th scope="col">VO2 max</th>
+  </tr>
+  </thead>
+  <tbody>
+    @for (report of reports$ | async; track report.id) {
+      <tr>
+        <th scope="row">{{report.id}}</th>
+        <td>{{report.doctorName}}</td>
+        <td>{{report.status}}</td>
+        <td>{{report.createdAt}}</td>
+        <td>{{report.vo2Max}}</td>
+      </tr>
+    }
+  </tbody>
+</table>

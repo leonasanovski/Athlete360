@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Document</title>
+  <title>Athlete360</title>
 </head>
-<body>
-<nav>
-  <a routerLink="/moods">View Moods</a>
-</nav>
-<router-outlet></router-outlet>
+<body class="d-flex">
+<sidebar />
+<div class="flex-grow-1 p-3">
+  <router-outlet></router-outlet>
+</div>
 </body>
 </html>

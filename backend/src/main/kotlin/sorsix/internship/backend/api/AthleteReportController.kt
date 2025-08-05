@@ -37,4 +37,6 @@ class AthleteReportController(
             val flagger = athleteReportService.reportMetricsFlagging(reportId)
             return ResponseEntity.ok(flagger)
         }
+
+
 }

@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service
 import sorsix.internship.backend.components.MetricsFlagHelper
 import sorsix.internship.backend.dto.AthleteReportCreateRequest
 import sorsix.internship.backend.dto.AthleteReportResponse
+import sorsix.internship.backend.dto.AthleteReportShortDTO
 import sorsix.internship.backend.dto.MetricFlagDTO
 import sorsix.internship.backend.dto.ReportMetricFlaggerDTO
 import sorsix.internship.backend.model.AthleteReport
@@ -37,6 +38,7 @@ class AthleteReportServiceImpl(
         val report = AthleteReport(
             doctor = doctor,
             patient = patient,
+            status = requestObject.status,
             vo2Max = requestObject.vo2Max!!,
             restingHeartRate = requestObject.restingHeartRate!!,
             underPressureHeartRate = requestObject.underPressureHeartRate!!,
@@ -134,4 +136,17 @@ class AthleteReportServiceImpl(
         flagger.cortisol = metricsFlagHelper.flagCortisol(report.cortisol)
         return flagger
     }
+
+    override fun getReportsShortByPatientId(patientId: Long): List<AthleteReportShortDTO> =
+        athleteReportRepository
+            .findByPatientPatientId(patientId)
+            .map { report ->
+                AthleteReportShortDTO(
+                    id         = report.reportId!!,
+                    createdAt  = report.createdAt,
+                    doctorName = "${report.doctor.firstName} ${report.doctor.lastName}",
+                    status     = report.status,
+                    vo2Max     = report.vo2Max
+                )
+            }
 }
