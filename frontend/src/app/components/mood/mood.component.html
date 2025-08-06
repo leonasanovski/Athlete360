@@ -1,4 +1,9 @@
 <div class="container mt-4">
+  <div class="d-flex justify-content-center">
+    <a routerLink="/moods/add-mood" [queryParams]="{patientId: patientId}" class="btn btn-lg rounded rounded-2 shadow mb-4 text-center"
+       style="background-color: #386641; color: #F2E8CF; width: 230px; height: 50px;">
+      + New Mood Entry</a>
+  </div>
   <div class="row g-3">
     @for (mood of mood_objects; track mood.moodId) {
       <div class="col-lg-4 col-md-6 mb-3">
@@ -52,9 +57,9 @@
           <div class="card-footer border-0 py-3" style="background-color: #6A994E;">
             <div class="d-grid">
               <a class="btn btn-outline-light btn-sm fw-semibold" [routerLink]="['/moods/info',mood.moodId]"
-                      style="border-color: #F2E8CF; color: #F2E8CF;"
-                      onmouseover="this.style.backgroundColor='#F2E8CF'; this.style.color='#386641';"
-                      onmouseout="this.style.backgroundColor='transparent'; this.style.color='#F2E8CF';">
+                 style="border-color: #F2E8CF; color: #F2E8CF;"
+                 onmouseover="this.style.backgroundColor='#F2E8CF'; this.style.color='#386641';"
+                 onmouseout="this.style.backgroundColor='transparent'; this.style.color='#F2E8CF';">
                 View Details
               </a>
             </div>
@@ -63,4 +68,5 @@
       </div>
     }
   </div>
+
 </div>

@@ -8,3 +8,10 @@ export interface Mood {
   patientId: number;
   patientName: string;
 }
+
+export interface MoodResponse{
+  patientId: number,
+  moodEmotion: string,
+  moodDescription: string,
+  hoursSleptAverage: number
+}

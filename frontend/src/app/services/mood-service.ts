@@ -1,7 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {filter, map, Observable} from 'rxjs';
-import {Mood} from '../models/mood';
+import {Observable} from 'rxjs';
+import {Mood, MoodResponse} from '../models/mood';;
 
 @Injectable({
   providedIn: 'root'
@@ -26,5 +26,19 @@ export class MoodService {
   getMoodByIdFrom(moodId: number): Observable<Mood>{
     const url = `${this.mood_url}/info/${moodId}`
     return this.http.get<Mood>(url)
+  }
+/*
+package sorsix.internship.backend.dto
+
+data class MoodCreatingResponseDTO(
+    val patientId: Long,
+    val moodEmotion: String,
+    val moodDescription: String,
+    val hoursSleptAverage: Int
+)
+
+*/
+  createMood(moodObject: MoodResponse): Observable<any>{
+    return this.http.post(this.mood_url, moodObject)
   }
 }

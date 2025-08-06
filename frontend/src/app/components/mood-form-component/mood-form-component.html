@@ -1,0 +1,28 @@
+<div class="container mt-4">
+  <div class="card p-4">
+    <h4>Add Mood</h4>
+    <form [formGroup]="moodForm" (submit)="onSubmit()">
+      <input type="hidden" formControlName="patientId">
+      <div class="mb-3">
+        <label class="form-label">Hours Slept</label>
+        <input type="number" class="form-control" formControlName="hoursSleptAverage"/>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Mood Description</label>
+        <textarea class="form-control" formControlName="moodDescription">
+        </textarea>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Emotion</label>
+        <select class="form-select" formControlName="moodEmotion">
+          <option value="" disabled>Select emotion</option>
+          @for (option of moodEmotionOptions; track option.toString()) {
+            <option [value]="option">{{ option }}</option>
+          }
+        </select>
+      </div>
+      <button class="btn btn-success" type="submit">Submit</button>
+    </form>
+  </div>
+</div>
