@@ -2,6 +2,8 @@ package sorsix.internship.backend.service.impl
 
 import org.springframework.data.crossstore.ChangeSetPersister
 import org.springframework.stereotype.Service
+import sorsix.internship.backend.dto.RecommendationResponse
+import sorsix.internship.backend.mappers.toDto
 import sorsix.internship.backend.model.AthleteReport
 import sorsix.internship.backend.model.Recommendation
 import sorsix.internship.backend.repository.AthleteReportRepository
@@ -18,16 +20,27 @@ class RecommendationServiceImpl(
     private val patientRepository: PatientRepository,
     private val athleteReportRepository: AthleteReportRepository
 ) : RecommendationService {
-    override fun findRecommendationsByDoctorId(doctorId: Long): List<Recommendation> {
-        //CHECK IF DOCTOR EXISTS
+    override fun findRecommendationsByDoctorId(doctorId: Long): List<RecommendationResponse> {
         val doctor = doctorRepository.findById(doctorId)
             .orElseThrow { throw NoSuchElementException("There is no doctor with id=$doctorId in the database.") }
-        return recommendationRepository.findByReportDoctorDoctorId(doctorId)
+        return recommendationRepository.findByReportDoctorDoctorId(doctorId).map { recommendation ->
+            recommendation.toDto()
+        };
     }
 
-    override fun findRecommendationsByPatientId(patientId: Long): List<Recommendation> {
+    override fun findRecommendationsByPatientId(patientId: Long): List<RecommendationResponse> {
         val patient = patientRepository.findById(patientId)
             .orElseThrow { throw NoSuchElementException("There is no patient with id=$patientId in the database.") }
-        return recommendationRepository.findByReportPatientPatientId(patientId)
+        return recommendationRepository.findByReportPatientPatientId(patientId).map { recommendation ->
+            recommendation.toDto()
+        };
+    }
+
+    override fun findRecommendationsByReportId(reportId: Long): List<RecommendationResponse> {
+        val report = athleteReportRepository.findById(reportId)
+            .orElseThrow { throw NoSuchElementException("There is no report with id=$reportId in the database.") }
+        return recommendationRepository.findByReportReportId(reportId).map { recommendation ->
+            recommendation.toDto()
+        };
     }
 }

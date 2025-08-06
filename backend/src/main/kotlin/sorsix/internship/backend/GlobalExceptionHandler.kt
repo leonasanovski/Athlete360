@@ -1,5 +1,6 @@
 package sorsix.internship.backend
 
+import jakarta.persistence.EntityNotFoundException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.http.converter.HttpMessageNotReadableException
@@ -25,4 +26,8 @@ class GlobalExceptionHandler {
     fun handleNotFound(ex: NoSuchElementException): ResponseEntity<String> =
         ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.message)
 
+    @ExceptionHandler(EntityNotFoundException::class)
+    fun handleEntityNotFound(ex: EntityNotFoundException): ResponseEntity<String> =
+        ResponseEntity.status(HttpStatus.NOT_FOUND)
+            .body(ex.message ?: "Resource not found")
 }

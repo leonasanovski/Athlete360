@@ -1,21 +1,21 @@
 <table class="table w-100">
   <thead>
   <tr>
-    <th scope="col">#</th>
     <th scope="col">Doctor</th>
     <th scope="col">Status</th>
     <th scope="col">Date</th>
     <th scope="col">VO2 max</th>
+    <th scope="col"></th>
   </tr>
   </thead>
   <tbody>
     @for (report of reports$ | async; track report.id) {
       <tr>
-        <th scope="row">{{report.id}}</th>
         <td>{{report.doctorName}}</td>
-        <td>{{report.status}}</td>
-        <td>{{report.createdAt}}</td>
+        <td><status-pill [status]="report.status" /></td>
+        <td>{{report.createdAt | date:'MMM d y, h:mm a' }}</td>
         <td>{{report.vo2Max}}</td>
+        <td><button class="btn btn-outline-secondary btn-sm" [routerLink]="['/reports',report.id]">Details</button></td>
       </tr>
     }
   </tbody>

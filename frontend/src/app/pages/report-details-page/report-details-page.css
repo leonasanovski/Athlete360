@@ -1,0 +1,15 @@
+/* Masonry two-column layout */
+.masonry {
+  column-count: 2;
+  column-gap: 1rem;
+}
+
+/* make each card span full column-width and avoid breaking across columns */
+.masonry .card {
+  display: inline-block;     /* so it flows in CSS columns */
+  width: 100%;               /* fill the column */
+  margin-bottom: 1rem;       /* gutter below each card */
+  break-inside: avoid;       /* don’t split cards between columns */
+  -webkit-column-break-inside: avoid;
+  -moz-column-break-inside: avoid;
+}

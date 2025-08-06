@@ -5,10 +5,13 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import sorsix.internship.backend.dto.AthleteReportCreateRequest
 import sorsix.internship.backend.dto.AthleteReportResponse
+import sorsix.internship.backend.dto.RecommendationResponse
 import sorsix.internship.backend.dto.ReportMetricFlaggerDTO
 import sorsix.internship.backend.model.AthleteReport
+import sorsix.internship.backend.model.Recommendation
 import sorsix.internship.backend.repository.AthleteReportRepository
 import sorsix.internship.backend.service.AthleteReportService
+import sorsix.internship.backend.service.RecommendationService
 
 
 @CrossOrigin(origins = ["http://localhost:4200"])
@@ -16,6 +19,7 @@ import sorsix.internship.backend.service.AthleteReportService
 @RequestMapping("/api/reports")
 class AthleteReportController(
     private val athleteReportService: AthleteReportService,
+    private val recommendationService: RecommendationService,
     private val athleteReportRepository: AthleteReportRepository
 ) {
 
@@ -38,5 +42,7 @@ class AthleteReportController(
             return ResponseEntity.ok(flagger)
         }
 
-
+    @GetMapping("/{id}/recommendations")
+    fun getRecommendationsByReport(@PathVariable id: Long): ResponseEntity<List<RecommendationResponse>> =
+        ResponseEntity.ok(recommendationService.findRecommendationsByReportId(id))
 }

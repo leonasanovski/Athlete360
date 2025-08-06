@@ -8,6 +8,7 @@ import {RouterLink, RouterLinkActive} from '@angular/router';
     RouterLinkActive
   ],
   templateUrl: './sidebar.html',
+  standalone: true,
   styleUrl: './sidebar.css'
 })
 export class Sidebar {

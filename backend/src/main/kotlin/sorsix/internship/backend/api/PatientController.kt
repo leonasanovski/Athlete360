@@ -17,5 +17,4 @@ class PatientController(val athleteReportService: AthleteReportService) {
     @GetMapping("{patientId}/reports")
     fun getPatientReports(@PathVariable patientId: Long) : ResponseEntity<List<AthleteReportShortDTO>> =
         ResponseEntity.ok(athleteReportService.getReportsShortByPatientId(patientId));
-
 }

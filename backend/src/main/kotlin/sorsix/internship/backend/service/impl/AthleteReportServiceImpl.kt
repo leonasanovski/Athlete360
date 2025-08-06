@@ -1,5 +1,6 @@
 package sorsix.internship.backend.service.impl
 
+import jakarta.persistence.EntityNotFoundException
 import org.springframework.stereotype.Service
 import sorsix.internship.backend.components.MetricsFlagHelper
 import sorsix.internship.backend.dto.AthleteReportCreateRequest
@@ -7,6 +8,7 @@ import sorsix.internship.backend.dto.AthleteReportResponse
 import sorsix.internship.backend.dto.AthleteReportShortDTO
 import sorsix.internship.backend.dto.MetricFlagDTO
 import sorsix.internship.backend.dto.ReportMetricFlaggerDTO
+import sorsix.internship.backend.mappers.toDto
 import sorsix.internship.backend.model.AthleteReport
 import sorsix.internship.backend.model.enum.FlagLevel
 import sorsix.internship.backend.model.enum.Gender
@@ -69,43 +71,10 @@ class AthleteReportServiceImpl(
     }
 
     override fun findReportById(id: Long): AthleteReportResponse {
-        val report = athleteReportRepository.findById(id)
-            .orElseThrow { IllegalArgumentException("Athlete report with id = $id not found") }
-        val doctor =
-            doctorRepository.findById(id).orElseThrow { IllegalArgumentException("Doctor with id = $id not found") }
-        val patient =
-            patientRepository.findById(id).orElseThrow { IllegalArgumentException("Patient with id = $id not found") }
+        val report: AthleteReport = athleteReportRepository.findById(id)
+            .orElseThrow { EntityNotFoundException("AthleteReport with id $id not found") }
 
-        return AthleteReportResponse(
-            id = report.reportId,
-            patient = "${patient.patientId} - ${patient.firstName} ${patient.lastName}",
-            doctor = "${doctor.doctorId} - ${doctor.firstName} ${doctor.lastName}",
-            vo2Max = report.vo2Max,
-            restingHeartRate = report.restingHeartRate,
-            underPressureHeartRate = report.underPressureHeartRate,
-            bodyFatPercentage = report.bodyFatPercentage,
-            leanMuscleMass = report.leanMuscleMass,
-            boneDensity = report.boneDensity,
-            height = report.height,
-            weight = report.weight,
-            oneRepMaxBench = report.oneRepMaxBench,
-            oneRepMaxSquat = report.oneRepMaxSquat,
-            oneRepMaxDeadlift = report.oneRepMaxDeadlift,
-            jumpHeight = report.jumpHeight,
-            averageRunPerKilometer = report.averageRunPerKilometer,
-            shoulderFlexibility = report.shoulderFlexibility,
-            hipFlexibility = report.hipFlexibility,
-            balanceTime = report.balanceTime,
-            reactionTime = report.reactionTime,
-            coreStabilityScore = report.coreStabilityScore,
-            hemoglobin = report.hemoglobin,
-            glucose = report.glucose,
-            creatinine = report.creatinine,
-            vitaminD = report.vitaminD,
-            iron = report.iron,
-            testosterone = report.testosterone,
-            cortisol = report.cortisol
-        )
+        return report.toDto()
     }
 
     override fun reportMetricsFlagging(reportId: Long): ReportMetricFlaggerDTO {
@@ -145,6 +114,21 @@ class AthleteReportServiceImpl(
                     id         = report.reportId!!,
                     createdAt  = report.createdAt,
                     doctorName = "${report.doctor.firstName} ${report.doctor.lastName}",
+                    patientName = "${report.patient.firstName} ${report.patient.lastName}",
+                    status     = report.status,
+                    vo2Max     = report.vo2Max
+                )
+            }
+
+    override fun getReportsShortByDoctorId(doctorId: Long): List<AthleteReportShortDTO> =
+        athleteReportRepository
+            .findByDoctorDoctorId(doctorId)
+            .map { report ->
+                AthleteReportShortDTO(
+                    id         = report.reportId!!,
+                    createdAt  = report.createdAt,
+                    doctorName = "${report.doctor.firstName} ${report.doctor.lastName}",
+                    patientName = "${report.patient.firstName} ${report.patient.lastName}",
                     status     = report.status,
                     vo2Max     = report.vo2Max
                 )

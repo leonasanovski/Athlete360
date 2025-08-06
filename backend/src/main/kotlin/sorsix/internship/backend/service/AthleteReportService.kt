@@ -10,8 +10,7 @@ interface AthleteReportService {
     fun findReportById(id: Long): AthleteReportResponse
     fun reportMetricsFlagging(reportId: Long): ReportMetricFlaggerDTO
     //TODO DELETE REPORT FROM DATABASE (ONLY THE DOCTOR CAN DO THIS)
-    //TODO LIST REPORTS BY PATIENT ID
     fun getReportsShortByPatientId(patientId: Long): List<AthleteReportShortDTO>
-    //TODO LIST REPORTS BY DOCTOR ID
+    fun getReportsShortByDoctorId(doctorId: Long): List<AthleteReportShortDTO>
     //TODO GET REPORT SUMMARY (GENERATED ONE)
 }
