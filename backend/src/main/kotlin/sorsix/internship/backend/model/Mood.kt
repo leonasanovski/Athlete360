@@ -2,7 +2,6 @@ package sorsix.internship.backend.model
 
 import jakarta.persistence.*
 import org.hibernate.annotations.JdbcTypeCode
-import org.hibernate.annotations.Type
 import org.hibernate.type.SqlTypes
 import sorsix.internship.backend.model.enum.MoodEmotion
 import sorsix.internship.backend.model.enum.MoodProgress
@@ -36,7 +35,9 @@ data class Mood(
     @Column(name = "mood_description", nullable = false)
     val moodDescription: String,//toa shto go kuca pacientot
 
+    @Column(name = "mood_description_score", nullable = false)
+    val moodDescriptionScore: Int,
+
     @Column(name = "created_at", nullable = false)
     val createdAt: LocalDateTime = LocalDateTime.now()
 )
-

@@ -1,6 +1,8 @@
 package sorsix.internship.backend.service
 
+import sorsix.internship.backend.dto.MoodCreatingResponseDTO
+import sorsix.internship.backend.model.Mood
+
 interface MoodService {
-    //TODO GET ALL MOODS BY PATIENT ID
-    //TODO CRUD
+    fun save(dto: MoodCreatingResponseDTO): Mood
 }

@@ -10,6 +10,7 @@ object MoodMapper {
         moodEmotion = mood.moodEmotion.name,
         hoursSleptAverage = mood.hoursSleptAverage,
         moodDescription = mood.moodDescription,
+        moodDescriptionScore = mood.moodDescriptionScore,
         createdAt = mood.createdAt.toString(),
         patientId = mood.patient.patientId ?: 0,
         patientName = "${mood.patient.firstName} ${mood.patient.lastName}"
