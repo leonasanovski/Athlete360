@@ -6,6 +6,7 @@ data class MoodDTO(
     val moodEmotion: String,
     val hoursSleptAverage: Int,
     val moodDescription: String,
+    val moodDescriptionScore: Int,
     val createdAt: String,
     val patientId: Long,
     val patientName: String

@@ -26,6 +26,7 @@ class MoodServiceImpl(
         private const val BAD_THRESHOLD = 4
         private const val STALL_THRESHOLD = 7
     }
+
     override fun save(dto: MoodCreatingResponseDTO): Mood {
         val patient = patientRepository.findById(dto.patientId)
             .orElseThrow { NoSuchElementException("Patient not found with id: ${dto.patientId}") }
@@ -46,7 +47,8 @@ class MoodServiceImpl(
             moodEmotion = MoodEmotion.valueOf(dto.moodEmotion.uppercase()),
             hoursSleptAverage = dto.hoursSleptAverage,
             createdAt = LocalDateTime.now(),
-            moodProgress = moodProgress
+            moodProgress = moodProgress,
+            moodDescriptionScore = totalScore.toInt()
         )
         println(mood)
         return moodRepository.save(mood)
