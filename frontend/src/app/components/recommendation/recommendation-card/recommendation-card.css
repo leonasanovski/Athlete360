@@ -1,0 +1,12 @@
+.card {
+  border-radius: 12px;
+}
+
+.card-title {
+  font-size: 1.25rem;
+}
+
+.badge {
+  font-size: 0.8rem;
+  padding: 0.5em 0.7em;
+}

@@ -1,6 +1,9 @@
 package sorsix.internship.backend.model
 
 import jakarta.persistence.*
+import org.hibernate.annotations.JdbcTypeCode
+import org.hibernate.type.SqlTypes
+import sorsix.internship.backend.model.enum.AthleteReportStatus
 import java.math.BigDecimal
 import java.time.LocalDateTime
 
@@ -22,6 +25,13 @@ data class AthleteReport(
 
     @Column(name = "created_at", nullable = false)
     val createdAt: LocalDateTime = LocalDateTime.now(),
+
+    // TODO potrebno za short summary, za doktorot lesno
+    //  da kazhe dali e ok, podobar, ili pak treba da dojde
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
+    val status: AthleteReportStatus,
 
     @Column(name = "vo2_max", nullable = false)
     val vo2Max: BigDecimal,

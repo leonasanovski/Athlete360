@@ -4,9 +4,11 @@ import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import sorsix.internship.backend.dto.AthleteReportShortDTO
 import sorsix.internship.backend.dto.DoctorCreateRequest
 import sorsix.internship.backend.model.Doctor
 import sorsix.internship.backend.repository.DoctorRepository
+import sorsix.internship.backend.service.AthleteReportService
 import sorsix.internship.backend.service.DoctorService
 
 @CrossOrigin(origins = ["http://localhost:4200"])
@@ -15,6 +17,7 @@ import sorsix.internship.backend.service.DoctorService
 class DoctorController(
     val doctorRepository: DoctorRepository,
     val doctorService: DoctorService,
+    val athleteReportService: AthleteReportService
 ) {
 
     @GetMapping
@@ -41,13 +44,7 @@ class DoctorController(
         return ResponseEntity.ok(d)
     }
 
-    @GetMapping("/reports")
-    fun getReportsForProvidedDoctor(@RequestParam doctorId: Long): ResponseEntity<Any> {
-        return try {
-            val reports = doctorService.getReportsForDoctor(doctorId)
-            ResponseEntity.ok(reports)
-        } catch (ex: NoSuchElementException) {
-            ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.message)
-        }
-    }
+    @GetMapping("{doctorId}/reports")
+    fun getDoctorReports(@PathVariable doctorId: Long) : ResponseEntity<List<AthleteReportShortDTO>> =
+        ResponseEntity.ok(athleteReportService.getReportsShortByDoctorId(doctorId));
 }

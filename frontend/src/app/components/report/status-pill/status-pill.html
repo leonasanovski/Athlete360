@@ -1,0 +1,10 @@
+<span
+  class="badge rounded-pill {{fontSize}}"
+  [class.bg-success]="status === 'IMPROVED'"
+  [class.bg-info]="status === 'GOOD'"
+  [class.bg-warning]="status === 'FOLLOWUP'"
+  [class.text-dark]="status === 'FOLLOWUP'"
+  [class.bg-secondary]="status !== 'GOOD' && status !== 'IMPROVED' && status !== 'FOLLOWUP'"
+>
+  {{ status }}
+</span>
