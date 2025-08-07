@@ -8,9 +8,9 @@ insert into patient(doctor_id, first_name, last_name, date_of_birth, gender, spo
         (2, 'Bancho', 'Tubarski', '1997-09-09', 'FEMALE', 'AMATEUR', 'pbancho@gmail.gov');
 
 
-insert into mood(patient_id, mood_progress, mood_emotion, hours_slept_average, mood_description, created_at) values
-         (1, 'GOOD', 'NEUTRAL', 7, 'I love my life', now()),
-         (1, 'STALL', 'TIRED', 7, 'I love my life', now()-interval '2 weeks');
+insert into mood(patient_id, mood_progress, mood_emotion, hours_slept_average, mood_description, mood_description_score, created_at) values
+         (1, 'GOOD', 'NEUTRAL', 7, 'I love my life', 8, now()),
+         (1, 'STALL', 'TIRED', 7, 'I love my life', 5, now()-interval '2 weeks');
 
 INSERT INTO athlete_report (
     doctor_id, patient_id, created_at, status,

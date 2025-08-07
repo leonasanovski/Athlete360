@@ -117,18 +117,3 @@ CREATE TABLE recommendation
     doctor_personalized_notes TEXT               NOT NULL,
     CONSTRAINT fk_recommendation_report FOREIGN KEY (report_id) REFERENCES athlete_report (report_id) ON DELETE RESTRICT
 );
-
-insert into doctor(first_name, last_name, specialization, email)
-values ('Daze', 'Tristan', 'Physiotherapist', 'daze@gmail.com'),
-       ('Gege', 'Landovski', 'Sports medicine doctor', 'gege@yahoo.com');
-
-
-insert into patient(doctor_id, first_name, last_name, date_of_birth, gender, sportsman_category, email)
-values (1, 'Pancho', 'Ribarski', '1999-09-09', 'MALE', 'RECREATION', 'pamcho@gmail.gov'),
-       (2, 'Bancho', 'Tubarski', '1997-09-09', 'FEMALE', 'AMATEUR', 'pbancho@gmail.gov');
-
-
-insert into mood(patient_id, mood_progress, mood_emotion, hours_slept_average, mood_description, mood_description_score,
-                 created_at)
-values (1, 'GOOD', 'NEUTRAL', 7, 'I love my life', 8, now()),
-       (1, 'STALL', 'TIRED', 7, 'I love my life', 5, now() - interval '2 weeks');
