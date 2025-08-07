@@ -6,21 +6,16 @@ import sorsix.internship.backend.components.MetricsFlagHelper
 import sorsix.internship.backend.dto.AthleteReportCreateRequest
 import sorsix.internship.backend.dto.AthleteReportResponse
 import sorsix.internship.backend.dto.AthleteReportShortDTO
-import sorsix.internship.backend.dto.MetricFlagDTO
 import sorsix.internship.backend.dto.ReportMetricFlaggerDTO
 import sorsix.internship.backend.mappers.toDto
 import sorsix.internship.backend.model.AthleteReport
-import sorsix.internship.backend.model.enum.FlagLevel
 import sorsix.internship.backend.model.enum.Gender
 import sorsix.internship.backend.repository.AthleteReportRepository
 import sorsix.internship.backend.repository.DoctorRepository
 import sorsix.internship.backend.repository.PatientRepository
 import sorsix.internship.backend.service.AthleteReportService
-import java.math.BigDecimal
-import java.math.RoundingMode
 import java.time.LocalDate
 import java.time.Period
-import kotlin.math.pow
 
 @Service
 class AthleteReportServiceImpl(

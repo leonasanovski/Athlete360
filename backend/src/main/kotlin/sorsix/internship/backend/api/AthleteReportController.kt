@@ -7,8 +7,6 @@ import sorsix.internship.backend.dto.AthleteReportCreateRequest
 import sorsix.internship.backend.dto.AthleteReportResponse
 import sorsix.internship.backend.dto.RecommendationResponse
 import sorsix.internship.backend.dto.ReportMetricFlaggerDTO
-import sorsix.internship.backend.model.AthleteReport
-import sorsix.internship.backend.model.Recommendation
 import sorsix.internship.backend.repository.AthleteReportRepository
 import sorsix.internship.backend.service.AthleteReportService
 import sorsix.internship.backend.service.RecommendationService
