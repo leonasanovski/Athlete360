@@ -10,4 +10,5 @@ interface AthleteReportRepository : JpaRepository<AthleteReport, Long> {
     fun findByPatientPatientId(patientId: Long): List<AthleteReport>
     fun findByDoctorDoctorId(doctorId: Long): List<AthleteReport>
     fun findByPatientPatientIdOrderByCreatedAtDesc(patientId: Long): List<AthleteReport>
+    fun findTopByOrderByReportIdDesc(): AthleteReport?
 }

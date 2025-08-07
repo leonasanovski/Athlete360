@@ -12,5 +12,6 @@ interface AthleteReportService {
     //TODO DELETE REPORT FROM DATABASE (ONLY THE DOCTOR CAN DO THIS)
     fun getReportsShortByPatientId(patientId: Long): List<AthleteReportShortDTO>
     fun getReportsShortByDoctorId(doctorId: Long): List<AthleteReportShortDTO>
+    fun findLatestReportId(): Long
     //TODO GET REPORT SUMMARY (GENERATED ONE)
 }

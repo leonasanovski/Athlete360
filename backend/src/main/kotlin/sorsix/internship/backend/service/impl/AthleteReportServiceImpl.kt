@@ -133,4 +133,8 @@ class AthleteReportServiceImpl(
                     vo2Max     = report.vo2Max
                 )
             }
+
+    override fun findLatestReportId(): Long =
+        athleteReportRepository.findTopByOrderByReportIdDesc()?.reportId
+            ?: throw NoSuchElementException("No reports found.")
 }
