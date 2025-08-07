@@ -23,6 +23,7 @@ export class MoodComponent implements OnInit {
   ngOnInit(): void {
     const patientId = Number(this.route.snapshot.paramMap.get('id'))
     this.patientId = patientId
+    console.log(this.patientId)
     if (patientId) {
       this.getPatientMoods(patientId)
     } else {
