@@ -116,3 +116,8 @@ a:not(.nav-link):hover,
   background-color: var(--bs-primary-dark) !important;
   border-color: var(--bs-primary-dark) !important;
 }
+
+
+.table-primary {
+  background-color: var(--bs-primary);
+}

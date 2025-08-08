@@ -22,8 +22,10 @@ export class ReportsTable implements OnInit{
   reportService = inject(ReportService);
   reports$: Observable<ReportShort[]> | undefined;
 
+  dummyId = 1;
+
   ngOnInit(): void {
-    this.reports$ = this.reportService.getReportsShortByPatientId(1);
+    this.reports$ = this.reportService.getReportsShortByPatientId(this.dummyId);
   }
 
 }

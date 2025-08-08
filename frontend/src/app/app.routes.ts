@@ -5,18 +5,20 @@ import {ReportDetailsPage} from './pages/report-details-page/report-details-page
 import {ReportsPage} from './pages/reports-page/reports-page';
 import {MoodFormComponent} from './components/mood-form-component/mood-form-component';
 import {MoodDetailsComponent} from './components/mood.details/mood.details.component';
+import {DoctorPage} from './pages/doctor-page/doctor-page';
 
 export const routes: Routes = [
+  {path: 'patient', component: PatientPage},
+
+  {path: 'doctor', component: DoctorPage},
+
   {path: 'moods', component: MoodComponent},
   {path: 'moods/add-mood', component: MoodFormComponent},
   {path: 'moods/:id', component: MoodComponent},
   {path: 'moods/info/:id', component: MoodDetailsComponent},
 
-  {path: 'patient', component: PatientPage},
-
   {path: 'reports', component: ReportsPage},
   {path: 'reports/:id', component: ReportDetailsPage},
 
-  {path: '', redirectTo: 'patient', pathMatch: 'full'},
-  {path: '**', redirectTo: 'patient'}
+  {path: '**', redirectTo: 'patient'} // TODO da nosi na 404
 ];

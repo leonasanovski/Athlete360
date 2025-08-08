@@ -25,6 +25,7 @@ CREATE TABLE patient
     first_name         VARCHAR(100)        NOT NULL,
     last_name          VARCHAR(100)        NOT NULL,
     date_of_birth      Date                NOT NULL,
+    date_of_latest_checkup TIMESTAMP,
     gender             Gender              NOT NULL,
     sportsman_category SportsmanCategory default 'RECREATION',
     email              VARCHAR(100) UNIQUE NOT NULL,
