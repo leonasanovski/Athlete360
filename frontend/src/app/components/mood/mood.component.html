@@ -1,72 +1,83 @@
 <div class="container mt-4">
-  <div class="d-flex justify-content-center">
-    <a routerLink="/moods/add-mood" [queryParams]="{patientId: patientId}" class="btn btn-lg rounded rounded-2 shadow mb-4 text-center"
-       style="background-color: #386641; color: #F2E8CF; width: 230px; height: 50px;">
-      + New Mood Entry</a>
-  </div>
   <div class="row g-3">
-    @for (mood of mood_objects; track mood.moodId) {
-      <div class="col-lg-4 col-md-6 mb-3">
-        <div class="card h-100 border-0 shadow" style="background: linear-gradient(135deg, #F2E8CF 0%, #A7C957 100%);">
-          <div class="card-header border-0 py-3" style="background-color: #386641;">
-            <div class="d-flex justify-content-between align-items-center">
-              <h6 class="mb-0 text-white fw-bold">{{ mood.moodEmotion }}</h6>
-              @if (mood.moodProgress == 'GOOD') {
-                <span class="badge rounded-pill"
-                      style="background-color: #6A994E; color: white;">{{ mood.moodProgress }}</span>
-              } @else if (mood.moodProgress == 'STALL') {
-                <span class="badge rounded-pill"
-                      style="background-color: #A7C957; color: #386641;">{{ mood.moodProgress }}</span>
-              } @else {
-                <span class="badge rounded-pill"
-                      style="background-color: #BC4749; color: white;">{{ mood.moodProgress }}</span>
-              }
-            </div>
-          </div>
-          <div class="card-body py-4">
-            <div class="mb-3">
-              <div class="d-flex align-items-center mb-2">
-                <span class="fw-semibold" style="color: #386641;">Sleep Average</span>
-                <p class="mb-0 ms-1 text-muted">{{ mood.hoursSleptAverage }}h per day</p>
-              </div>
-            </div>
-            <div class="mb-3">
-              <h6 class="fw-semibold mb-2" style="color: #386641;">Description</h6>
-              <p class="card-text text-muted mb-0" style="line-height: 1.5;">
-                {{ mood.moodDescription | slice:0:30 }}{{ mood.moodDescription.length > 30 ? '...' : '' }}
-              </p>
-            </div>
-            <div class="border-top pt-3" style="border-color: #A7C957 !important;">
-              <div class="row g-2 text-sm">
-                <div class="col-6">
-                  <small class="text-muted d-block">Created</small>
-                  <small class="fw-semibold" style="color: #386641;">{{ mood.createdAt | date:'dd.MM.yyyy' }}</small>
-                </div>
-                <div class="col-6">
-                  <small class="text-muted d-block">Patient Identification</small>
-                  <small class="fw-semibold" style="color: #386641;">#{{ mood.patientId }}</small>
-                </div>
-              </div>
-              <div class="mt-2">
-                <small class="text-muted d-block">Name</small>
-                <small class="fw-bold" style="color: #386641;">{{ mood.patientName }}</small>
-              </div>
-            </div>
-          </div>
-
-          <div class="card-footer border-0 py-3" style="background-color: #6A994E;">
-            <div class="d-grid">
-              <a class="btn btn-outline-light btn-sm fw-semibold" [routerLink]="['/moods/info',mood.moodId]"
-                 style="border-color: #F2E8CF; color: #F2E8CF;"
-                 onmouseover="this.style.backgroundColor='#F2E8CF'; this.style.color='#386641';"
-                 onmouseout="this.style.backgroundColor='transparent'; this.style.color='#F2E8CF';">
-                View Details
-              </a>
-            </div>
-          </div>
-        </div>
+    <div class="col-lg-8 col-12">
+      <div class="d-flex justify-content-center">
+        <a routerLink="/moods/add-mood" [queryParams]="{patientId: patientId}"
+           class="btn btn-lg rounded rounded-2 shadow mb-4 text-center"
+           style="background-color: #386641; color: #F2E8CF !important; width: 230px; height: 50px;">
+          + New Mood Entry</a>
       </div>
-    }
-  </div>
+      <div class="row g-3">
+        @for (mood of mood_objects; track mood.moodId) {
+          <div class="col-lg-6 col-md-6 col-12">
+            <div class="card h-100 border-0 shadow"
+                 style="background: linear-gradient(135deg, #F2E8CF 0%, #A7C957 100%);">
+              <div class="card-header border-0 py-3" style="background-color: #386641;">
+                <div class="d-flex justify-content-between align-items-center">
+                  <h6 class="mb-0 text-white fw-bold">{{ mood.moodEmotion }}</h6>
+                  @if (mood.moodProgress == 'GOOD') {
+                    <span class="badge rounded-pill"
+                          style="background-color: #6A994E; color: white;">{{ mood.moodProgress }}</span>
+                  } @else if (mood.moodProgress == 'STALL') {
+                    <span class="badge rounded-pill"
+                          style="background-color: #A7C957; color: #386641;">{{ mood.moodProgress }}</span>
+                  } @else {
+                    <span class="badge rounded-pill"
+                          style="background-color: #BC4749; color: white;">{{ mood.moodProgress }}</span>
+                  }
+                </div>
+              </div>
+              <div class="card-body py-4">
+                <div class="mb-3">
+                  <div class="d-flex align-items-center mb-2">
+                    <span class="fw-semibold" style="color: #386641;">Sleep Average</span>
+                    <p class="mb-0 ms-1 text-muted">{{ mood.hoursSleptAverage }}h per day</p>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <h6 class="fw-semibold mb-2" style="color: #386641;">Description</h6>
+                  <p class="card-text text-muted mb-0" style="line-height: 1.5;">
+                    {{ mood.moodDescription | slice:0:30 }}{{ mood.moodDescription.length > 30 ? '...' : '' }}
+                  </p>
+                </div>
+                <div class="border-top pt-3" style="border-color: #A7C957 !important;">
+                  <div class="row g-2 text-sm">
+                    <div class="col-6">
+                      <small class="text-muted d-block">Created</small>
+                      <small class="fw-semibold"
+                             style="color: #386641;">{{ mood.createdAt | date:'dd.MM.yyyy' }}</small>
+                    </div>
+                    <div class="col-6">
+                      <small class="text-muted d-block">Patient Identification</small>
+                      <small class="fw-semibold" style="color: #386641;">#{{ mood.patientId }}</small>
+                    </div>
+                  </div>
+                  <div class="mt-2">
+                    <small class="text-muted d-block">Name</small>
+                    <small class="fw-bold" style="color: #386641;">{{ mood.patientName }}</small>
+                  </div>
+                </div>
+              </div>
 
+              <div class="card-footer border-0 py-3" style="background-color: #6A994E;">
+                <div class="d-grid">
+                  <a class="btn btn-outline-light btn-sm fw-semibold" [routerLink]="['/moods/info',mood.moodId]"
+                     style="border-color: #F2E8CF; color: #F2E8CF;"
+                     onmouseover="this.style.backgroundColor='#F2E8CF'; this.style.color='#386641';"
+                     onmouseout="this.style.backgroundColor='transparent'; this.style.color='#F2E8CF';">
+                    View Details
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+    <div class="col-lg-4 col-12">
+      <div class="position-sticky" style="top: 20px;">
+        <app-mood-statistics-component></app-mood-statistics-component>
+      </div>
+    </div>
+  </div>
 </div>

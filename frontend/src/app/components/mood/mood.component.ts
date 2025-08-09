@@ -1,15 +1,17 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {MoodService} from '../../services/mood-service';
-import {Mood} from '../../models/mood';
+import {Mood} from '../../models/Mood';
 import {DatePipe, SlicePipe} from '@angular/common';
 import {ActivatedRoute, RouterLink} from '@angular/router';
+import {MoodStatisticsComponent} from '../mood-statistics-component/mood-statistics-component';
 
 @Component({
   selector: 'app-mood',
   imports: [
     DatePipe,
     SlicePipe,
-    RouterLink
+    RouterLink,
+    MoodStatisticsComponent
   ],
   templateUrl: './mood.component.html',
   styleUrl: './mood.component.css'

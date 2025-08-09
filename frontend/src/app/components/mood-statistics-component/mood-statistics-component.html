@@ -1,0 +1,207 @@
+<div style="width: 450px; margin-right: 10px">
+  <div class="d-flex flex-column align-items-center profile-card">
+    <div class="card border-0 shadow-lg"
+         style="background: linear-gradient(135deg, #F2E8CF 0%, #ffffff 100%); border-radius: 20px; overflow: hidden;">
+      <div class="card-header border-0 py-4" style="background: linear-gradient(135deg, #386641 0%, #6A994E 100%);">
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+          <div class="d-flex align-items-center gap-3">
+            <div class="position-relative">
+              <img
+                [src]="patient?.gender === 'MALE' ? 'assets/icons/male-icon.png' : 'assets/icons/female-icon.png'"
+                alt="Profile"
+                class="rounded-circle shadow"
+                style="width: 80px; height: 80px; border: 4px solid rgba(255,255,255,0.3);"
+              />
+              <div class="position-absolute bottom-0 end-0 bg-success rounded-circle border border-3 border-white"
+                   style="width: 24px; height: 24px;"></div>
+            </div>
+
+            <div class="text-white">
+              <h2 class="mb-2 text-uppercase fw-bold"
+                  style="letter-spacing: 2px; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+                {{ patient?.firstName }} {{ patient?.lastName }}
+              </h2>
+              <span
+                class="badge rounded-pill px-3 py-2 fw-semibold me-2"
+                [style]="{'background-color': patient?.gender === 'MALE' ? 'rgba(255,255,255,0.2)' : '#BC4749', 'color': 'white', 'backdrop-filter': 'blur(10px)'}"
+              >
+            {{ patient?.gender === 'MALE' ? 'Male' : 'Female' }}
+          </span>
+            </div>
+          </div>
+
+          <div class="badge rounded-pill px-4 py-3 fw-semibold text-white"
+               style="background: linear-gradient(45deg, #A7C957, #6A994E); backdrop-filter: blur(10px); font-size: 14px;">
+            {{ patient?.sportCategory }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Information Section -->
+      <div class="card-body bg-white p-4">
+        <div class="row mb-3 py-3 border-bottom align-items-center"
+             style="border-color: rgba(168, 201, 87, 0.3) !important;">
+          <div class="col-sm-4">
+            <div class="d-flex align-items-center">
+            <span class="fw-semibold text-uppercase small"
+                  style="color: #386641; letter-spacing: 1px;">Email Address</span>
+            </div>
+          </div>
+          <div class="col-sm-8 text-sm-end">
+            <span class="fw-semibold" style="color: #6A994E;">{{ patient?.email }}</span>
+          </div>
+        </div>
+
+        <div class="row mb-3 py-3 border-bottom align-items-center"
+             style="border-color: rgba(168, 201, 87, 0.3) !important;">
+          <div class="col-sm-4">
+            <div class="d-flex align-items-center">
+            <span class="fw-semibold text-uppercase small"
+                  style="color: #386641; letter-spacing: 1px;">Date of Birth</span>
+            </div>
+          </div>
+          <div class="col-sm-8 text-sm-end">
+            <span class="fw-semibold" style="color: #6A994E;">{{ patient?.dateOfBirth | date:'longDate' }}</span>
+          </div>
+        </div>
+
+        <div class="row py-3 align-items-center">
+          <div class="col-sm-4">
+            <div class="d-flex align-items-center">
+            <span class="fw-semibold text-uppercase small"
+                  style="color: #386641; letter-spacing: 1px;">Assigned Doctor</span>
+            </div>
+          </div>
+          <div class="col-sm-8 text-sm-end">
+            <span class="fw-semibold" style="color: #6A994E;">{{ patient?.doctorInfo }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  @if (moodStatistics) {
+    <div class="mood-stats-container">
+      <div class="switch-controls mb-4 text-center">
+        <div class="switch-container">
+          <button
+            class="switch-btn"
+            [class.active]="moodStatisticsSelectedView === 'pie'"
+            (click)="moodStatisticsSelectedView = 'pie'">
+            <i class="bi bi-pie-chart-fill"></i>
+          </button>
+          <button
+            class="switch-btn"
+            [class.active]="moodStatisticsSelectedView === 'table'"
+            (click)="moodStatisticsSelectedView = 'table'">
+            <i class="bi bi-table"></i>
+          </button>
+        </div>
+      </div>
+      <!-- Progress Statistics Section -->
+      <div class="stats-section">
+        <h4 class="section-title">
+          {{ moodStatisticsSelectedView === 'pie' ? 'Progress Percentage PIE Chart' : 'Progress Percentage Statistics' }}
+        </h4>
+
+        @if (moodStatisticsSelectedView === 'pie') {
+          <div class="chart-wrapper">
+            <ngx-charts-pie-chart
+              [view]="[400, 300]"
+              [scheme]="colorSchema"
+              [results]="pieChartData"
+              [legend]="false"
+              [doughnut]="false"
+              [labels]="true"
+              [explodeSlices]="false"
+              [gradient]="false"
+              class="chart-container">
+            </ngx-charts-pie-chart>
+          </div>
+        }
+
+        @if (moodStatisticsSelectedView === 'table') {
+          <div class="stats-grid">
+            <div class="mood-card mood-progress-card">
+              <div class="mood-badge mood-bad">
+                <i class="bi bi-emoji-frown me-2"></i>
+                <span>BAD</span>
+              </div>
+              <p class="mood-count">{{ moodStatistics.moodProgressCounts['BAD'] ?? 0 }}</p>
+            </div>
+            <div class="mood-card mood-progress-card">
+              <div class="mood-badge mood-stall">
+                <i class="bi bi-pause-circle me-2"></i>
+                <span>STALL</span>
+              </div>
+              <p class="mood-count">{{ moodStatistics.moodProgressCounts['STALL'] ?? 0 }}</p>
+            </div>
+            <div class="mood-card mood-progress-card">
+              <div class="mood-badge mood-good">
+                <i class="bi bi-emoji-smile me-2"></i>
+                <span>GOOD</span>
+              </div>
+              <p class="mood-count">{{ moodStatistics.moodProgressCounts['GOOD'] ?? 0 }}</p>
+            </div>
+          </div>
+        }
+      </div>
+      <div class="stats-section">
+        <h4 class="section-title">
+          {{ moodStatisticsSelectedView === 'pie' ? 'Emotion Percentage PIE Chart' : 'Emotion Percentage Statistics' }}
+        </h4>
+        @if (moodStatisticsSelectedView === 'table') {
+          <div class="row emotions-grid gap-3 justify-content-center text-center">
+            <div class="mood-card emotion-card col-3">
+              <div class="mood-badge badge-happy d-flex justify-content-center">
+                <i class="bi bi-emoji-smile me-2"></i>
+                <span>Happy</span>
+              </div>
+              <p class="mood-count">{{ moodStatistics.moodEmotionCounts['HAPPY'] ?? 0 }}</p>
+            </div>
+            <div class="mood-card emotion-card col-3">
+              <div class="mood-badge badge-excited d-flex justify-content-center">
+                <i class="bi bi-stars me-2"></i>
+                <span>Excited</span>
+              </div>
+              <p class="mood-count">{{ moodStatistics.moodEmotionCounts['EXCITED'] ?? 0 }}</p>
+            </div>
+            <div class="mood-card emotion-card col-3">
+              <div class="mood-badge badge-neutral d-flex justify-content-center">
+                <i class="bi bi-emoji-neutral me-2"></i>
+                <span>Neutral</span>
+              </div>
+              <p class="mood-count">{{ moodStatistics.moodEmotionCounts['NEUTRAL'] ?? 0 }}</p>
+            </div>
+            <div class="mood-card emotion-card col-3">
+              <div class="mood-badge badge-tired d-flex justify-content-center">
+                <i class="bi bi-moon-stars me-2"></i>
+                <span>Tired</span>
+              </div>
+              <p class="mood-count">{{ moodStatistics.moodEmotionCounts['TIRED'] ?? 0 }}</p>
+            </div>
+            <div class="mood-card emotion-card col-3">
+              <div class="mood-badge badge-stressed d-flex justify-content-center">
+                <i class="bi bi-exclamation-circle me-2"></i>
+                <span>Stressed</span>
+              </div>
+              <p class="mood-count">{{ moodStatistics.moodEmotionCounts['STRESSED'] ?? 0 }}</p>
+            </div>
+          </div>
+        }
+        @if (moodStatisticsSelectedView === 'pie') {
+          <div class="chart-wrapper">
+            <ngx-charts-pie-grid
+              [view]="[400, 300]"
+              [scheme]="colorSchema"
+              [results]="advancedPieChartData"
+              class="chart-container">
+            </ngx-charts-pie-grid>
+          </div>
+        }
+      </div>
+    </div>
+    <div>
+      <app-line-chart-component [moodStatistics]="moodStatistics"></app-line-chart-component>
+    </div>
+  }
+</div>

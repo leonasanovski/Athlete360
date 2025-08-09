@@ -1,0 +1,145 @@
+.profile-card {
+  width: 450px;
+}
+
+.mood-stats-container {
+  width: 450px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #E3F2FD 0%, #90CAF9 100%);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.mood-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.mood-badge {
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.75rem;
+  text-align: center;
+}
+
+.mood-bad {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+  color: white;
+}
+
+.mood-stall {
+  background: linear-gradient(135deg, #74c0fc, #339af0);
+  color: white;
+}
+
+.mood-good {
+  background: linear-gradient(135deg, #51cf66, #37b24d);
+  color: white;
+}
+
+.mood-count {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin: 0;
+  color: #495057;
+  text-align: center;
+}
+
+.stats-title {
+  color: #343a40;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: 1.25rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+  justify-items: center;
+}
+
+.badge-emotion {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+}
+
+.chart-container {
+  display: flex;
+  justify-content: center;
+}
+
+.section-title {
+  margin: 25px 0;
+  text-align: center;
+  font-family: "Bangla Sangam MN", serif;
+  font-weight: bolder;
+}
+
+.chart-wrapper {
+  border: rgba(25, 25, 112, 0.3) 2px solid;
+  border-radius: 6px;
+  background: linear-gradient(135deg, rgba(248, 249, 250, 0.5) 0%, rgba(233, 236, 239, 0.5) 100%);
+}
+
+.chart-wrapper:hover {
+  background: linear-gradient(135deg, rgba(248, 249, 250, 0.7) 0%, rgba(141, 141, 141, 0.7) 100%);
+}
+
+.switch-controls {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.switch-container {
+  display: inline-flex;
+  background: linear-gradient(145deg, rgba(41, 41, 41, 0.65), rgba(59, 59, 59, 0.5));
+  border-radius: 50px;
+  padding: 4px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1),
+  0 4px 12px rgba(0, 0, 0, 0.15);
+  position: relative;
+  border: 1px solid #d1d5db;
+}
+
+.switch-btn {
+  background: transparent;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 46px;
+  cursor: pointer;
+  font-size: 16px;
+  color: rgb(255, 255, 255);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 60px;
+  font-weight: 500;
+}
+
+.switch-btn.active {
+  color: #208b57;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.switch-container.table-active::before {
+  transform: translateX(100%);
+}
+
+.switch-btn i {
+  font-size: 18px;
+}

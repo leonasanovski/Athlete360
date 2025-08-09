@@ -1,5 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {Mood} from '../../models/mood';
+import {Mood} from '../../models/Mood';
 import {MoodService} from '../../services/mood-service';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {DatePipe} from '@angular/common';

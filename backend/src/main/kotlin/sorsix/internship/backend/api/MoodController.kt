@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import sorsix.internship.backend.dto.MoodCreatingResponseDTO
 import sorsix.internship.backend.dto.MoodDTO
+import sorsix.internship.backend.dto.MoodStatisticsDTO
 import sorsix.internship.backend.mappers.MoodMapper
 import sorsix.internship.backend.repository.MoodRepository
 import sorsix.internship.backend.service.MoodService
@@ -43,4 +44,8 @@ class MoodController(
         val moodDTO = MoodMapper.mapMoodToResponseDto(mood)
         return ResponseEntity.status(HttpStatus.CREATED).body(moodDTO)
     }
+
+    @GetMapping("/{id}/statistics")
+    fun getPatientMoodStatistics(@PathVariable id: Long): ResponseEntity<MoodStatisticsDTO> =
+        ResponseEntity.ok(moodService.getMoodStatsForPatient(id))
 }

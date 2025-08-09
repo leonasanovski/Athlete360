@@ -2,6 +2,8 @@ package sorsix.internship.backend.service.impl
 
 import org.springframework.stereotype.Service
 import sorsix.internship.backend.dto.MoodCreatingResponseDTO
+import sorsix.internship.backend.dto.MoodStatisticsDTO
+import sorsix.internship.backend.dto.ProgressEntry
 import sorsix.internship.backend.model.Mood
 import sorsix.internship.backend.model.enum.MoodEmotion
 import sorsix.internship.backend.model.enum.MoodProgress
@@ -54,6 +56,28 @@ class MoodServiceImpl(
         return moodRepository.save(mood)
     }
 
+    override fun getMoodStatsForPatient(patientId: Long): MoodStatisticsDTO {
+        val moodsForPatient: List<Mood> = moodRepository.findByPatientPatientId(patientId)
+        val emotionMapCount: Map<MoodEmotion, Int> =
+            MoodEmotion.entries.associateWith { emotion -> moodsForPatient.count { it.moodEmotion == emotion } }
+        val progressMapCount: Map<MoodProgress, Int> =
+            MoodProgress.entries.associateWith { progressStatus -> moodsForPatient.count { it.moodProgress == progressStatus } }
+        val mostFrequentEmotion = emotionMapCount.maxByOrNull { it.value }?.key
+        val mostFrequentProgress = progressMapCount.maxByOrNull { it.value }?.key
+        val averageSleepOverall = moodsForPatient.map { it.hoursSleptAverage }.average()
+        val progress: List<ProgressEntry> =
+            moodsForPatient.sortedBy { it.createdAt }.map { ProgressEntry(it.createdAt, it.moodProgress) }
+        return MoodStatisticsDTO(
+            totalMoodEntries = moodsForPatient.size,
+            moodEmotionCounts = emotionMapCount,
+            moodProgressCounts = progressMapCount,
+            averageSleepOverall = averageSleepOverall,
+            mostFrequentProgressState = mostFrequentProgress ?: MoodProgress.STALL,
+            mostFrequentEmotion = mostFrequentEmotion ?: MoodEmotion.NEUTRAL,
+            progressOverTime = progress
+        )
+    }
+
     //helper functions
     private fun calculateEmotionScore(emotion: String): Int = when (emotion.uppercase()) {
         "EXCITED" -> 8
@@ -94,4 +118,6 @@ class MoodServiceImpl(
         totalScore <= STALL_THRESHOLD -> MoodProgress.STALL
         else -> MoodProgress.GOOD
     }
+
+
 }

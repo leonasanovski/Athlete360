@@ -1,9 +1,8 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Mood, MoodResponse} from '../models/mood';
-
-;
+import {Mood, MoodResponse} from '../models/Mood';
+import {MoodStatisticsDTO} from '../models/MoodStatistics';
 
 @Injectable({
   providedIn: 'root'
@@ -36,5 +35,10 @@ export class MoodService {
     return this.http.post(this.mood_url, moodObject)
   }
 
+  getMoodStatisticsForPatient(id: number): Observable<MoodStatisticsDTO> {
+    console.log(id)
+    const url = `${this.mood_url}/${id}/statistics`
+    return this.http.get<MoodStatisticsDTO>(url)
+  }
 
 }
