@@ -19,7 +19,8 @@ import {MoodStatisticsDTO} from '../../../models/MoodStatistics';
       [timeline]="timeline"
       [yScaleMax]="yScaleMax"
       [yScaleMin]="yScaleMin"
-      [yAxisTickFormatting]="yAxisTickFormatting">
+      [yAxisTickFormatting]="yAxisTickFormatting"
+    >
     </ngx-charts-line-chart>
   `,
   styleUrl: './line-chart-component.css'
@@ -37,19 +38,21 @@ export class LineChartComponent implements OnChanges {
   timeline = true;
   yScaleMin = -0.5;
   yScaleMax = 2.5;
-  private moodToNumber: Record<'BAD' | 'STALL' | 'GOOD', 0 | 1 | 2> = {
-    BAD: 0, STALL: 1, GOOD: 2
-  };
   private numberToLabel: { [k: number]: string } = {0: 'Bad', 1: 'Stall', 2: 'Good'};
-  //todo to make the progress as a name, not a number, a little refactor to do
+  private moodToNumber: Record<string, number> = {
+    "BAD": 0,
+    "STALL": 1,
+    "GOOD": 2
+  }
+
   ngOnChanges() {
     this.chartData = this.moodStatistics?.progressOverTime ? [{
       name: 'Progress',
-      series: [...this.moodStatistics.progressOverTime]
-        .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
-        .map(entry => ({
-          name: new Date(entry.date),
-          value: this.moodToNumber[entry.progress]
+      series: [...this.moodStatistics.progressOverTime] // take every element from it and put it into array
+        .sort((time_a, time_b) => new Date(time_a.date).getTime() - new Date(time_b.date).getTime())
+        .map(data => ({
+          name: new Date(data.date),
+          value: this.moodToNumber[data.progress]
         }))
     }] : [];
   }
