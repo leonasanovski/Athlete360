@@ -11,6 +11,7 @@ data class AthleteReportResponse(
     val reportId: Long?,
     val doctor: String,
     val patient: String,
+    val embg: String,
     val createdAt: LocalDateTime,
     val status: AthleteReportStatus,
     val vo2Max: BigDecimal,

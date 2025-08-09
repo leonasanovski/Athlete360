@@ -3,13 +3,11 @@ package sorsix.internship.backend.api
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import sorsix.internship.backend.dto.AthleteReportCreateRequest
-import sorsix.internship.backend.dto.AthleteReportResponse
-import sorsix.internship.backend.dto.RecommendationResponse
-import sorsix.internship.backend.dto.ReportMetricFlaggerDTO
+import sorsix.internship.backend.dto.*
 import sorsix.internship.backend.repository.AthleteReportRepository
 import sorsix.internship.backend.service.AthleteReportService
 import sorsix.internship.backend.service.RecommendationService
+import sorsix.internship.backend.service.SummaryService
 
 
 @CrossOrigin(origins = ["http://localhost:4200"])
@@ -18,16 +16,15 @@ import sorsix.internship.backend.service.RecommendationService
 class AthleteReportController(
     private val athleteReportService: AthleteReportService,
     private val recommendationService: RecommendationService,
+    private val summaryService: SummaryService,
     private val athleteReportRepository: AthleteReportRepository
 ) {
 
     @PostMapping
-    fun createReport(@RequestBody request: AthleteReportCreateRequest): ResponseEntity<Void> {
-        val reportId = athleteReportService.create(request)
-        return ResponseEntity.status(HttpStatus.CREATED)
-            .header("Location", "/api/reports/$reportId")
-            .build()
-    }
+    fun createReport(@RequestBody request: AthleteReportFormDTO): ResponseEntity<Long> =
+        ResponseEntity
+            .status(HttpStatus.CREATED)
+            .body(athleteReportService.create(request))
 
     @GetMapping("/{id}")
     fun getReport(@PathVariable id: Long): ResponseEntity<AthleteReportResponse> =
@@ -44,4 +41,7 @@ class AthleteReportController(
     fun getRecommendationsByReport(@PathVariable id: Long): ResponseEntity<List<RecommendationResponse>> =
         ResponseEntity.ok(recommendationService.findRecommendationsByReportId(id))
 
+    @GetMapping("/{id}/summary")
+    fun getSummaryByReport(@PathVariable id: Long): ResponseEntity<SummaryDTO> =
+        ResponseEntity.ok(summaryService.findSummaryByReportId(id))
 }

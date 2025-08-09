@@ -6,6 +6,7 @@ import {ReportsPage} from './pages/reports-page/reports-page';
 import {MoodFormComponent} from './components/mood-form-component/mood-form-component';
 import {MoodDetailsComponent} from './components/mood.details/mood.details.component';
 import {DoctorPage} from './pages/doctor-page/doctor-page';
+import {ReportCreationPage} from './pages/report-creation-page/report-creation-page';
 
 export const routes: Routes = [
   {path: 'patient', component: PatientPage},
@@ -18,6 +19,8 @@ export const routes: Routes = [
   {path: 'moods/info/:id', component: MoodDetailsComponent},
 
   {path: 'reports', component: ReportsPage},
+  {path: 'reports/new', component: ReportCreationPage},
+  {path: 'reports/new/:id', component: ReportCreationPage},
   {path: 'reports/:id', component: ReportDetailsPage},
 
   { path: '', redirectTo: '', pathMatch: 'full' },

@@ -21,13 +21,13 @@ import sorsix.internship.backend.service.RecommendationService
 class PatientController(val athleteReportService: AthleteReportService, val recommendationService: RecommendationService) {
 
     @GetMapping("{patientId}/reports")
-    fun getDoctorReports(@PathVariable patientId: Long,
+    fun getPatientReports(@PathVariable patientId: Long,
                          @PageableDefault(size = 10, sort = ["createdAt"], direction = Sort.Direction.DESC) pageable: Pageable
     ) : ResponseEntity<Page<AthleteReportShortDTO>> =
         ResponseEntity.ok(athleteReportService.getReportsShortByPatientId(patientId, pageable));
 
     @GetMapping("{patientId}/latest/recommendations")
-    fun getRecommendationsForLatestReport(@PathVariable patientId: Long): ResponseEntity<List<RecommendationResponse>> {
+    fun getPatientRecommendationsForLatestReport(@PathVariable patientId: Long): ResponseEntity<List<RecommendationResponse>> {
         val latestReportId = athleteReportService.findLatestReportIdByPatientId(patientId)
         val recommendations = recommendationService.findRecommendationsByReportId(latestReportId)
         return ResponseEntity.ok(recommendations)

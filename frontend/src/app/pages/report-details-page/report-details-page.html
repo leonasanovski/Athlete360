@@ -3,7 +3,6 @@
     <header class="report-top">
       <div class="report-title">
         <h1>Report Details</h1>
-        <small class="text-muted d-block">{{ report.createdAt | date:'MMM d y, h:mm a' }}</small>
       </div>
     </header>
 
@@ -90,7 +89,7 @@
       </main>
 
       <!-- RIGHT: green square visual (no content below it) -->
-      <aside class="report-visual" aria-hidden="true">
+      <aside class="d-flex flex-column align-items-center sticky-top" aria-hidden="true">
         <div class="visual-square" role="img" aria-label="Report icon">
           <!-- simple paper + folded corner SVG, white stroke -->
           <svg viewBox="0 0 64 64" width="96" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
@@ -98,6 +97,12 @@
             <path d="M34 4v14a4 4 0 0 0 4 4h14" fill="none" stroke="#fff" stroke-width="2"/>
             <path d="M18 22h28M18 30h28M18 38h18" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>
           </svg>
+        </div>
+        <h3 class="mt-4 mb-4">Summary</h3>
+        <div class="card report-card shadow-sm">
+          <div class="card-body">
+            {{summary?.summarizedContent}}
+          </div>
         </div>
       </aside>
     </div>

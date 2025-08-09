@@ -1,27 +1,24 @@
 import {AthleteReportStatus} from './types/AthleteReportStatus';
 
-export interface ReportDetails {
-  reportId: number | null;
-  doctor: string;
-  patient: string;
+export interface ReportForm {
+  doctorId: number;
   embg: string;
-  createdAt: string;
   status: AthleteReportStatus;
   vo2Max: number;
   restingHeartRate: number;
   underPressureHeartRate: number;
   bodyFatPercentage: number;
-  leanMuscleMass: number | null;
+  leanMuscleMass?: number;
   boneDensity: number;
   height: number;
   weight: number;
-  oneRepMaxBench: number | null;
-  oneRepMaxSquat: number | null;
-  oneRepMaxDeadlift: number | null;
-  jumpHeight: number | null;
+  oneRepMaxBench?: number;
+  oneRepMaxSquat?: number;
+  oneRepMaxDeadlift?: number;
+  jumpHeight?: number;
   averageRunPerKilometer: number;
-  shoulderFlexibility: number | null;
-  hipFlexibility: number | null;
+  shoulderFlexibility?: number;
+  hipFlexibility?: number;
   balanceTime: number;
   reactionTime: number;
   coreStabilityScore: number;
