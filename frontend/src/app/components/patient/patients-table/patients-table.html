@@ -1,7 +1,10 @@
+<input type="text" #searchInput placeholder="Search by EMBG..." (input)="onSearch(searchInput.value)">
+
 <div class="table-responsive mt-3">
   <table class="table w-100 table-hover">
     <thead>
     <tr>
+      <th>EMBG</th>
       <th>
         Name
         <button
@@ -29,6 +32,7 @@
     <tbody>
       @for (patient of patients; track patient.patientId) {
         <tr>
+          <td>{{ patient.embg }}</td>
           <td>{{ patient.name }}</td>
           <td>{{ patient.dateOfBirth | date }}</td>
           <td>{{ patient.gender }}</td>

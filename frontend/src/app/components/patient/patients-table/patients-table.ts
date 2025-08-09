@@ -3,6 +3,7 @@ import {Patient} from '../../../models/Patient';
 import {PatientService} from '../../../services/patient-service';
 import {PageResponse} from '../../../models/PageResponse';
 import {DatePipe} from '@angular/common';
+import {debounceTime, distinctUntilChanged, Subject, switchMap} from 'rxjs';
 
 @Component({
   selector: 'patients-table',
@@ -15,24 +16,40 @@ import {DatePipe} from '@angular/common';
 })
 export class PatientsTable implements OnInit{
   patientService = inject(PatientService);
+  query$ = new Subject<string>();
 
   patients: Patient[] = [];
   totalElements = 0;
   page = 0;
   size = 10;
-  doctorId = 1;
 
   sortField: string = 'name';
   sortDirection: 'asc' | 'desc' = 'asc';
 
   ngOnInit() {
     this.loadPatients();
+
+    this.query$.pipe(
+      debounceTime(400),
+      distinctUntilChanged(),
+      switchMap(query => {
+        if(query) {
+          return this.patientService.searchPatientsByEmbg(query)
+        } else {
+          return this.patientService.getPatients()
+        }
+      })
+    ).subscribe(res => {
+      this.patients = res.content;
+      this.totalElements = res.totalElements;
+      this.page = res.number;
+    })
   }
 
   loadPatients(page: number = this.page) {
     const sortParam = `${this.sortField},${this.sortDirection}`;
-    this.patientService.getPatientsByDoctorId(this.doctorId, page, this.size, sortParam)
-      .subscribe((res: PageResponse<Patient>) => {
+    this.patientService.getPatients(page, this.size, sortParam)
+      .subscribe(res => {
         this.patients = res.content;
         this.totalElements = res.totalElements;
         this.page = res.number;
@@ -41,6 +58,10 @@ export class PatientsTable implements OnInit{
 
   onPageChange(newPage: number) {
     this.loadPatients(newPage);
+  }
+
+  onSearch(query: string) {
+    this.query$.next(query);
   }
 
   toggleSortByName() {

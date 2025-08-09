@@ -59,6 +59,16 @@ class DoctorController(
     ): ResponseEntity<Page<PatientDTO>> =
         ResponseEntity.ok(patientService.getPatientsByDoctorId(doctorId, pageable))
 
+    @GetMapping("{doctorId}/patients/search")
+    fun searchDoctorPatients(
+        @PathVariable doctorId: Long,
+        @RequestParam(required = false, defaultValue = "") embg: String,
+        @PageableDefault(size = 10, sort = ["dateOfLatestCheckUp"], direction = Sort.Direction.DESC) pageable: Pageable
+    ): ResponseEntity<Page<PatientDTO>> {
+        return ResponseEntity.ok(patientService.searchPatientsByDoctorIdAndEmbg(doctorId, embg, pageable))
+    }
+
+
 
     @GetMapping("{doctorId}/reports")
     fun getDoctorReports(@PathVariable doctorId: Long,

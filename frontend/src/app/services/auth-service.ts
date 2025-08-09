@@ -6,7 +6,7 @@ import {CurrentUser} from '../models/CurrentUser';
   providedIn: 'root'
 })
 export class AuthService {
-  private _currentUser$ = new BehaviorSubject<CurrentUser>({id: 2, role: 'patient'});
+  private _currentUser$ = new BehaviorSubject<CurrentUser>({id: 1, role: 'doctor'});
   currentUser$ = this._currentUser$.asObservable();
 
   getCurrentUser(): CurrentUser {

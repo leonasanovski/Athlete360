@@ -21,6 +21,9 @@ data class Patient(
     @JoinColumn(name = "doctor_id", nullable = false)
     val doctor: Doctor,
 
+    @Column(name = "embg", nullable = false)
+    val embg: String,
+
     @Column(name = "first_name", nullable = false)
     val firstName: String,
 

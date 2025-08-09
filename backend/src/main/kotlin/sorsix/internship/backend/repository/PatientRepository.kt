@@ -9,4 +9,5 @@ import sorsix.internship.backend.model.Patient
 @Repository
 interface PatientRepository : JpaRepository<Patient, Long> {
     fun findByDoctorDoctorId(doctorId: Long, pageable: Pageable): Page<Patient>
+    fun findByDoctorDoctorIdAndEmbgContaining(doctorId: Long, embg: String, pageable: Pageable): Page<Patient>
 }

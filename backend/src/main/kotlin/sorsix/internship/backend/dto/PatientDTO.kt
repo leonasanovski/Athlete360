@@ -9,6 +9,7 @@ import java.time.LocalDateTime
 data class PatientDTO(
     val patientId: Long,
     val name: String,
+    val embg: String,
     val dateOfBirth: LocalDate,
     val dateOfLatestCheckup: LocalDateTime?,
     val gender: Gender,
@@ -20,6 +21,7 @@ data class PatientDTO(
             return PatientDTO(
                 patientId = patient.patientId!!,
                 name = "${patient.firstName} ${patient.lastName}",
+                embg = patient.embg,
                 dateOfBirth = patient.dateOfBirth,
                 dateOfLatestCheckup = patient.dateOfLatestCheckUp,
                 gender = patient.gender,

@@ -15,14 +15,7 @@ class PatientServiceImpl(private val patientRepository: PatientRepository) : Pat
         doctorId: Long,
         pageable: Pageable
     ): Page<PatientDTO> {
-        val sort = pageable.sort
-
-        val adjustedSort = if (sort.getOrderFor("name") != null) {
-            val direction = sort.getOrderFor("name")!!.direction
-            Sort.by(direction, "firstName").and(Sort.by(direction, "lastName"))
-        } else {
-            sort
-        }
+        val adjustedSort = adjustSortForFullName(pageable.sort)
 
         val adjustedPageable = PageRequest.of(
             pageable.pageNumber,
@@ -33,4 +26,27 @@ class PatientServiceImpl(private val patientRepository: PatientRepository) : Pat
         return patientRepository.findByDoctorDoctorId(doctorId, adjustedPageable)
             .map { PatientDTO.fromEntity(it) }
     }
+
+    override fun searchPatientsByDoctorIdAndEmbg(doctorId: Long, embg: String, pageable: Pageable): Page<PatientDTO> {
+        val adjustedSort = adjustSortForFullName(pageable.sort)
+
+        val adjustedPageable = PageRequest.of(
+            pageable.pageNumber,
+            pageable.pageSize,
+            adjustedSort
+        )
+
+        return patientRepository
+            .findByDoctorDoctorIdAndEmbgContaining(doctorId, embg, adjustedPageable)
+            .map { PatientDTO.fromEntity(it) }
+    }
+
+    private fun adjustSortForFullName(sort: Sort): Sort =
+        if (sort.getOrderFor("name") != null) {
+            val direction = sort.getOrderFor("name")!!.direction
+            Sort.by(direction, "firstName").and(Sort.by(direction, "lastName"))
+        } else {
+            sort
+        }
+
 }

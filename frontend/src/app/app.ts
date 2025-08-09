@@ -2,6 +2,7 @@ import {Component, inject, OnInit} from '@angular/core';
 import {NavigationEnd, Router, RouterOutlet} from '@angular/router';
 import {Sidebar} from './components/sidebar/sidebar';
 import {filter, first} from 'rxjs';
+import {AuthService} from './services/auth-service';
 
 @Component({
   selector: 'app-root',
@@ -11,11 +12,13 @@ import {filter, first} from 'rxjs';
   styleUrl: './app.css'
 })
 export class App implements OnInit {
+  auth = inject(AuthService);
   router = inject(Router);
 
-  role = 'doctor'; // patient/doctor
+  role: String | undefined;
 
   ngOnInit() {
+    this.role = this.auth.getCurrentUser().role;
     this.router.events
       .pipe(
         filter(event => event instanceof NavigationEnd),
