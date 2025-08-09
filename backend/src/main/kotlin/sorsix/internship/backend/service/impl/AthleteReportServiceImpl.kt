@@ -1,6 +1,8 @@
 package sorsix.internship.backend.service.impl
 
 import jakarta.persistence.EntityNotFoundException
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import sorsix.internship.backend.components.MetricsFlagHelper
 import sorsix.internship.backend.dto.AthleteReportCreateRequest
@@ -101,35 +103,19 @@ class AthleteReportServiceImpl(
         return flagger
     }
 
-    override fun getReportsShortByPatientId(patientId: Long): List<AthleteReportShortDTO> =
+    override fun getReportsShortByPatientId(patientId: Long, pageable: Pageable): Page<AthleteReportShortDTO> =
         athleteReportRepository
-            .findByPatientPatientId(patientId)
-            .map { report ->
-                AthleteReportShortDTO(
-                    id         = report.reportId!!,
-                    createdAt  = report.createdAt,
-                    doctorName = "${report.doctor.firstName} ${report.doctor.lastName}",
-                    patientName = "${report.patient.firstName} ${report.patient.lastName}",
-                    status     = report.status,
-                    vo2Max     = report.vo2Max
-                )
-            }
+            .findByPatientPatientId(patientId, pageable)
+            .map { AthleteReportShortDTO.fromEntity(it) }
 
-    override fun getReportsShortByDoctorId(doctorId: Long): List<AthleteReportShortDTO> =
+    override fun getReportsShortByDoctorId(doctorId: Long, pageable: Pageable): Page<AthleteReportShortDTO> =
         athleteReportRepository
-            .findByDoctorDoctorId(doctorId)
-            .map { report ->
-                AthleteReportShortDTO(
-                    id         = report.reportId!!,
-                    createdAt  = report.createdAt,
-                    doctorName = "${report.doctor.firstName} ${report.doctor.lastName}",
-                    patientName = "${report.patient.firstName} ${report.patient.lastName}",
-                    status     = report.status,
-                    vo2Max     = report.vo2Max
-                )
-            }
+            .findByDoctorDoctorId(doctorId, pageable)
+            .map { AthleteReportShortDTO.fromEntity(it) }
 
-    override fun findLatestReportId(): Long =
-        athleteReportRepository.findTopByOrderByReportIdDesc()?.reportId
+
+    override fun findLatestReportIdByPatientId(patientId: Long): Long =
+        athleteReportRepository.findTopByPatientPatientIdOrderByReportIdDesc(patientId)?.reportId
             ?: throw NoSuchElementException("No reports found.")
+
 }

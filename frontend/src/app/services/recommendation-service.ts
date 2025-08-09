@@ -14,7 +14,7 @@ export class RecommendationService {
     return this.http.get<Recommendation[]>(`${this.url}/reports/${id}/recommendations`);
   }
 
-  getLatestRecommendations() : Observable<Recommendation[]> {
-    return this.http.get<Recommendation[]>(`${this.url}/reports/latest/recommendations`);
+  getLatestRecommendations(id: number) : Observable<Recommendation[]> {
+    return this.http.get<Recommendation[]>(`${this.url}/patient/${id}/latest/recommendations`);
   }
 }

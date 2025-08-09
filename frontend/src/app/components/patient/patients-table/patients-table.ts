@@ -10,6 +10,7 @@ import {DatePipe} from '@angular/common';
     DatePipe
   ],
   templateUrl: './patients-table.html',
+  standalone: true,
   styleUrl: './patients-table.css'
 })
 export class PatientsTable implements OnInit{
@@ -21,12 +22,16 @@ export class PatientsTable implements OnInit{
   size = 10;
   doctorId = 1;
 
+  sortField: string = 'name';
+  sortDirection: 'asc' | 'desc' = 'asc';
+
   ngOnInit() {
     this.loadPatients();
   }
 
   loadPatients(page: number = this.page) {
-    this.patientService.getPatientsByDoctorId(this.doctorId, page, this.size)
+    const sortParam = `${this.sortField},${this.sortDirection}`;
+    this.patientService.getPatientsByDoctorId(this.doctorId, page, this.size, sortParam)
       .subscribe((res: PageResponse<Patient>) => {
         this.patients = res.content;
         this.totalElements = res.totalElements;
@@ -36,5 +41,15 @@ export class PatientsTable implements OnInit{
 
   onPageChange(newPage: number) {
     this.loadPatients(newPage);
+  }
+
+  toggleSortByName() {
+    if (this.sortField === 'name') {
+      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortField = 'name';
+      this.sortDirection = 'asc';
+    }
+    this.loadPatients(0);
   }
 }

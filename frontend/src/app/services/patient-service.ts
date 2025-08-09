@@ -15,7 +15,7 @@ export class PatientService {
     doctorId: number,
     page: number = 0,
     size: number = 10,
-    sort: string = 'name,desc'
+    sort: string = 'name,asc'
   ): Observable<PageResponse<Patient>> {
     let params = new HttpParams()
       .set('page', page.toString())

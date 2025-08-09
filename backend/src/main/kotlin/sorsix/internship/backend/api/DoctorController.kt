@@ -61,6 +61,8 @@ class DoctorController(
 
 
     @GetMapping("{doctorId}/reports")
-    fun getDoctorReports(@PathVariable doctorId: Long) : ResponseEntity<List<AthleteReportShortDTO>> =
-        ResponseEntity.ok(athleteReportService.getReportsShortByDoctorId(doctorId));
+    fun getDoctorReports(@PathVariable doctorId: Long,
+                         @PageableDefault(size = 10, sort = ["createdAt"], direction = Sort.Direction.DESC) pageable: Pageable
+    ) : ResponseEntity<Page<AthleteReportShortDTO>> =
+        ResponseEntity.ok(athleteReportService.getReportsShortByDoctorId(doctorId, pageable));
 }

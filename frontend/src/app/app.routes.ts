@@ -20,5 +20,6 @@ export const routes: Routes = [
   {path: 'reports', component: ReportsPage},
   {path: 'reports/:id', component: ReportDetailsPage},
 
+  { path: '', redirectTo: '', pathMatch: 'full' },
   {path: '**', redirectTo: 'patient'} // TODO da nosi na 404
 ];

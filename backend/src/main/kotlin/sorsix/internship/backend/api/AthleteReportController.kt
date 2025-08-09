@@ -44,10 +44,4 @@ class AthleteReportController(
     fun getRecommendationsByReport(@PathVariable id: Long): ResponseEntity<List<RecommendationResponse>> =
         ResponseEntity.ok(recommendationService.findRecommendationsByReportId(id))
 
-    @GetMapping("/latest/recommendations")
-    fun getRecommendationsForLatestReport(): ResponseEntity<List<RecommendationResponse>> {
-        val latestReportId = athleteReportService.findLatestReportId()
-        val recommendations = recommendationService.findRecommendationsByReportId(latestReportId)
-        return ResponseEntity.ok(recommendations)
-    }
 }

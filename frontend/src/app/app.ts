@@ -7,12 +7,13 @@ import {filter, first} from 'rxjs';
   selector: 'app-root',
   imports: [RouterOutlet, Sidebar],
   templateUrl: './app.html',
+  standalone: true,
   styleUrl: './app.css'
 })
 export class App implements OnInit {
   router = inject(Router);
 
-  role = 'doctor'; // or 'doctor'
+  role = 'doctor'; // patient/doctor
 
   ngOnInit() {
     this.router.events

@@ -1,15 +1,128 @@
-/* Masonry two-column layout */
+.report-container {
+  margin: 2rem auto;
+  padding: 0 1rem;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+/* top title area */
+.report-top h1 {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.6rem;
+  color: var(--training-dark);
+  letter-spacing: -0.2px;
+}
+
+/* Layout: left content + right square */
+.report-layout {
+  display: grid;
+  grid-template-columns: 1fr 240px; /* left flexible, right fixed square area */
+  gap: 1.5rem;
+  align-items: start;
+  margin-top: 1rem;
+}
+
+/* main content column */
+.report-main {
+  min-width: 0; /* help overflow in flex contexts */
+}
+
+/* the right side square container — ensures nothing appears below it in col */
+.report-visual {
+  display: flex;
+  align-items: start;
+  justify-content: center;
+}
+
+/* square visual itself */
+.visual-square {
+  width: 220px;
+  height: 220px;
+  border-radius: 12px;
+  background: var(--training-end); /* green by default */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 28px rgba(56,102,65,0.08);
+  flex-shrink: 0;
+}
+
+/* make the SVG icon crisp and centered */
+.visual-square svg { display:block; }
+
+/* summary card at the top */
+.report-summary {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(56,102,65,0.06);
+}
+
+/* patient name styling */
+.report-patient {
+  color: var(--training-dark);
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Cards (inside masonry) — nicer visuals & consistent spacing */
+.report-card {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+/* Map bootstrap header classes to theme-friendly colors (override specific headers) */
+.report-card .card-header.bg-primary {
+  background: var(--training-end) !important;
+  color: #fff !important;
+  font-weight: 700;
+}
+.report-card .card-header.bg-success {
+  background: var(--training-start) !important; /* lighter green */
+  color: var(--training-dark) !important;
+  font-weight: 700;
+}
+.report-card .card-header.bg-info {
+  background: var(--diet-end) !important;
+  color: #fff !important;
+  font-weight: 700;
+}
+.report-card .card-header.bg-warning {
+  background: var(--supp-end) !important;
+  color: #2b2b2b !important;
+  font-weight: 700;
+}
+.report-card .card-header.bg-danger {
+  background: #BC4749 !important; /* keep the danger red */
+  color: #fff !important;
+  font-weight: 700;
+}
+
+/* masonry two-column layout (unchanged — keeps your previous behavior) */
 .masonry {
   column-count: 2;
   column-gap: 1rem;
 }
-
-/* make each card span full column-width and avoid breaking across columns */
 .masonry .card {
-  display: inline-block;     /* so it flows in CSS columns */
-  width: 100%;               /* fill the column */
-  margin-bottom: 1rem;       /* gutter below each card */
-  break-inside: avoid;       /* don’t split cards between columns */
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 1rem;
+  break-inside: avoid;
   -webkit-column-break-inside: avoid;
   -moz-column-break-inside: avoid;
+}
+
+/* Recommendations header spacing */
+.report-main h3 { margin-top: 1.5rem; color: var(--training-dark); }
+
+/* small responsive adjustments */
+@media (max-width: 991px) {
+  .report-layout { grid-template-columns: 1fr 200px; }
+  .visual-square { width: 180px; height: 180px; }
+}
+@media (max-width: 1100px) {
+  /* stack: square becomes full width and sits above content */
+  .report-layout { grid-template-columns: 1fr; }
+  .report-visual { order: -1; margin-bottom: 1rem; justify-content: center; }
+  .visual-square { width: 140px; height: 140px; margin: 0 auto; }
+  .masonry { column-count: 1; }
 }

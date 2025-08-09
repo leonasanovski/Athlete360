@@ -1,19 +1,22 @@
 @if (recommendation) {
-<div class="card h-100 shadow-sm mb-4 border-start border-4 border-success">
+<div class="card w-100 recommendation-card h-100 mb-4" [ngClass]="typeClass">
   <div class="card-body">
     <div class="d-flex justify-content-between align-items-start">
       <div>
-        <h5 class="card-title text-success fw-bold mb-1">
+        <h5 class="card-title theme-title mb-1">
           {{ recommendation.label }}
         </h5>
         <h6 class="text-muted small mb-2">
-          Type: <span class="badge bg-primary">{{ recommendation.type }}</span>
+          Type:
+          <span class="badge badge-type" [ngClass]="typeBadgeClass">{{ recommendation.type }}</span>
           &nbsp;&nbsp;
-          Restriction: <span class="badge bg-warning text-dark">{{ recommendation.restrictionLevel }}</span>
+          Restriction:
+          <span class="badge restriction-badge">{{ recommendation.restrictionLevel }}</span>
         </h6>
       </div>
+
       <div class="text-end">
-        <span class="badge bg-info text-dark">€{{ recommendation.costPerMonth }}/mo</span>
+        <span class="badge cost-badge">€{{ recommendation.costPerMonth }}/mo</span>
         <br />
         <small class="text-muted">Duration: {{ recommendation.durationWeeks }} weeks</small>
       </div>
@@ -33,7 +36,7 @@
       </div>
       <div>
         <strong>Effectiveness:</strong>
-        <span class="badge bg-secondary">{{ recommendation.effectivenessRating }}/10</span>
+        <span class="badge effectiveness-badge">{{ recommendation.effectivenessRating }}/10</span>
       </div>
     </div>
 
