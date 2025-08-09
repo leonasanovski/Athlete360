@@ -1,8 +1,5 @@
 package sorsix.internship.backend.dto
 
-import jakarta.validation.constraints.NotNull
-import sorsix.internship.backend.model.Doctor
-import sorsix.internship.backend.model.Patient
 import sorsix.internship.backend.model.enum.AthleteReportStatus
 import java.math.BigDecimal
 import java.time.LocalDateTime

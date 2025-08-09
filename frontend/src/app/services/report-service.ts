@@ -3,7 +3,6 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable, switchMap, take, tap} from 'rxjs';
 import {ReportShort} from '../models/ReportShort';
 import {ReportDetails} from '../models/ReportDetails';
-import {ReportOwner} from '../models/types/ReportOwner';
 import {AuthService} from './auth-service';
 import {PageResponse} from '../models/PageResponse';
 

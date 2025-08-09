@@ -1,8 +1,6 @@
 package sorsix.internship.backend.dto
 
 import sorsix.internship.backend.model.AthleteReport
-import sorsix.internship.backend.model.Doctor
-import sorsix.internship.backend.model.Patient
 import sorsix.internship.backend.model.enum.AthleteReportStatus
 import java.math.BigDecimal
 import java.time.LocalDateTime

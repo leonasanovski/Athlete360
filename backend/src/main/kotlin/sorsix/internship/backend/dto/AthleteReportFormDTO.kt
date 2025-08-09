@@ -5,7 +5,6 @@ import sorsix.internship.backend.model.Doctor
 import sorsix.internship.backend.model.Patient
 import sorsix.internship.backend.model.enum.AthleteReportStatus
 import java.math.BigDecimal
-import java.time.LocalDateTime
 
 data class AthleteReportFormDTO (
     val doctorId: Long,

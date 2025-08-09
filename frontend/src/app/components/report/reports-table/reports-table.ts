@@ -1,11 +1,9 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
-import {Observable, shareReplay} from 'rxjs';
+import {Component, inject, OnInit} from '@angular/core';
 import {ReportShort} from '../../../models/ReportShort';
 import {ReportService} from '../../../services/report-service';
 import {AsyncPipe, DatePipe} from '@angular/common';
 import {StatusPill} from '../status-pill/status-pill';
 import {RouterLink} from '@angular/router';
-import {Patient} from '../../../models/Patient';
 import {PageResponse} from '../../../models/PageResponse';
 
 @Component({

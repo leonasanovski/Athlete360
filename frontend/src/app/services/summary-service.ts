@@ -1,6 +1,5 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Recommendation} from '../models/Recommendation';
 import {Observable} from 'rxjs';
 import {Summary} from '../models/Summary';
 

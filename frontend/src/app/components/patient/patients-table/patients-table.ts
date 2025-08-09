@@ -1,7 +1,6 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {Patient} from '../../../models/Patient';
 import {PatientService} from '../../../services/patient-service';
-import {PageResponse} from '../../../models/PageResponse';
 import {DatePipe} from '@angular/common';
 import {debounceTime, distinctUntilChanged, Subject, switchMap} from 'rxjs';
 
