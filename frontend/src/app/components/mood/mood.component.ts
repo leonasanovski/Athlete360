@@ -5,8 +5,8 @@ import {DatePipe, SlicePipe} from '@angular/common';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {MoodStatisticsComponent} from '../mood-statistics-component/mood-statistics-component';
 import {Page} from '../../models/Page';
-import {PatientService} from '../../services/patient-service';
 import {filter, map, switchMap, tap} from 'rxjs';
+import {FormArray, FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-mood',
@@ -14,12 +14,15 @@ import {filter, map, switchMap, tap} from 'rxjs';
     DatePipe,
     SlicePipe,
     RouterLink,
-    MoodStatisticsComponent
+    MoodStatisticsComponent,
+    ReactiveFormsModule
   ],
   templateUrl: './mood.component.html',
   styleUrl: './mood.component.css'
 })
 export class MoodComponent implements OnInit {
+  moodEmotionOptions = ['EXCITED', 'HAPPY', 'NEUTRAL', 'TIRED', 'STRESSED', 'SAD'];
+  moodProgressOptions = ['GOOD', 'BAD', 'STALL'];
   moodObjects: Mood[] = []
   page: Page<Mood> | undefined
   pageSize: number = 4 //default
@@ -27,8 +30,16 @@ export class MoodComponent implements OnInit {
   moodService = inject(MoodService);
   route = inject(ActivatedRoute);
   patientId!: number | undefined
+  filterForm!: FormGroup;
+  fb = inject(FormBuilder)
 
   ngOnInit() {
+    this.filterForm = this.fb.group({
+      to: [''],
+      from: [''],
+      moodEmotion: this.fb.array([]),
+      moodProgress: this.fb.array([])
+    })
     this.route.paramMap.pipe(
       map(obj => Number(obj.get('id'))),
       filter(id => !!id),
@@ -48,20 +59,50 @@ export class MoodComponent implements OnInit {
     })
   }
 
+  applyFilters(): void {
+    this.pageNumber = 1
+    this.loadData(this.patientId!)
+  }
+
+  resetFilters(): void {
+    this.filterForm.patchValue({from: '', to: ''});
+    this.clearArray('moodEmotion');
+    this.clearArray('moodProgress');
+    this.pageNumber = 1;
+    this.loadData(this.patientId!);
+  }
+
+  private clearArray(name: 'moodEmotion' | 'moodProgress') {
+    const arr = this.filterForm.get(name) as FormArray;
+    arr.clear();
+  }
+
+  onCheckboxChange(event: Event, name: 'moodProgress' | 'moodEmotion') {
+    const checkbox = event.target as HTMLInputElement
+    const controlArray: FormArray = this.filterForm.get(name) as FormArray
+    if (checkbox.checked) {
+      controlArray.push(this.fb.control(checkbox.value))
+    } else {
+      const indexUnchecked = controlArray.controls.findIndex(element => element.value === checkbox.value)
+      controlArray.removeAt(indexUnchecked)
+    }
+  }
+
   loadData(patientId: number) {
+    const filters = this.filterForm.value;
+    console.log(filters)
     this.moodService.filterSearch(
       patientId,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
+      filters.from,
+      filters.to,
+      filters.moodEmotion,
+      filters.moodProgress,
       this.pageSize,
-      this.pageNumber).subscribe(
-      data => {
-        this.page = data
-        this.moodObjects = data.content
-      }
-    )
+      this.pageNumber
+    ).subscribe(data => {
+      this.page = data;
+      this.moodObjects = data.content;
+    });
   }
 
   getPageNumbers(): number[] {

@@ -1,7 +1,6 @@
 package sorsix.internship.backend.api
 
 import org.springframework.data.domain.Page
-import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -40,6 +39,8 @@ class MoodController(
     ): Page<MoodDTO> {
         val fromDateTime = from?.let { LocalDateTime.parse(from) }
         val toDateTime = to?.let { LocalDateTime.parse(to) }
+        println("From:$fromDateTime")
+        println("To:$toDateTime")
         return moodService
             .findAllFiltered(patientId, fromDateTime, toDateTime, moodEmotion, moodProgress, pageSize, pageNumber)
             .map { MoodMapper.mapMoodToResponseDto(it) }

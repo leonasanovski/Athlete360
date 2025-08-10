@@ -40,13 +40,8 @@ export class MoodService {
     let params = new HttpParams()
       .set('pageSize', pageSize)
       .set('pageNumber', pageNumber)
-    params.set('patientId', id)
-    if (from) {
-      params.set('from', from)
-    }
-    if (to) {
-      params.set('to', to)
-    }
+    if (from && from.trim()) params = params.set('from', from);
+    if (to && to.trim()) params = params.set('to', to);
     if (moodEmotion && moodEmotion.length != 0) {
       moodEmotion.forEach(emotion => params = params.append('moodEmotion', emotion))
     }
