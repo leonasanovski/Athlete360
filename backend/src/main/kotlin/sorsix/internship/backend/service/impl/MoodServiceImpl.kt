@@ -1,5 +1,11 @@
 package sorsix.internship.backend.service.impl
 
+import jakarta.persistence.criteria.Predicate
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Pageable
+import org.springframework.data.domain.Sort
+import org.springframework.data.jpa.domain.Specification
 import org.springframework.stereotype.Service
 import sorsix.internship.backend.dto.MoodCreatingResponseDTO
 import sorsix.internship.backend.dto.MoodStatisticsDTO
@@ -23,6 +29,8 @@ class MoodServiceImpl(
         private const val POOR_SLEEP_PENALTY = 0.6
         private const val DEFAULT_SLEEP_MULTIPLIER = 1.0
         private const val GOOD_SLEEP_BOOST = 1.3
+
+
         private const val MIN_SCORE = 1.0
         private const val MAX_SCORE = 10.0
         private const val BAD_THRESHOLD = 4
@@ -75,6 +83,54 @@ class MoodServiceImpl(
             mostFrequentProgressState = mostFrequentProgress ?: MoodProgress.STALL,
             mostFrequentEmotion = mostFrequentEmotion ?: MoodEmotion.NEUTRAL,
             progressOverTime = progress
+        )
+    }
+
+    override fun findAllFiltered(
+        patientId: Long?,
+        from: LocalDateTime?,
+        to: LocalDateTime?,
+        moodEmotion: List<MoodEmotion>?,
+        moodProgress: List<MoodProgress>?,
+        pageSize: Int,
+        pageNumber: Int
+    ): Page<Mood> {
+        //switch from and to if from is after too
+        val (start, end) = when {
+            from != null && to != null && from.isAfter(to) -> to to from
+            else -> from to to
+        }
+        //building the specification
+        val spec: Specification<Mood> = Specification { root, _, criteriaBuilder ->
+            val predicates = mutableListOf<Predicate>()
+            val createdAt = root.get<LocalDateTime>("createdAt")
+            when {
+                start != null && end != null -> predicates += criteriaBuilder.between(createdAt, start, end)
+                start != null -> predicates += criteriaBuilder.greaterThanOrEqualTo(createdAt, start)
+                end != null -> predicates += criteriaBuilder.lessThanOrEqualTo(createdAt, end)
+            }
+            if (!moodEmotion.isNullOrEmpty()) {
+                predicates.add(root.get<MoodEmotion>("moodEmotion").`in`(moodEmotion))
+            }
+            if (!moodProgress.isNullOrEmpty()) {
+                predicates.add(root.get<MoodProgress>("moodProgress").`in`(moodProgress))
+            }
+            if (predicates.isEmpty()) {
+                criteriaBuilder.conjunction()
+            }
+            patientId?.let {
+                predicates += criteriaBuilder
+                    .equal(
+                        root.get<Any>("patient")
+                            .get<Long>("patientId"), it
+                    )
+            }
+            if (predicates.isEmpty()) criteriaBuilder.conjunction()
+            else criteriaBuilder.and(*predicates.toTypedArray())
+        }
+        return moodRepository.findAll(
+            spec,
+            PageRequest.of(pageNumber - 1, pageSize, Sort.by(Sort.Direction.DESC, "createdAt"))
         )
     }
 

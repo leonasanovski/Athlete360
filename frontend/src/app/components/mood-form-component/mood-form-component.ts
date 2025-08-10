@@ -37,7 +37,7 @@ export class MoodFormComponent implements OnInit {
   onSubmit(): void {
     this.moodService.createMood(this.moodForm.value).subscribe({
       next: () => {
-        this.router.navigate(['/moods', this.patientId]);
+        this.router.navigate([`/moods/${this.patientId}/search`]);
       },
       error: (err) => {
         console.error("Error creating mood:", err);

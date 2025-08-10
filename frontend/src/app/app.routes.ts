@@ -9,7 +9,7 @@ import {MoodDetailsComponent} from './components/mood.details/mood.details.compo
 export const routes: Routes = [
   {path: 'moods', component: MoodComponent},
   {path: 'moods/add-mood', component: MoodFormComponent},
-  {path: 'moods/:id', component: MoodComponent},
+  {path: 'moods/:id/search', component: MoodComponent},
   {path: 'moods/info/:id', component: MoodDetailsComponent},
 
   {path: 'patient', component: PatientPage},

@@ -13,7 +13,7 @@
         <p><strong>Patient:</strong> {{ mood_object.patientName }} (ID: {{ mood_object.patientId }})</p>
       </div>
       <div class="card-footer text-end">
-        <a class="btn btn-sm btn-secondary" routerLink="/moods">Back to Moods</a>
+        <a class="btn btn-sm btn-secondary" routerLink="/moods/{{mood_object.patientId}}">Back to Moods</a>
       </div>
     </div>
   </div>
