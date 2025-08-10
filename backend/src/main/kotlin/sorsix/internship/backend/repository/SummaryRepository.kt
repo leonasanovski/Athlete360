@@ -6,5 +6,5 @@ import sorsix.internship.backend.model.Summary
 
 @Repository
 interface SummaryRepository : JpaRepository<Summary, Long> {
-    fun findByAthleteReportReportId(reportId: Long): Summary
+    fun findByAthleteReportReportId(reportId: Long): Summary?
 }

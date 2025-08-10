@@ -1,7 +1,7 @@
 package sorsix.internship.backend.service
 
+import sorsix.internship.backend.dto.RecommendationCreateRequest
 import sorsix.internship.backend.dto.RecommendationResponse
-import sorsix.internship.backend.model.Recommendation
 
 interface RecommendationService {
     //todo filtering recommendation by TYPE
@@ -12,4 +12,5 @@ interface RecommendationService {
     fun findRecommendationsByDoctorId(doctorId: Long): List<RecommendationResponse>
     fun findRecommendationsByPatientId(patientId: Long): List<RecommendationResponse>
     fun findRecommendationsByReportId(reportId: Long): List<RecommendationResponse>
+    fun create(recommendation: RecommendationCreateRequest) : Long
 }

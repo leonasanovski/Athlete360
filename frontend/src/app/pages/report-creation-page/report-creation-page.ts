@@ -5,8 +5,10 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ReportForm} from '../../models/ReportForm';
 import {AthleteReportStatus} from '../../models/types/AthleteReportStatus';
 import {AuthService} from '../../services/auth-service';
-import {filter, mergeMap} from 'rxjs';
+import {debounceTime, distinctUntilChanged, filter, mergeMap, of, switchMap} from 'rxjs';
 import {ReportDetails} from '../../models/ReportDetails';
+import {Patient} from '../../models/Patient';
+import {PatientService} from '../../services/patient-service';
 
 @Component({
   selector: 'report-creation-page',
@@ -18,10 +20,12 @@ import {ReportDetails} from '../../models/ReportDetails';
 export class ReportCreationPage implements OnInit{
   authService = inject(AuthService);
   reportService = inject(ReportService);
+  patientService = inject(PatientService);
+
   router = inject(Router);
   route = inject(ActivatedRoute);
   report: ReportForm | undefined;
-  statuses: AthleteReportStatus[] = ['GOOD', 'IMPROVED', 'FOLLOWUP'];
+  reportId: number | null = null;
 
   formGroup: FormGroup = new FormGroup({
     doctorId: new FormControl(0, Validators.required),
@@ -54,6 +58,10 @@ export class ReportCreationPage implements OnInit{
     cortisol: new FormControl('', Validators.required)
   });
 
+  embgResults: Patient[] = [];
+  showEmbgDropdown = false;
+  private hideDropdownTimeout: any;
+
   ngOnInit(): void {
     const doctorId = this.authService.getCurrentUser().id;
     this.formGroup.patchValue({ doctorId });
@@ -63,16 +71,52 @@ export class ReportCreationPage implements OnInit{
       mergeMap(params => this.reportService.getReportById(+params.get('id')!!))
     ).subscribe(report =>{
       if(report) {
-        this.report = this.mapDetailsToForm(report, doctorId)
+        this.report = this.mapDetailsToForm(report, doctorId);
+        this.reportId = report.reportId;
         this.formGroup.patchValue(this.report);
       }
     })
+
+    this.formGroup.get('embg')!.valueChanges.pipe(
+      debounceTime(400),
+      distinctUntilChanged(),
+      filter(value => {
+        const condition = value && value.length >= 3 && value.length!=13;
+        if(!condition) this.showEmbgDropdown = false;
+        return condition
+      }),
+      switchMap(query => {
+        this.showEmbgDropdown = true;
+        return this.patientService.searchPatientsByEmbg(query)
+      })
+    ).subscribe(res => {
+      this.embgResults = res.content;
+    });
   }
 
-  onSubmit() {}
+  onSubmit() {
+    if(this.report) {
+      this.reportService.updateReport(this.reportId!!, this.formGroup.value);
+    } else {
+      this.reportService.createReport(this.formGroup.value)
+        .subscribe(id => {
+          this.router.navigate([`/reports/${id}`]);
+        })
+    }
+  }
+
+  selectEmbg(embg: string) {
+    this.formGroup.patchValue({ embg });
+    this.showEmbgDropdown = false;
+  }
+
+  hideDropdownAfterDelay() {
+    this.hideDropdownTimeout = setTimeout(() => {
+      this.showEmbgDropdown = false;
+    }, 200);
+  }
 
   mapDetailsToForm(details: ReportDetails, doctorId: number): ReportForm {
-    console.log(details.embg)
     return {
       doctorId,
       embg: details.embg,

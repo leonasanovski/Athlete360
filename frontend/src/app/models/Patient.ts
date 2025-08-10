@@ -1,7 +1,7 @@
 export interface Patient {
   patientId: number;
   name: string;
-  embg: String;
+  embg: string;
   dateOfBirth: string;
   dateOfLatestCheckup: string;
   gender: string;

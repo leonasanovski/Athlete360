@@ -2,6 +2,7 @@ package sorsix.internship.backend.service.impl
 
 import org.springframework.data.crossstore.ChangeSetPersister
 import org.springframework.stereotype.Service
+import sorsix.internship.backend.dto.RecommendationCreateRequest
 import sorsix.internship.backend.dto.RecommendationResponse
 import sorsix.internship.backend.mappers.toDto
 import sorsix.internship.backend.model.AthleteReport
@@ -42,5 +43,12 @@ class RecommendationServiceImpl(
         return recommendationRepository.findByReportReportId(reportId).map { recommendation ->
             recommendation.toDto()
         };
+    }
+
+    override fun create(recommendation: RecommendationCreateRequest): Long {
+        val report = athleteReportRepository.findById(recommendation.reportId!!)
+            .orElseThrow { IllegalArgumentException("Report with id = ${recommendation.reportId} not found") }
+        val res = RecommendationCreateRequest.toEntity(recommendation, report);
+        return recommendationRepository.save(res).report.reportId!!;
     }
 }

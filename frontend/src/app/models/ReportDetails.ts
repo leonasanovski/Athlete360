@@ -3,7 +3,9 @@ import {AthleteReportStatus} from './types/AthleteReportStatus';
 export interface ReportDetails {
   reportId: number | null;
   doctor: string;
+  doctorId: number;
   patient: string;
+  patientId: number;
   embg: string;
   createdAt: string;
   status: AthleteReportStatus;

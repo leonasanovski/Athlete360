@@ -126,3 +126,30 @@
   .visual-square { width: 140px; height: 140px; margin: 0 auto; }
   .masonry { column-count: 1; }
 }
+
+.add-recommendation-card {
+  border: 2px dashed rgba(0,0,0,0.08);
+  cursor: pointer;
+  transition: transform .12s ease, background-color .12s ease;
+  display: flex;
+  align-items: stretch;
+}
+
+.add-recommendation-card:hover {
+  transform: translateY(-3px);
+  background-color: #f8f9fa;
+}
+
+.add-recommendation-card .plus-circle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  line-height: 1;
+  border: 2px solid rgba(13,110,253,0.15);
+  color: #0d6efd;
+  margin: 0 auto;
+}

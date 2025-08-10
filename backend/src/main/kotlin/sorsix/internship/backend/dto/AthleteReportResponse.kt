@@ -7,7 +7,9 @@ import java.time.LocalDateTime
 data class AthleteReportResponse(
     val reportId: Long?,
     val doctor: String,
+    val doctorId: Long,
     val patient: String,
+    val patientId: Long,
     val embg: String,
     val createdAt: LocalDateTime,
     val status: AthleteReportStatus,

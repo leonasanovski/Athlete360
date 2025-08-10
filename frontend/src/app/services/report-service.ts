@@ -5,6 +5,7 @@ import {ReportShort} from '../models/ReportShort';
 import {ReportDetails} from '../models/ReportDetails';
 import {AuthService} from './auth-service';
 import {PageResponse} from '../models/PageResponse';
+import {ReportForm} from '../models/ReportForm';
 
 @Injectable({
   providedIn: 'root'
@@ -36,5 +37,13 @@ export class ReportService {
 
   getReportById(id: number): Observable<ReportDetails> {
     return this.http.get<ReportDetails>(`${this.url}/reports/${id}`);
+  }
+
+  createReport(report: ReportForm): Observable<number> {
+    return this.http.post<number>(`${this.url}/reports`, report);
+  }
+
+  updateReport(id: number, report: ReportForm): Observable<void> {
+    return this.http.put<void>(`${this.url}/reports/${id}`, report);
   }
 }

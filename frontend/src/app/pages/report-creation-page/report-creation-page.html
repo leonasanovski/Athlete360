@@ -2,10 +2,23 @@
   <h2>Create Athlete Report</h2>
 
   <form [formGroup]="formGroup" (submit)="onSubmit()" class="row g-3 mt-3">
-
-    <div class="col-md-4">
+    <input type="hidden" formControlName="doctorId">
+    <div class="col-md-4 position-relative">
       <label class="form-label">Patient EMBG</label>
-      <input type="text" class="form-control" formControlName="embg">
+      <input type="text" class="form-control" formControlName="embg"
+             (blur)="hideDropdownAfterDelay()"
+      >
+      @if(showEmbgDropdown && embgResults.length > 0) {
+        <ul class="list-group position-absolute w-100"
+            style="z-index: 1000; max-height: 200px; overflow-y: auto;">
+          @for (patient of embgResults; track patient.patientId) {
+            <li class="list-group-item list-group-item-action"
+                (mousedown)="selectEmbg(patient.embg)">
+              {{ patient.embg }} - {{ patient.name }}
+            </li>
+          }
+        </ul>
+      }
     </div>
 
     <div class="col-md-4">
