@@ -14,4 +14,3 @@ export interface MoodStatisticsDTO {
     moodProgressCounts: { [key in MoodProgress]: number };
     progressOverTime: ProgressEntry[];
 }
-

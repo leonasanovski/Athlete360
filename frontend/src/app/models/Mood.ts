@@ -1,7 +1,10 @@
+import {MoodProgress} from './types/MoodProgress';
+import {MoodEmotion} from './types/MoodEmotion';
+
 export interface Mood {
   moodId: number;
-  moodProgress: string;
-  moodEmotion: string;
+  moodProgress: MoodProgress;
+  moodEmotion: MoodEmotion;
   hoursSleptAverage: number;
   moodDescription: string;
   createdAt: string;
