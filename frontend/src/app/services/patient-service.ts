@@ -56,4 +56,9 @@ export class PatientService {
       })
     )
   }
+
+  getPatientById(id: number): Observable<Patient> {
+    const url = `${this.url}/patient/${id}`
+    return this.http.get<Patient>(url)
+  }
 }

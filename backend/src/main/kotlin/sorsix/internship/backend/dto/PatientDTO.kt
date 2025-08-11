@@ -14,7 +14,8 @@ data class PatientDTO(
     val dateOfLatestCheckup: LocalDateTime?,
     val gender: Gender,
     val sportsmanCategory: SportsmanCategory,
-    val email: String
+    val email: String,
+    val doctor: String
 ) {
     companion object {
         fun fromEntity(patient: Patient): PatientDTO {
@@ -26,7 +27,8 @@ data class PatientDTO(
                 dateOfLatestCheckup = patient.dateOfLatestCheckUp,
                 gender = patient.gender,
                 sportsmanCategory = patient.sportsmanCategory,
-                email = patient.email
+                email = patient.email,
+                doctor = "Dr. ${patient.doctor.firstName} ${patient.doctor.lastName}",
             )
         }
     }
