@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {RouterLink, RouterLinkActive} from '@angular/router';
 
 @Component({
@@ -12,5 +12,5 @@ import {RouterLink, RouterLinkActive} from '@angular/router';
   styleUrl: './sidebar.css'
 })
 export class Sidebar {
-
+  @Input() role: String | undefined;
 }

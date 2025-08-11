@@ -13,10 +13,10 @@ class DoctorServiceImpl(
     private val athleteReportRepository: AthleteReportRepository
 ) : DoctorService {
 
-    override fun getReportsForDoctor(doctorId: Long): List<AthleteReport>? {
-        if (!doctorRepository.existsById(doctorId)) throw NoSuchElementException("The doctor with id=$doctorId was not found")
-        val reports = athleteReportRepository.findByDoctorDoctorId(doctorId)
-        if (reports.isEmpty()) throw NoSuchElementException("There are no reports found for doctor with id=$doctorId")
-        return reports
-    }
+//    override fun getReportsForDoctor(doctorId: Long): List<AthleteReport>? {
+//        if (!doctorRepository.existsById(doctorId)) throw NoSuchElementException("The doctor with id=$doctorId was not found")
+//        val reports = athleteReportRepository.findByDoctorDoctorId(doctorId)
+//        if (reports.isEmpty()) throw NoSuchElementException("There are no reports found for doctor with id=$doctorId")
+//        return reports
+//    }
 }

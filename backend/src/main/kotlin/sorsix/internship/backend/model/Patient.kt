@@ -7,6 +7,7 @@ import org.hibernate.type.SqlTypes
 import sorsix.internship.backend.model.enum.Gender
 import sorsix.internship.backend.model.enum.SportsmanCategory
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 @Entity
 @Table(name = "patient")
@@ -20,6 +21,9 @@ data class Patient(
     @JoinColumn(name = "doctor_id", nullable = false)
     val doctor: Doctor,
 
+    @Column(name = "embg", nullable = false)
+    val embg: String,
+
     @Column(name = "first_name", nullable = false)
     val firstName: String,
 
@@ -28,6 +32,9 @@ data class Patient(
 
     @Column(name = "date_of_birth", nullable = false)
     val dateOfBirth: LocalDate = LocalDate.now(),
+
+    @Column(name = "date_of_latest_checkup")
+    val dateOfLatestCheckUp: LocalDateTime? = null,
 
     @Enumerated(EnumType.STRING)
     @Column(name = "gender", nullable = false)

@@ -3,16 +3,17 @@
 <div class="container-fluid">
   <div class="row mt-4">
     <h3>Recommendations:</h3>
-    <div class="col-md-12 d-flex justify-content-between flex-wrap gap-2 shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+    <div class="row g-2 col-md-12 shadow-sm p-3 rounded">
       @for (r of latestRecommendations | async; track r.recommendationId) {
-        <div class="recommendation-card">
+        <div class="recommendation-card col-md-12 col-lg-6 col-xxl-4">
           <recommendation-card [recommendation]="r" />
         </div>
       }
     </div>
   </div>
   <div class="row mt-4">
-    <div class="col-md-9 d-flex flex-column justify-content-between shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+    <h3>Reports:</h3>
+    <div class="col-md-9 d-flex flex-column justify-content-between shadow-sm p-3 mb-5 rounded">
       <reports-table />
       <button class="btn btn-primary" routerLink="/reports">See More</button>
     </div>

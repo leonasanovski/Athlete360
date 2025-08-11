@@ -1,8 +1,5 @@
 package sorsix.internship.backend.dto
 
-import jakarta.validation.constraints.NotNull
-import sorsix.internship.backend.model.Doctor
-import sorsix.internship.backend.model.Patient
 import sorsix.internship.backend.model.enum.AthleteReportStatus
 import java.math.BigDecimal
 import java.time.LocalDateTime
@@ -10,7 +7,10 @@ import java.time.LocalDateTime
 data class AthleteReportResponse(
     val reportId: Long?,
     val doctor: String,
+    val doctorId: Long,
     val patient: String,
+    val patientId: Long,
+    val embg: String,
     val createdAt: LocalDateTime,
     val status: AthleteReportStatus,
     val vo2Max: BigDecimal,

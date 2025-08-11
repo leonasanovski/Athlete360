@@ -1,95 +1,128 @@
 @if (report) {
-<h1>Report Details</h1>
-<hr>
+  <div class="report-container">
+    <header class="report-top">
+      <div class="report-title">
+        <h1>Report Details</h1>
+      </div>
+    </header>
 
-<div class="container-fluid">
-  <div class="d-flex align-items-center gap-4">
-    <h2 class="mb-0">{{ report.patient }}</h2>
-    <span>
-      <status-pill [status]="report.status" fontSize="fs-6" />
-    </span>
+    <div class="report-layout">
+      <!-- LEFT: all content -->
+      <main class="report-main">
+        <div class="card report-summary mb-3">
+          <div class="card-body p-3 d-flex justify-content-between align-items-start gap-3">
+            <div>
+              <h2 class="mb-0 report-patient">{{ report.patient }}</h2>
+              <div class="text-muted small mt-1">{{ report.doctor }}</div>
+            </div>
+
+            <div class="text-end">
+              <status-pill [status]="report.status" fontSize="fs-6"></status-pill>
+              <div class="small text-muted mt-2">{{ report.createdAt | date:'MMM d y, h:mm a' }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="masonry">
+          <div class="card report-card shadow-sm">
+            <div class="card-header bg-primary text-white">General</div>
+            <div class="card-body">
+              <p><strong>Doctor:</strong> {{ report.doctor }}</p>
+              <p><strong>VO₂ Max:</strong> {{ report.vo2Max }}</p>
+              <p><strong>Avg Run/km:</strong> {{ report.averageRunPerKilometer }} min</p>
+            </div>
+          </div>
+
+          <div class="card report-card shadow-sm">
+            <div class="card-header bg-success text-white">Vitals</div>
+            <div class="card-body">
+              <p><strong>Resting HR:</strong> {{ report.restingHeartRate }} bpm</p>
+              <p><strong>Pressure HR:</strong> {{ report.underPressureHeartRate }} bpm</p>
+              <p><strong>Balance Time:</strong> {{ report.balanceTime }} s</p>
+              <p><strong>Reaction Time:</strong> {{ report.reactionTime }} s</p>
+            </div>
+          </div>
+
+          <div class="card report-card shadow-sm">
+            <div class="card-header bg-info text-white">Strength & Flexibility</div>
+            <div class="card-body">
+              <p><strong>1RM Bench:</strong> {{ report.oneRepMaxBench ?? '–' }} kg</p>
+              <p><strong>1RM Squat:</strong> {{ report.oneRepMaxSquat ?? '–' }} kg</p>
+              <p><strong>Jump Height:</strong> {{ report.jumpHeight ?? '–' }} cm</p>
+              <p><strong>Shoulder Flex:</strong> {{ report.shoulderFlexibility ?? '–' }}°</p>
+            </div>
+          </div>
+
+          <div class="card report-card shadow-sm">
+            <div class="card-header bg-warning text-dark">Body Composition</div>
+            <div class="card-body">
+              <p><strong>Body Fat:</strong> {{ report.bodyFatPercentage }}%</p>
+              <p><strong>Lean Muscle:</strong> {{ report.leanMuscleMass ?? '–' }} kg</p>
+              <p><strong>Bone Density:</strong> {{ report.boneDensity }} g/cm³</p>
+            </div>
+          </div>
+
+          <div class="card report-card shadow-sm">
+            <div class="card-header bg-danger text-white">Lab Results</div>
+            <div class="card-body">
+              <p><strong>Hemoglobin:</strong> {{ report.hemoglobin }} g/dL</p>
+              <p><strong>Glucose:</strong> {{ report.glucose }} mg/dL</p>
+              <p><strong>Creatinine:</strong> {{ report.creatinine }} mg/dL</p>
+              <p><strong>Vitamin D:</strong> {{ report.vitaminD }} ng/mL</p>
+              <p><strong>Iron:</strong> {{ report.iron }} µg/dL</p>
+              <p><strong>Testosterone:</strong> {{ report.testosterone }} ng/dL</p>
+              <p><strong>Cortisol:</strong> {{ report.cortisol }} nmol/L</p>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="mt-4">Recommendations</h3>
+        <hr>
+
+        <div class="row">
+          @for (r of recommendations; track r.recommendationId) {
+            <div class="col-12 col-md-6 g-2">
+              <recommendation-card [recommendation]="r"></recommendation-card>
+            </div>
+          }
+
+          @if (currentUserId === report.doctorId) {
+            <div class="col-12 col-md-6 g-2">
+              <div
+                class="card w-100 recommendation-card h-100 mb-4 add-recommendation-card"
+                role="button"
+                tabindex="0"
+                (click)="goToNewRecommendation(report.reportId)"
+                aria-label="Add recommendation">
+                <div class="card-body d-flex align-items-center justify-content-center">
+                  <div class="text-center">
+                    <div class="plus-circle mb-2">+</div>
+                    <div class="small text-muted">Add recommendation</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </main>
+
+      <!-- RIGHT: green square visual (no content below it) -->
+      <aside class="d-flex flex-column align-items-center sticky-top" aria-hidden="true">
+        <div class="visual-square" role="img" aria-label="Report icon">
+          <!-- simple paper + folded corner SVG, white stroke -->
+          <svg viewBox="0 0 64 64" width="96" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+            <rect x="6" y="4" width="44" height="56" rx="4" fill="none" stroke="#fff" stroke-width="2"/>
+            <path d="M34 4v14a4 4 0 0 0 4 4h14" fill="none" stroke="#fff" stroke-width="2"/>
+            <path d="M18 22h28M18 30h28M18 38h18" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3 class="mt-4 mb-4">Summary</h3>
+        <div class="card report-card shadow-sm">
+          <div class="card-body">
+            {{summary?.summarizedContent}}
+          </div>
+        </div>
+      </aside>
+    </div>
   </div>
-  <div class="mb-3">
-    <small class="text-muted">
-      {{ report.createdAt | date:'MMM d y, h:mm a' }}
-    </small>
-  </div>
-
-  <div class="masonry">
-    <div class="card shadow-sm">
-      <div class="card-header bg-primary text-white">
-        General
-      </div>
-      <div class="card-body">
-        <p><strong>Doctor:</strong> {{ report.doctor }}</p>
-        <p><strong>VO₂ Max:</strong> {{ report.vo2Max }}</p>
-        <p><strong>Avg Run/km:</strong> {{ report.averageRunPerKilometer }} min</p>
-      </div>
-    </div>
-
-    <!-- Vitals & Fitness -->
-    <div class="card shadow-sm mb-3">
-      <div class="card-header bg-success text-white">
-        Vitals
-      </div>
-      <div class="card-body">
-        <p><strong>Resting HR:</strong> {{ report.restingHeartRate }} bpm</p>
-        <p><strong>Pressure HR:</strong> {{ report.underPressureHeartRate }} bpm</p>
-        <p><strong>Balance Time:</strong> {{ report.balanceTime }} s</p>
-        <p><strong>Reaction Time:</strong> {{ report.reactionTime }} s</p>
-      </div>
-    </div>
-    <div class="card shadow-sm">
-      <div class="card-header bg-info text-white">
-        Strength & Flexibility
-      </div>
-      <div class="card-body">
-        <p><strong>1RM Bench:</strong> {{ report.oneRepMaxBench ?? '–' }} kg</p>
-        <p><strong>1RM Squat:</strong> {{ report.oneRepMaxSquat ?? '–' }} kg</p>
-        <p><strong>Jump Height:</strong> {{ report.jumpHeight ?? '–' }} cm</p>
-        <p><strong>Shoulder Flex:</strong> {{ report.shoulderFlexibility ?? '–' }}°</p>
-      </div>
-    </div>
-
-    <!-- Body Composition -->
-    <div class="card shadow-sm">
-      <div class="card-header bg-warning text-dark">
-        Body Composition
-      </div>
-      <div class="card-body">
-        <p><strong>Body Fat:</strong> {{ report.bodyFatPercentage }}%</p>
-        <p><strong>Lean Muscle:</strong> {{ report.leanMuscleMass ?? '–' }} kg</p>
-        <p><strong>Bone Density:</strong> {{ report.boneDensity }} g/cm³</p>
-      </div>
-    </div>
-
-    <!-- Lab Results -->
-    <div class="card shadow-sm">
-      <div class="card-header bg-danger text-white">
-        Lab Results
-      </div>
-      <div class="card-body">
-        <p><strong>Hemoglobin:</strong> {{ report.hemoglobin }} g/dL</p>
-        <p><strong>Glucose:</strong> {{ report.glucose }} mg/dL</p>
-        <p><strong>Creatinine:</strong> {{ report.creatinine }} mg/dL</p>
-        <p><strong>Vitamin D:</strong> {{ report.vitaminD }} ng/mL</p>
-        <p><strong>Iron:</strong> {{ report.iron }} µg/dL</p>
-        <p><strong>Testosterone:</strong> {{ report.testosterone }} ng/dL</p>
-        <p><strong>Cortisol:</strong> {{ report.cortisol }} nmol/L</p>
-      </div>
-    </div>
-  </div>
-
-  <h3 class="mt-4">Recommendations</h3>
-  <hr>
-
-  <div class="row">
-    @for (r of recommendations; track r.recommendationId) {
-      <div class="col-12 col-md-6 g-2">
-        <recommendation-card [recommendation]="r" />
-      </div>
-    }
-  </div>
-</div>
 }
-

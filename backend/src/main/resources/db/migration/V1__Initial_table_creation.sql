@@ -22,14 +22,20 @@ CREATE TABLE patient
 (
     patient_id         BIGSERIAL PRIMARY KEY,
     doctor_id          BIGINT,
+    embg               VARCHAR(13)         NOT NULL,
     first_name         VARCHAR(100)        NOT NULL,
     last_name          VARCHAR(100)        NOT NULL,
     date_of_birth      Date                NOT NULL,
+    date_of_latest_checkup TIMESTAMP,
     gender             Gender              NOT NULL,
     sportsman_category SportsmanCategory default 'RECREATION',
     email              VARCHAR(100) UNIQUE NOT NULL,
 
-    CONSTRAINT fk_patient_doctor FOREIGN KEY (doctor_id) REFERENCES doctor (doctor_id) ON DELETE RESTRICT
+    CONSTRAINT fk_patient_doctor FOREIGN KEY (doctor_id) REFERENCES doctor (doctor_id) ON DELETE RESTRICT,
+    CONSTRAINT chk_embg CHECK (
+        embg ~ '^[0-9]{13}$'
+        AND to_date(substring(embg from 1 for 7), 'DDMMYYY') IS NOT NULL
+    )
 );
 
 --athlete report entity

@@ -3,8 +3,11 @@ import {AthleteReportStatus} from './types/AthleteReportStatus';
 export interface ReportDetails {
   reportId: number | null;
   doctor: string;
+  doctorId: number;
   patient: string;
-  createdAt: string;                   // ISO date-time, e.g. "2025-08-05T14:18:10"
+  patientId: number;
+  embg: string;
+  createdAt: string;
   status: AthleteReportStatus;
   vo2Max: number;
   restingHeartRate: number;

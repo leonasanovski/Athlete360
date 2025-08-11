@@ -22,8 +22,9 @@ import {AsyncPipe} from '@angular/common';
 export class PatientPage implements OnInit{
   recommendationService = inject(RecommendationService);
   latestRecommendations: Observable<Recommendation[]> | undefined;
+  patientId = 1;
 
   ngOnInit(): void {
-    this.latestRecommendations = this.recommendationService.getLatestRecommendations()
+    this.latestRecommendations = this.recommendationService.getLatestRecommendations(this.patientId)
   }
 }

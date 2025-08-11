@@ -25,6 +25,25 @@
   --bs-dark-rgb: 33, 37, 41;
 
   --bs-white-muted: rgba(255, 255, 255, 0.8);
+
+  /* training (green) — existing look */
+  --training-start: #e6f3cb;
+  --training-end:   #A7C957;
+  --training-dark:  #386641; /* used for headings / contrast */
+
+  /* diet (blue) */
+  --diet-start: #E6F0FF;
+  --diet-end:   #2B6CB0;
+  --diet-dark:  #153E6B; /* for text contrast */
+
+  /* supplement (yellow / amber) */
+  --supp-start: #FFF9E6;
+  --supp-end:   #FFB84D;
+  --supp-dark:  #6B4B00; /* dark amber for contrast */
+
+  /* small shared tokens */
+  --card-elev-shadow: 0 8px 24px rgba(56,102,65,0.06);
+  --card-radius: 12px;
 }
 
 /* NAV & LINKS */
@@ -115,4 +134,9 @@ a:not(.nav-link):hover,
 .btn-outline-primary.active {
   background-color: var(--bs-primary-dark) !important;
   border-color: var(--bs-primary-dark) !important;
+}
+
+
+.table-primary {
+  background-color: var(--bs-primary);
 }

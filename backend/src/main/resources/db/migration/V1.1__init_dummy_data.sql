@@ -3,9 +3,31 @@ insert into doctor(first_name, last_name, specialization, email) values
          ('Gege', 'Landovski', 'Sports medicine doctor', 'gege@yahoo.com');
 
 
-insert into patient(doctor_id, first_name, last_name, date_of_birth, gender, sportsman_category, email) values
-        (1, 'Pancho', 'Ribarski', '1999-09-09', 'MALE', 'RECREATION', 'pamcho@gmail.gov'),
-        (2, 'Bancho', 'Tubarski', '1997-09-09', 'FEMALE', 'AMATEUR', 'pbancho@gmail.gov');
+INSERT INTO patient (doctor_id, embg, first_name, last_name, date_of_birth, gender, sportsman_category, email) VALUES
+        (1, '0909999450321', 'Pancho', 'Ribarski', '1999-09-09', 'MALE', 'RECREATION', 'pamcho@gmail.gov'),
+        (2, '0909997450321', 'Bancho', 'Tubarski', '1997-09-09', 'FEMALE', 'AMATEUR', 'pbancho@gmail.gov'),
+        (1, '0101000450322', 'Ivan', 'Petrov', '2000-01-01', 'MALE', 'PROFESSIONAL', 'ivan.petrov@gmail.gov'),
+        (2, '1503981450323', 'Elena', 'Markova', '1981-03-15', 'FEMALE', 'AMATEUR', 'elena.markova@gmail.gov'),
+        (1, '2304772450324', 'Goran', 'Spasovski', '1977-04-23', 'MALE', 'RECREATION', 'goran.spasovski@gmail.gov'),
+        (1, '0512893450325', 'Ana', 'Trajanova', '1989-12-05', 'FEMALE', 'PROFESSIONAL', 'ana.trajanova@gmail.gov'),
+        (2, '1712964450326', 'Petar', 'Iliev', '1996-12-17', 'MALE', 'AMATEUR', 'petar.iliev@gmail.gov'),
+        (2, '2007855450327', 'Maja', 'Nikoloska', '1985-07-20', 'FEMALE', 'RECREATION', 'maja.nikoloska@gmail.gov'),
+        (1, '3010806450328', 'Stefan', 'Kolev', '1980-10-30', 'MALE', 'PROFESSIONAL', 'stefan.kolev@gmail.gov'),
+        (2, '1409927450329', 'Sara', 'Petreska', '1992-09-14', 'FEMALE', 'AMATEUR', 'sara.petreska@gmail.gov'),
+        (1, '0505898450330', 'Viktor', 'Tanev', '1989-05-05', 'MALE', 'RECREATION', 'viktor.tanev@gmail.gov'),
+        (1, '2708949450331', 'Marija', 'Popovska', '1994-08-27', 'FEMALE', 'PROFESSIONAL', 'marija.popovska@gmail.gov'),
+        (2, '1006750450332', 'Kristijan', 'Georgiev', '1975-06-10', 'MALE', 'AMATEUR', 'kristijan.georgiev@gmail.gov'),
+        (2, '0112831450333', 'Aleksandra', 'Stojanova', '1983-12-01', 'FEMALE', 'RECREATION', 'aleksandra.stojanova@gmail.gov'),
+        (1, '1911912450334', 'Dimitar', 'Angelov', '1991-11-19', 'MALE', 'PROFESSIONAL', 'dimitar.angelov@gmail.gov'),
+        (2, '2504993450335', 'Ivana', 'Ristevska', '1999-04-25', 'FEMALE', 'AMATEUR', 'ivana.ristevska@gmail.gov'),
+        (1, '0808834450336', 'Filip', 'Milev', '1983-08-08', 'MALE', 'RECREATION', 'filip.milev@gmail.gov'),
+        (1, '2212775450337', 'Natasha', 'Dimitrova', '1977-12-22', 'FEMALE', 'PROFESSIONAL', 'natasha.dimitrova@gmail.gov'),
+        (2, '3105986450338', 'Tome', 'Krstev', '1998-05-31', 'MALE', 'AMATEUR', 'tome.krstev@gmail.gov'),
+        (2, '0909917450339', 'Biljana', 'Stefanovska', '1991-09-09', 'FEMALE', 'RECREATION', 'biljana.stefanovska@gmail.gov'),
+        (1, '0404768450340', 'Zoran', 'Velkov', '1976-04-04', 'MALE', 'PROFESSIONAL', 'zoran.velkov@gmail.gov'),
+        (2, '2711809450341', 'Katerina', 'Arsova', '1980-11-27', 'FEMALE', 'AMATEUR', 'katerina.arsova@gmail.gov'),
+        (1, '1202880450342', 'Nikola', 'Spiridonov', '1988-02-12', 'MALE', 'RECREATION', 'nikola.spiridonov@gmail.gov'),
+        (1, '1512851450343', 'Dragana', 'Gjorgjieva', '1985-12-15', 'FEMALE', 'PROFESSIONAL', 'dragana.gjorgjieva@gmail.gov');
 
 
 insert into mood(patient_id, mood_progress, mood_emotion, hours_slept_average, mood_description, mood_description_score, created_at) values

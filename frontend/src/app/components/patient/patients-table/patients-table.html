@@ -1,0 +1,56 @@
+<input type="text" #searchInput placeholder="Search by EMBG..." (input)="onSearch(searchInput.value)">
+
+<div class="table-responsive mt-3">
+  <table class="table w-100 table-hover">
+    <thead>
+    <tr>
+      <th>EMBG</th>
+      <th>
+        Name
+        <button
+          type="button"
+          class="btn btn-sm btn-link p-0 ms-2"
+          (click)="toggleSortByName()"
+          aria-label="Sort by name"
+          title="Sort by name"
+        >
+          @if(sortDirection === 'asc' && sortField === 'name') {
+            <span>▲</span>
+          } @else if (sortDirection === 'desc' && sortField === 'name') {
+            <span>▼</span>
+          } @else {
+            <span>⇅</span>
+          }
+        </button>
+      </th>
+      <th>Date of Birth</th>
+      <th>Gender</th>
+      <th>Sportsman Category</th>
+      <th>Email</th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (patient of patients; track patient.patientId) {
+        <tr>
+          <td>{{ patient.embg }}</td>
+          <td>{{ patient.name }}</td>
+          <td>{{ patient.dateOfBirth | date }}</td>
+          <td>{{ patient.gender }}</td>
+          <td>{{ patient.sportsmanCategory }}</td>
+          <td>{{ patient.email }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+@if (totalElements > size) {
+  <ul class="pagination">
+    <li class="page-item" [class.disabled]="page === 0">
+      <button class="page-link" (click)="onPageChange(page - 1)">Previous</button>
+    </li>
+    <li class="page-item" [class.disabled]="(page + 1) * size >= totalElements">
+      <button class="page-link" (click)="onPageChange(page + 1)">Next</button>
+    </li>
+  </ul>
+}
