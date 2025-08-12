@@ -7,7 +7,7 @@ export interface Patient {
   embg: string,
   doctorInfo: string,
   gender: Gender,
-  sportCategory: SportsmanCategory,
+  sportsmanCategory: SportsmanCategory,
   email: string,
   dateOfBirth: string,
   dateOfLatestCheckup: string,
