@@ -13,6 +13,7 @@ import sorsix.internship.backend.repository.PatientRepository
 import sorsix.internship.backend.repository.RecommendationRepository
 import sorsix.internship.backend.service.AthleteReportService
 import sorsix.internship.backend.service.RecommendationService
+import sorsix.internship.backend.service.SummaryService
 
 @Service
 class RecommendationServiceImpl(
@@ -49,6 +50,8 @@ class RecommendationServiceImpl(
         val report = athleteReportRepository.findById(recommendation.reportId!!)
             .orElseThrow { IllegalArgumentException("Report with id = ${recommendation.reportId} not found") }
         val res = RecommendationCreateRequest.toEntity(recommendation, report);
-        return recommendationRepository.save(res).report.reportId!!;
+        recommendationRepository.save(res);
+
+        return report.reportId!!;
     }
 }

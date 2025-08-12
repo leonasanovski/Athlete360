@@ -1,0 +1,75 @@
+<div [formGroup]="form" class="card mb-3">
+  <div class="card-body">
+    <div class="row g-3">
+      <input type="hidden" formControlName="reportId">
+
+      <div class="col-md-4">
+        <label class="form-label">Type</label>
+        <select class="form-select" formControlName="type" aria-label="Recommendation type">
+          <option value="">Select type</option>
+          <option value="TRAINING">TRAINING</option>
+          <option value="DIET">DIET</option>
+          <option value="SUPPLEMENT">SUPPLEMENT</option>
+        </select>
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">Restriction Level</label>
+        <select class="form-select" formControlName="restrictionLevel" aria-label="Restriction level">
+          <option value="">Select restriction</option>
+          <option value="NORMAL">NORMAL</option>
+          <option value="HARD">HARD</option>
+          <option value="EXTREME">EXTREME</option>
+        </select>
+      </div>
+
+      <div class="col-12">
+        <label class="form-label">Label</label>
+        <input type="text" class="form-control" formControlName="label" maxlength="70" placeholder="Short title (max 70 chars)">
+        <div class="form-text">Keep it short and descriptive.</div>
+      </div>
+
+      <div class="col-12">
+        <label class="form-label">Description</label>
+        <textarea class="form-control" rows="4" formControlName="description" maxlength="2000" placeholder="Describe the recommendation"></textarea>
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">Cost / month (€)</label>
+        <input type="number" class="form-control" formControlName="costPerMonth" min="0" step="1">
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">Duration (weeks)</label>
+        <input type="number" class="form-control" formControlName="durationWeeks" min="1" step="1">
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">Frequency / day</label>
+        <input type="number" class="form-control" formControlName="frequencyPerDay" min="0" step="1">
+      </div>
+
+      <div class="col-12">
+        <label class="form-label">Target Goal</label>
+        <textarea class="form-control" rows="2" formControlName="targetGoal" maxlength="2000" placeholder="What is the desired outcome?"></textarea>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Effectiveness (0–10)</label>
+        <input type="number" class="form-control" formControlName="effectivenessRating" min="0" max="10" step="1">
+        <div class="form-text">Estimate how effective this recommendation is on a 0–10 scale.</div>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Doctor's notes</label>
+        <textarea class="form-control" rows="3" formControlName="doctorPersonalizedNotes" maxlength="2000" placeholder="Notes for the patient (required)"></textarea>
+      </div>
+
+      <div class="col-12 d-flex justify-content-end">
+        <button class="btn btn-sm btn-outline-danger" type="button" (click)="remove.emit()">
+          Remove
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

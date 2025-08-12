@@ -1,83 +1,26 @@
 <div class="container mt-4">
-  <h2>Create Recommendation</h2>
+  <h2>Create Recommendation(s)</h2>
 
-  <form [formGroup]="formGroup" (submit)="onSubmit()" class="row g-3 mt-3">
-    <input type="hidden" formControlName="reportId">
+  <form (ngSubmit)="onSubmit()" class="mt-3">
+    @for (fg of forms.controls; track fg; let i = $index) {
+      <div>
+        <recommendation-form [form]="fg" (remove)="removeForm(i)"></recommendation-form>
+      </div>
+    }
 
-    <!-- TYPE -->
-    <div class="col-md-4">
-      <label class="form-label">Type</label>
-      <select class="form-select" formControlName="type" aria-label="Recommendation type">
-        <option value="">Select type</option>
-        <option value="TRAINING">TRAINING</option>
-        <option value="DIET">DIET</option>
-        <option value="SUPPLEMENT">SUPPLEMENT</option>
-      </select>
-    </div>
+    <div class="mt-3">
+      <button class="btn btn-primary" type="submit" [disabled]="submitting || forms.invalid">
+        {{ submitting ? 'Saving...' : 'Create All Recommendations' }}
+      </button>
 
-    <!-- RESTRICTION LEVEL -->
-    <div class="col-md-4">
-      <label class="form-label">Restriction Level</label>
-      <select class="form-select" formControlName="restrictionLevel" aria-label="Restriction level">
-        <option value="">Select restriction</option>
-        <option value="NORMAL">NORMAL</option>
-        <option value="HARD">HARD</option>
-        <option value="EXTREME">EXTREME</option>
-      </select>
-    </div>
-
-    <!-- LABEL -->
-    <div class="col-12">
-      <label class="form-label">Label</label>
-      <input type="text" class="form-control" formControlName="label" maxlength="70" placeholder="Short title (max 70 chars)">
-      <div class="form-text">Keep it short and descriptive.</div>
-    </div>
-
-    <!-- DESCRIPTION -->
-    <div class="col-12">
-      <label class="form-label">Description</label>
-      <textarea class="form-control" rows="4" formControlName="description" maxlength="2000" placeholder="Describe the recommendation"></textarea>
-    </div>
-
-    <!-- COST / DURATION / FREQUENCY -->
-    <div class="col-md-4">
-      <label class="form-label">Cost / month (€)</label>
-      <input type="number" class="form-control" formControlName="costPerMonth" min="0" step="1">
-    </div>
-
-    <div class="col-md-4">
-      <label class="form-label">Duration (weeks)</label>
-      <input type="number" class="form-control" formControlName="durationWeeks" min="1" step="1">
-    </div>
-
-    <div class="col-md-4">
-      <label class="form-label">Frequency / day</label>
-      <input type="number" class="form-control" formControlName="frequencyPerDay" min="0" step="1">
-    </div>
-
-    <!-- TARGET GOAL -->
-    <div class="col-12">
-      <label class="form-label">Target Goal</label>
-      <textarea class="form-control" rows="2" formControlName="targetGoal" maxlength="2000" placeholder="What is the desired outcome?"></textarea>
-    </div>
-
-    <!-- EFFECTIVENESS -->
-    <div class="col-md-6">
-      <label class="form-label">Effectiveness (0–10)</label>
-      <input type="number" class="form-control" formControlName="effectivenessRating" min="0" max="10" step="1">
-      <div class="form-text">Estimate how effective this recommendation is on a 0–10 scale.</div>
-    </div>
-
-    <!-- DOCTOR NOTES -->
-    <div class="col-md-6">
-      <label class="form-label">Doctor's notes</label>
-      <textarea class="form-control" rows="3" formControlName="doctorPersonalizedNotes" maxlength="2000" placeholder="Notes for the patient (required)"></textarea>
-    </div>
-
-    <!-- ACTIONS -->
-    <div class="col-12 d-flex gap-2 mt-2">
-      <button type="submit" class="btn btn-primary" [disabled]="formGroup.invalid">Create Recommendation</button>
-      <button type="button" class="btn btn-outline-secondary" (click)="router.navigate(['/reports', reportId || ''])">Cancel</button>
+      <button class="btn btn-outline-secondary ms-2" type="button" (click)="cancel()">
+        Cancel
+      </button>
     </div>
   </form>
+
+  <!-- floating add button always visible at bottom-right -->
+  <button class="btn btn-success add-btn" type="button" (click)="addForm()">
+    + Add recommendation
+  </button>
 </div>

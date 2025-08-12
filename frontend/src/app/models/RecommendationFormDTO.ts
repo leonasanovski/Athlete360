@@ -1,7 +1,7 @@
 import {RecommendationType} from './types/RecommendationType';
 import {RestrictionLevel} from './types/RestrictionLevel';
 
-export interface RecommendationForm {
+export interface RecommendationFormDTO {
   reportId: number;
   type: RecommendationType;
   restrictionLevel: RestrictionLevel;

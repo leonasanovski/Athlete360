@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.reactive.function.client.WebClientResponseException
 import reactor.util.retry.Retry
+import sorsix.internship.backend.dto.RecommendationCreateRequest
+import sorsix.internship.backend.dto.RecommendationResponse
 import java.time.Duration
 
 @Service
@@ -51,6 +53,79 @@ class OpenAiService(
             println("Response body: ${ex.responseBodyAsString}")
             ex.printStackTrace()
             0
+        }
+    }
+
+    fun summarizeRecommendations(recommendations: List<RecommendationResponse>): String {
+        if (recommendations.isEmpty()) return ""
+
+        val promptBuilder = StringBuilder()
+        promptBuilder.appendLine(
+            """
+        You are an expert sports-medicine summary writer. Your job is to read a list of clinical recommendations provided by a sports medicine team and produce a professional, clinically-minded written summary intended for:
+        1) the patient (clear, actionable highlights) and
+        2) the treating clinician (concise clinical notes and flags).
+        
+        Instructions:
+        - Start with a short overview (2–4 sentences) describing overall themes, major priorities, estimated monthly cost total, and any potential conflicts or important cautions.
+        - Then produce a clearly numbered section for each recommendation using the exact label "Recommendation N:" followed by the fields formatted consistently (one field per line) in the order shown below.
+        - For each recommendation include these fields: recommendationId, reportId, type, restrictionLevel, label, description, costPerMonth, durationWeeks, frequencyPerDay, targetGoal, effectivenessRating, doctorPersonalizedNotes.
+        - After listing the recommendation fields, add a one-sentence "Clinical interpretation" that notes clinical priority (High / Medium / Low), who should be primarily responsible (patient / clinician), and one practical takeaway for the patient.
+        - End with a short "Action plan" (2–3 bullet points) summarizing next steps across all recommendations.
+        
+        Formatting rules:
+        - Use plain text.
+        - Use "Recommendation 1:", "Recommendation 2:", ... exactly.
+        - For fields, use `FieldName: value` (e.g., `label: Morning mobility routine`).
+        - Keep language professional, concise, and actionable.
+        - Do NOT include anything outside the requested summary (no meta commentary, no explanation of how you generated the summary).
+        """.trimIndent()
+        )
+
+        recommendations.forEachIndexed { idx, r ->
+            val num = idx + 1
+            promptBuilder.appendLine()
+            promptBuilder.appendLine("Recommendation $num:")
+            promptBuilder.appendLine("type: ${r.type}")
+            promptBuilder.appendLine("restrictionLevel: ${r.restrictionLevel}")
+            promptBuilder.appendLine("label: ${r.label}")
+            promptBuilder.appendLine("description: \"\"\"${r.description?.trim() ?: ""}\"\"\"")
+            promptBuilder.appendLine("costPerMonth: ${r.costPerMonth}")
+            promptBuilder.appendLine("durationWeeks: ${r.durationWeeks}")
+            promptBuilder.appendLine("frequencyPerDay: ${r.frequencyPerDay}")
+            promptBuilder.appendLine("targetGoal: ${r.targetGoal}")
+            promptBuilder.appendLine("effectivenessRating: ${r.effectivenessRating}")
+            promptBuilder.appendLine("doctorPersonalizedNotes: \"\"\"${r.doctorPersonalizedNotes?.trim() ?: ""}\"\"\"")
+        }
+
+        promptBuilder.appendLine()
+        promptBuilder.appendLine("Return only the requested professional summary following the instructions above. Nothing else.")
+
+        val prompt = promptBuilder.toString()
+
+        val requestBody = OpenAiRequest(
+            model = openAiModel,
+            messages = listOf(Message(role = "user", content = prompt))
+        )
+
+        return try {
+            val response = webClient.post()
+                .bodyValue(requestBody)
+                .retrieve()
+                .bodyToMono(OpenAiResponse::class.java)
+                .retryWhen(
+                    Retry.backoff(1, Duration.ofSeconds(5))
+                        .filter { it is WebClientResponseException.TooManyRequests }
+                )
+                .block()
+
+            val content = response?.message?.content?.trim() ?: ""
+            content
+        } catch (ex: WebClientResponseException) {
+            println("HTTP Status: ${ex.statusCode}")
+            println("Response body: ${ex.responseBodyAsString}")
+            ex.printStackTrace()
+            ""
         }
     }
 

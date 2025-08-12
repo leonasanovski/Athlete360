@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Recommendation} from '../models/Recommendation';
 import {Observable} from 'rxjs';
 import {ReportForm} from '../models/ReportForm';
-import {RecommendationForm} from '../models/RecommendationForm';
+import {RecommendationFormDTO} from '../models/RecommendationFormDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,7 @@ export class RecommendationService {
     return this.http.get<Recommendation[]>(`${this.url}/patient/${id}/latest/recommendations`);
   }
 
-  createRecommendation(recommendation: RecommendationForm): Observable<number> {
+  createRecommendation(recommendation: RecommendationFormDTO): Observable<number> {
     console.log(recommendation)
     return this.http.post<number>(`${this.url}/recommendations`, recommendation);
   }
