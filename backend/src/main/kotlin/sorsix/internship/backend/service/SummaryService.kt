@@ -8,4 +8,5 @@ interface SummaryService {
     fun findSummaryByReportId(reportId: Long) : SummaryDTO
     fun create(summary: SummaryCreateRequest) : Long
     fun createWithAI(reportId: Long): Long
+    fun update(reportId: Long, request: SummaryCreateRequest): Long
 }

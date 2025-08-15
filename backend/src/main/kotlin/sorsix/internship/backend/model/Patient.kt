@@ -34,7 +34,7 @@ data class Patient(
     val dateOfBirth: LocalDate = LocalDate.now(),
 
     @Column(name = "date_of_latest_checkup")
-    val dateOfLatestCheckUp: LocalDateTime? = null,
+    var dateOfLatestCheckUp: LocalDateTime? = null,
 
     @Enumerated(EnumType.STRING)
     @Column(name = "gender", nullable = false)

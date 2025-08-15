@@ -2,6 +2,8 @@ import {inject, Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {catchError, Observable, of, throwError} from 'rxjs';
 import {Summary} from '../models/Summary';
+import {RecommendationFormDTO} from '../models/RecommendationFormDTO';
+import {SummaryForm} from '../models/SummaryForm';
 
 @Injectable({
   providedIn: 'root'
@@ -19,5 +21,13 @@ export class SummaryService {
         return throwError(() => err);
       })
     );
+  }
+
+  createSummaryAI(reportId: number): Observable<number> {
+    return this.http.get<number>(`${this.url}/summary/ai/${reportId}`);
+  }
+
+  patchSummary(reportId: number, payload: Partial<SummaryForm>): Observable<number> {
+    return this.http.patch<number>(`${this.url}/summary/${reportId}`, payload);
   }
 }

@@ -17,6 +17,7 @@ import sorsix.internship.backend.repository.DoctorRepository
 import sorsix.internship.backend.repository.PatientRepository
 import sorsix.internship.backend.service.AthleteReportService
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.Period
 
 @Service
@@ -33,6 +34,9 @@ class AthleteReportServiceImpl(
 
         val patient = patientRepository.findByEmbg(requestObject.embg)
             ?: throw IllegalArgumentException("Patient with embg = ${requestObject.embg} not found")
+
+        patient.dateOfLatestCheckUp = LocalDateTime.now();
+        patientRepository.save(patient);
 
         val report = AthleteReportFormDTO.toEntity(requestObject, doctor, patient)
         return athleteReportRepository.save(report).reportId!!

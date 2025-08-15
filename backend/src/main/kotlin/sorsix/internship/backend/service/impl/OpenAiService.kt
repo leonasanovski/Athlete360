@@ -125,7 +125,7 @@ class OpenAiService(
             println("HTTP Status: ${ex.statusCode}")
             println("Response body: ${ex.responseBodyAsString}")
             ex.printStackTrace()
-            ""
+            "DUMMY WORKS"
         }
     }
 

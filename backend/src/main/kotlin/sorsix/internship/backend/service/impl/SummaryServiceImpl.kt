@@ -42,10 +42,30 @@ class SummaryServiceImpl(
     override fun createWithAI(reportId: Long): Long {
         val report = athleteReportRepository.findById(reportId)
             .orElseThrow { IllegalArgumentException("Report with id = $reportId not found") }
-        val recommendations = recommendationService.findRecommendationsByReportId(reportId);
-        val summarized = openAiService.summarizeRecommendations(recommendations);
-        summaryRepository.save(Summary(athleteReport = report, summarizedContent = summarized))
 
-        return reportId;
+        val recommendations = recommendationService.findRecommendationsByReportId(reportId)
+        val summarized = openAiService.summarizeRecommendations(recommendations)
+
+        val existingSummary = summaryRepository.findByAthleteReportReportId(reportId)
+
+        if (existingSummary != null) {
+            existingSummary.summarizedContent = summarized
+            summaryRepository.save(existingSummary)
+        } else {
+            val newSummary = Summary(athleteReport = report, summarizedContent = summarized)
+            summaryRepository.save(newSummary)
+        }
+
+        return reportId
+    }
+
+    override fun update(reportId: Long, request: SummaryCreateRequest): Long {
+        val summary = summaryRepository.findByAthleteReportReportId(reportId)
+            ?: throw IllegalArgumentException("Report with id = $reportId not found")
+
+        request.summarizedContent?.let { summary.summarizedContent = it }
+
+        summaryRepository.save(summary)
+        return reportId
     }
 }
