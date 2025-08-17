@@ -20,9 +20,9 @@ import sorsix.internship.backend.repository.PatientRepository
 import sorsix.internship.backend.service.AthleteReportService
 import sorsix.internship.backend.service.RecommendationService
 
-@CrossOrigin(origins = ["http://localhost:4200"])
 @RestController
 @RequestMapping("/api/patient")
+@CrossOrigin(origins = ["http://localhost:4200"])
 class PatientController(val athleteReportService: AthleteReportService, val recommendationService: RecommendationService, val patientRepository: PatientRepository) {
 
     @GetMapping("/{patientId}")

@@ -2,7 +2,7 @@ import {Component, inject, OnInit} from '@angular/core';
 import {filter, forkJoin, map, switchMap} from 'rxjs';
 import {ReportDetails} from '../../models/ReportDetails';
 import {ReportService} from '../../services/report-service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {DatePipe} from '@angular/common';
 import {StatusPill} from '../../components/report/status-pill/status-pill';
 import {Recommendation} from '../../models/Recommendation';
@@ -17,7 +17,8 @@ import {AuthService} from '../../services/auth-service';
   imports: [
     DatePipe,
     StatusPill,
-    RecommendationCard
+    RecommendationCard,
+    RouterLink
   ],
   templateUrl: './report-details-page.html',
   standalone: true,
@@ -49,7 +50,6 @@ export class ReportDetailsPage implements OnInit{
       switchMap(id => this.reportService.getReportById(+id).pipe(
         switchMap(report => {
           this.report = report;
-
           return forkJoin({
             recommendations: this.recommendationService.getRecommendationsByReportId(report.reportId!),
             summary: this.summaryService.getSummaryByReportId(report.reportId!)

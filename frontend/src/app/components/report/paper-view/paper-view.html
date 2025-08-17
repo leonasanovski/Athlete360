@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Athlete Performance Report</title>
+</head>
+<body>
+<div class="container">
+  <div class="report-container" id="reportContainer" #exportHTML>
+    <div class="report-header">
+      <div class="report-title">Athlete Performance Report</div>
+      <div class="report-subtitle">Comprehensive Health & Performance Analysis</div>
+    </div>
+    <div class="patient-info">
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-label">Athlete Name</div>
+          <div class="info-value">{{ reportDetails?.patient }}</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">EMBG</div>
+          <div class="info-value">{{ reportDetails?.embg }}</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Doctor</div>
+          <div class="info-value">Dr. {{ reportDetails?.doctor }}</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Height</div>
+          <div class="info-value">{{ reportDetails?.height }} cm</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Weight</div>
+          <div class="info-value">{{ reportDetails?.weight }} kg</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Status</div>
+          <span class="status-badge">
+            {{ reportDetails?.status }}
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="results-section text-center">
+      <div class="section-title">Cardiovascular Performance</div>
+      <table class="results-table">
+        <thead>
+        <tr>
+          <th>Test Name</th>
+          <th>Result</th>
+          <th>Units</th>
+          <th>Reference Range</th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (rep of report; track rep.label) {
+            <tr>
+              <td>{{ rep.label[0].toUpperCase() }}{{ rep.label.substring(1) }}</td>
+              <td [class]="flagColorClass(rep.level)">{{ rep.value }}</td>
+              <td>{{ getUnit(rep.label) }}</td>
+              <td
+                class="{{ getReferenceRange(rep.label) !== '-'  ? '' : 'fst-italic text-secondary' }}">{{ getReferenceRange(rep.label) !== '-' ? getReferenceRange(rep.label) : 'No info provided' }}
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    <div class="footer">
+      <p><strong>Sports Medicine Center</strong> | Athlete360 Online Platform</p>
+      <p>Phone: (389) 75 622 486 | Confidential medical information</p>
+    </div>
+  </div>
+</div>
+<button (click)="exportToPdf()">Export As PDF</button>
+</body>
+</html>

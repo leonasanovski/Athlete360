@@ -8,7 +8,7 @@ export interface ReportDetails {
   patientId: number;
   embg: string;
   createdAt: string;
-  status: AthleteReportStatus;
+  status: AthleteReportStatus; //GOOD IMPROVED FOLLOWUP
   vo2Max: number;
   restingHeartRate: number;
   underPressureHeartRate: number;

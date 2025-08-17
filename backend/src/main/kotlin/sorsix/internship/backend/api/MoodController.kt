@@ -14,9 +14,9 @@ import sorsix.internship.backend.repository.MoodRepository
 import sorsix.internship.backend.service.MoodService
 import java.time.LocalDateTime
 
-@CrossOrigin(origins = ["http://localhost:4200"])
 @RestController
 @RequestMapping("/api/moods")
+@CrossOrigin(origins = ["http://localhost:4200"])
 class MoodController(
     private val moodRepository: MoodRepository,
     private val moodService: MoodService

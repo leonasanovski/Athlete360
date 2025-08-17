@@ -6,6 +6,7 @@ import {ReportDetails} from '../models/ReportDetails';
 import {AuthService} from './auth-service';
 import {PageResponse} from '../models/PageResponse';
 import {ReportForm} from '../models/ReportForm';
+import {ReportFlags} from '../models/ReportFlags';
 
 @Injectable({
   providedIn: 'root'
@@ -29,14 +30,18 @@ export class ReportService {
           .set('sort', sort);
         return this.http.get<PageResponse<ReportShort>>(
           `${this.url}/${user.role}/${user.id}/reports`,
-          { params }
-          )
+          {params}
+        )
       })
     );
   }
 
   getReportById(id: number): Observable<ReportDetails> {
     return this.http.get<ReportDetails>(`${this.url}/reports/${id}`);
+  }
+
+  getFlagsForAttributes(id: number): Observable<ReportFlags> {
+    return this.http.get<ReportFlags>(`${this.url}/reports/${id}/flags`);
   }
 
   createReport(report: ReportForm): Observable<number> {

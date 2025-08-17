@@ -12,9 +12,9 @@ import sorsix.internship.backend.repository.PatientRepository
 import java.time.LocalDate
 
 
-@CrossOrigin(origins = ["http://localhost:4200"])
 @RestController
-@RequestMapping("/api/admin")//todo make it only for admins
+@RequestMapping("/api/admin")
+@CrossOrigin(origins = ["http://localhost:4200"])
 class AdminDataController(
     private val doctorRepository: DoctorRepository,
     private val patientRepository: PatientRepository,

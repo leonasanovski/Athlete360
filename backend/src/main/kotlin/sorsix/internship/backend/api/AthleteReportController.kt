@@ -10,9 +10,9 @@ import sorsix.internship.backend.service.RecommendationService
 import sorsix.internship.backend.service.SummaryService
 
 
-@CrossOrigin(origins = ["http://localhost:4200"])
 @RestController
 @RequestMapping("/api/reports")
+@CrossOrigin(origins = ["http://localhost:4200"])
 class AthleteReportController(
     private val athleteReportService: AthleteReportService,
     private val recommendationService: RecommendationService,

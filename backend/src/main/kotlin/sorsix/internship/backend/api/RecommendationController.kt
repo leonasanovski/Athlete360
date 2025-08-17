@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RestController
 import sorsix.internship.backend.dto.RecommendationCreateRequest
 import sorsix.internship.backend.service.RecommendationService
 
-@CrossOrigin(origins = ["http://localhost:4200"])
 @RestController
 @RequestMapping("/api/recommendations")
+@CrossOrigin(origins = ["http://localhost:4200"])
 class RecommendationController(val recommendationService: RecommendationService) {
 
     @PostMapping
