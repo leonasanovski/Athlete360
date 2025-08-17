@@ -27,10 +27,10 @@ class SummaryController(val summaryService: SummaryService) {
     }
 
     @GetMapping("/ai/{reportId}")
-    fun createWithAI(@PathVariable reportId: Long): ResponseEntity<Long> {
+    fun getWithAI(@PathVariable reportId: Long): ResponseEntity<String> {
         return ResponseEntity
             .status(HttpStatus.CREATED)
-            .body(summaryService.createWithAI(reportId))
+            .body(summaryService.getSummaryAI(reportId))
     }
 
     @PatchMapping("/{reportId}")

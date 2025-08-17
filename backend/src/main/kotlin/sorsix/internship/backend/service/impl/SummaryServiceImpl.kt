@@ -6,8 +6,6 @@ import org.springframework.web.server.ResponseStatusException
 import sorsix.internship.backend.dto.SummaryCreateRequest
 import sorsix.internship.backend.dto.SummaryDTO
 import sorsix.internship.backend.mappers.toDto
-import sorsix.internship.backend.model.AthleteReport
-import sorsix.internship.backend.model.Summary
 import sorsix.internship.backend.repository.AthleteReportRepository
 import sorsix.internship.backend.repository.SummaryRepository
 import sorsix.internship.backend.service.RecommendationService
@@ -33,30 +31,20 @@ class SummaryServiceImpl(
     override fun create(summary: SummaryCreateRequest): Long {
         val report = athleteReportRepository.findById(summary.reportId!!)
             .orElseThrow { IllegalArgumentException("Report with id = ${summary.reportId} not found") }
-        val res = SummaryCreateRequest.toEntity(summary, report);
-        summaryRepository.save(res);
+        val res = SummaryCreateRequest.toEntity(summary, report)
+        summaryRepository.save(res)
 
-        return report.reportId!!;
+        return report.reportId!!
     }
 
-    override fun createWithAI(reportId: Long): Long {
+    override fun getSummaryAI(reportId: Long): String {
         val report = athleteReportRepository.findById(reportId)
             .orElseThrow { IllegalArgumentException("Report with id = $reportId not found") }
 
         val recommendations = recommendationService.findRecommendationsByReportId(reportId)
         val summarized = openAiService.summarizeRecommendations(recommendations)
 
-        val existingSummary = summaryRepository.findByAthleteReportReportId(reportId)
-
-        if (existingSummary != null) {
-            existingSummary.summarizedContent = summarized
-            summaryRepository.save(existingSummary)
-        } else {
-            val newSummary = Summary(athleteReport = report, summarizedContent = summarized)
-            summaryRepository.save(newSummary)
-        }
-
-        return reportId
+        return summarized
     }
 
     override fun update(reportId: Long, request: SummaryCreateRequest): Long {
