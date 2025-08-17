@@ -12,6 +12,7 @@ import {SummaryCreationPage} from './pages/summary-creation-page/summary-creatio
 
 export const routes: Routes = [
   {path: 'patient', component: PatientPage},
+  {path: 'patient/:id', component: PatientPage},
 
   {path: 'doctor', component: DoctorPage},
 

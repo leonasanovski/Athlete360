@@ -3,11 +3,13 @@ import {Patient} from '../../../models/Patient';
 import {PatientService} from '../../../services/patient-service';
 import {DatePipe} from '@angular/common';
 import {debounceTime, distinctUntilChanged, Subject, switchMap} from 'rxjs';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'patients-table',
   imports: [
-    DatePipe
+    DatePipe,
+    RouterLink
   ],
   templateUrl: './patients-table.html',
   standalone: true,

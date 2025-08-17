@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, Input, OnInit} from '@angular/core';
 import {ReportShort} from '../../../models/ReportShort';
 import {ReportService} from '../../../services/report-service';
 import {AsyncPipe, DatePipe} from '@angular/common';
@@ -19,6 +19,7 @@ import {PageResponse} from '../../../models/PageResponse';
   styleUrl: './reports-table.css'
 })
 export class ReportsTable implements OnInit {
+  @Input() id: number | null = null;
   reportService = inject(ReportService);
 
   reports: ReportShort[] = [];
@@ -35,7 +36,7 @@ export class ReportsTable implements OnInit {
 
   loadReports(page: number = this.page) {
       const sortParam = `${this.sortField},${this.sortDirection}`;
-      this.reportService.getReportsShort(page, this.size, sortParam)
+      this.reportService.getReportsShort(page, this.size, sortParam, this.id)
         .subscribe((res: PageResponse<ReportShort>) => {
           this.reports = res.content;
           this.totalElements = res.totalElements;
