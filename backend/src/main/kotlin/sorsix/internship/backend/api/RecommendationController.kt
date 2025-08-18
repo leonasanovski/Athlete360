@@ -18,7 +18,6 @@ class RecommendationController(val recommendationService: RecommendationService)
 
     @PostMapping
     fun createRecommendation(@Valid @RequestBody body: RecommendationCreateRequest) : ResponseEntity<Long> {
-        println(body)
         return ResponseEntity
             .status(HttpStatus.CREATED)
             .body(recommendationService.create(body))

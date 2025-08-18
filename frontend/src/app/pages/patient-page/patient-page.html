@@ -3,18 +3,34 @@
 <div class="container-fluid">
   <div class="row mt-4">
     <h3>Recommendations:</h3>
-    <div class="row g-2 col-md-12 shadow-sm p-3 rounded">
-      @for (r of latestRecommendations | async; track r.recommendationId) {
-        <div class="recommendation-card col-md-12 col-lg-6 col-xxl-4">
-          <recommendation-card [recommendation]="r" />
+    @if(latestRecommendations$ | async) {
+      <div class="row g-2 col-md-12 shadow-sm p-3 rounded">
+        @for (r of latestRecommendations$ | async; track r.recommendationId) {
+          <div class="recommendation-card col-md-12 col-lg-6 col-xxl-4">
+            <recommendation-card [recommendation]="r" />
+          </div>
+        }
+      </div>
+    } @else {
+      <div
+        [routerLink]="['/reports/new']"
+        class="card w-100 recommendation-card h-100 mb-4 add-recommendation-card"
+        role="button"
+        tabindex="0"
+        aria-label="Add recommendation">
+        <div class="card-body d-flex align-items-center justify-content-center">
+          <div class="text-center">
+            <div class="plus-circle mb-2">+</div>
+            <div class="small text-muted">Create Report</div>
+          </div>
         </div>
-      }
-    </div>
+      </div>
+    }
   </div>
   <div class="row mt-4">
     <h3>Reports:</h3>
     <div class="col-md-9 d-flex flex-column justify-content-between shadow-sm p-3 mb-5 rounded">
-      <reports-table />
+      <reports-table [id]="patientId" />
       <button class="btn btn-primary" routerLink="/reports">See More</button>
     </div>
     <div class="col-md-3 shadow-sm p-3 mb-5 bg-body-tertiary rounded">

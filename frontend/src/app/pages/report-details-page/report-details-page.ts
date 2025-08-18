@@ -62,7 +62,7 @@ export class ReportDetailsPage implements OnInit{
     });
   }
 
-  goToNewRecommendation(reportId?: number | null) {
+goToNewRecommendation(reportId?: number | null) {
     if (!reportId) return;
     this.router.navigate(['/recommendations/new'], { queryParams: { reportId } });
   }

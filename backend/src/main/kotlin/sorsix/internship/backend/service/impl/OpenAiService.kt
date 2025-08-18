@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.reactive.function.client.WebClientResponseException
 import reactor.util.retry.Retry
-import sorsix.internship.backend.dto.RecommendationCreateRequest
 import sorsix.internship.backend.dto.RecommendationResponse
 import java.time.Duration
 
@@ -13,11 +12,18 @@ import java.time.Duration
 class OpenAiService(
     @Value("\${openai.api.url}")
     private val openAiURL: String,
+    @Value("http://localhost:11434/api/generate")
+    private val summaryURL: String,
     @Value("\${openai.api.model}")
     private val openAiModel: String,
 ) {
     private val webClient = WebClient.builder()
         .baseUrl(openAiURL)
+        .defaultHeader("Content-Type", "application/json")
+        .build()
+
+    private val testWebClient = WebClient.builder()
+        .baseUrl(summaryURL)
         .defaultHeader("Content-Type", "application/json")
         .build()
 
@@ -68,17 +74,14 @@ class OpenAiService(
         
         Instructions:
         - Start with a short overview (2–4 sentences) describing overall themes, major priorities, estimated monthly cost total, and any potential conflicts or important cautions.
-        - Then produce a clearly numbered section for each recommendation using the exact label "Recommendation N:" followed by the fields formatted consistently (one field per line) in the order shown below.
-        - For each recommendation include these fields: recommendationId, reportId, type, restrictionLevel, label, description, costPerMonth, durationWeeks, frequencyPerDay, targetGoal, effectivenessRating, doctorPersonalizedNotes.
-        - After listing the recommendation fields, add a one-sentence "Clinical interpretation" that notes clinical priority (High / Medium / Low), who should be primarily responsible (patient / clinician), and one practical takeaway for the patient.
-        - End with a short "Action plan" (2–3 bullet points) summarizing next steps across all recommendations.
+        - Then produce a section for each recommendation using it's label property, exactly like "Label:".
+        - End with a short "Action plan" (as many bullet points as you deem worthy) summarizing next steps across all recommendations.
         
         Formatting rules:
         - Use plain text.
-        - Use "Recommendation 1:", "Recommendation 2:", ... exactly.
-        - For fields, use `FieldName: value` (e.g., `label: Morning mobility routine`).
         - Keep language professional, concise, and actionable.
         - Do NOT include anything outside the requested summary (no meta commentary, no explanation of how you generated the summary).
+        - Do NOT repeat the recommendations back to me, just give your professional summary of them and any other advice you deem worthy from your professional experience.
         """.trimIndent()
         )
 
@@ -99,33 +102,38 @@ class OpenAiService(
         }
 
         promptBuilder.appendLine()
-        promptBuilder.appendLine("Return only the requested professional summary following the instructions above. Nothing else.")
+        promptBuilder.appendLine("Return only the requested professional summary following the instructions above. Nothing else. Don't use any markdown or any kind of formatting what so ever, just respond with TEXT.")
+        promptBuilder.appendLine()
+        promptBuilder.appendLine("IMPORTANT: Do NOT output only the word 'Overview' or any single-word headings.")
+        promptBuilder.appendLine("Start immediately with the 2-4 sentence overview (no standalone heading), then continue with the specifics.")
+        promptBuilder.appendLine()
 
         val prompt = promptBuilder.toString()
 
-        val requestBody = OpenAiRequest(
-            model = openAiModel,
-            messages = listOf(Message(role = "user", content = prompt))
+        println(prompt)
+
+        val requestBody = mapOf(
+            "model" to openAiModel,
+            "prompt" to prompt,
+            "max_tokens" to 1024,
+            "temperature" to 0.1,
+            "stream" to false
         )
 
         return try {
-            val response = webClient.post()
+            val raw = testWebClient.post()
                 .bodyValue(requestBody)
                 .retrieve()
-                .bodyToMono(OpenAiResponse::class.java)
-                .retryWhen(
-                    Retry.backoff(1, Duration.ofSeconds(5))
-                        .filter { it is WebClientResponseException.TooManyRequests }
-                )
+                .bodyToMono(OpenAiResponse2::class.java)
                 .block()
 
-            val content = response?.message?.content?.trim() ?: ""
-            content
+            println("RAW RESPONSE:\n$raw")
+            raw?.response?.trim() ?: ""
         } catch (ex: WebClientResponseException) {
             println("HTTP Status: ${ex.statusCode}")
             println("Response body: ${ex.responseBodyAsString}")
             ex.printStackTrace()
-            ""
+            "Couldn't generate summary"
         }
     }
 
@@ -136,6 +144,21 @@ class OpenAiService(
 
     data class OpenAiResponse(
         val message: Message
+    )
+
+    data class OpenAiResponse2(
+        val model: String,
+        val created_at: String,
+        val response: String?,
+        val done: Boolean,
+        val done_reason: String?,
+        val context: List<Long>?,
+        val total_duration: Long?,
+        val load_duration: Long?,
+        val prompt_eval_count: Int?,
+        val prompt_eval_duration: Long?,
+        val eval_count: Int?,
+        val eval_duration: Long?
     )
 
     data class Message(

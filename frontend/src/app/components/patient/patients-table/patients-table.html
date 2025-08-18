@@ -31,7 +31,7 @@
     </thead>
     <tbody>
       @for (patient of patients; track patient.patientId) {
-        <tr>
+        <tr role="button" [routerLink]="['/patient', patient.patientId]" class="hover:bg-gray-100">
           <td>{{ patient.embg }}</td>
           <td>{{ patient.name }}</td>
           <td>{{ patient.dateOfBirth | date }}</td>

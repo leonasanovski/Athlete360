@@ -8,10 +8,12 @@ import {MoodDetailsComponent} from './components/mood.details/mood.details.compo
 import {DoctorPage} from './pages/doctor-page/doctor-page';
 import {ReportCreationPage} from './pages/report-creation-page/report-creation-page';
 import {RecommendationCreationPage} from './pages/recommendation-creation-page/recommendation-creation-page';
+import {SummaryCreationPage} from './pages/summary-creation-page/summary-creation-page';
 import {PaperView} from './components/report/paper-view/paper-view';
 
 export const routes: Routes = [
   {path: 'patient', component: PatientPage},
+  {path: 'patient/:id', component: PatientPage},
 
   {path: 'doctor', component: DoctorPage},
 
@@ -25,6 +27,8 @@ export const routes: Routes = [
   {path: 'reports/new/:id', component: ReportCreationPage},
   {path: 'reports/:id', component: ReportDetailsPage},
   {path: 'reports/:id/document', component: PaperView},
+
+  {path: 'summary/:reportId', component: SummaryCreationPage},
 
   {path: 'recommendations/new', component: RecommendationCreationPage},
   {path: 'recommendations/new/:id', component: RecommendationCreationPage},

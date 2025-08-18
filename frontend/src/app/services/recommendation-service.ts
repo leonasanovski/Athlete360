@@ -21,7 +21,6 @@ export class RecommendationService {
   }
 
   createRecommendation(recommendation: RecommendationFormDTO): Observable<number> {
-    console.log(recommendation)
     return this.http.post<number>(`${this.url}/recommendations`, recommendation);
   }
 }

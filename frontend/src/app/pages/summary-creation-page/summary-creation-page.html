@@ -1,0 +1,100 @@
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="p-3 rounded shadow-sm bg-light">
+
+  <input type="hidden" formControlName="reportId">
+
+  <div class="d-flex justify-content-between align-items-start mb-3">
+    <h5 class="mb-0">Report Summary</h5>
+    <div class="text-end">
+      @if(successMessage) {
+        <div class="alert alert-success py-1 px-2 mb-1" role="alert">
+          {{ successMessage }}
+        </div>
+      } @else if (errorMessage) {
+        <div class="alert alert-danger py-1 px-2 mb-1" role="alert">
+          {{ errorMessage }}
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="summarizedContent" class="form-label fw-semibold">Summary</label>
+    <textarea
+      id="summarizedContent"
+      formControlName="summarizedContent"
+      class="form-control"
+      rows="6"
+      placeholder="Write or generate the summary here..."
+      [class.is-invalid]="formGroup.get('summarizedContent')?.invalid && formGroup.get('summarizedContent')?.touched"
+    ></textarea>
+    @if(formGroup.get('summarizedContent')?.invalid && formGroup.get('summarizedContent')?.touched) {
+      <div class="invalid-feedback">
+        Summary is required.
+      </div>
+    }
+  </div>
+
+  <div class="d-flex flex-column flex-md-row gap-2 mb-3">
+    <button type="button"
+            (click)="generateSummary()"
+            class="btn btn-outline-success flex-fill flex-md-grow-0"
+            [disabled]="aiLoading || saving || !formGroup.get('reportId')?.value">
+      @if(!aiLoading) {
+        <span>Generate with AI</span>
+      } @else {
+        <span>Generating... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></span>
+      }
+    </button>
+
+    <button type="submit"
+            class="btn btn-primary flex-fill flex-md-grow-0"
+            [disabled]="saving">
+      @if(!saving) {
+        <span>Finish Summary</span>
+      } @else {
+        <span>Saving... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></span>
+      }
+    </button>
+  </div>
+
+  @if(aiLoading) {
+    <div class="mb-3">
+      <div class="card">
+        <div class="card-body d-flex align-items-center">
+          <div class="spinner-border me-3" role="status" aria-hidden="true"></div>
+          <div>Generating AI summary…</div>
+        </div>
+      </div>
+    </div>
+  }
+
+  @if(aiError) {
+    <div class="mb-3">
+      <div class="alert alert-warning mb-0">{{ aiError }}</div>
+    </div>
+  }
+
+  @if(aiResult) {
+    <div class="mb-3">
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <strong>AI-generated suggestion</strong>
+          <div class="btn-group btn-group-sm">
+            <button type="button" class="btn btn-outline-secondary" (click)="applyAiToTextarea(true)">
+              Apply
+            </button>
+            <button type="button" class="btn btn-outline-secondary" (click)="applyAiToTextarea(false)">
+              Append
+            </button>
+            <button type="button" class="btn btn-outline-secondary" (click)="copyAiToClipboard()">
+              Copy
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          <pre class="mb-0" style="white-space: pre-wrap; word-break: break-word;">{{ aiResult }}</pre>
+        </div>
+      </div>
+    </div>
+  }
+</form>
