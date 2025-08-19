@@ -37,7 +37,7 @@ class PatientServiceImpl(private val patientRepository: PatientRepository) : Pat
         )
 
         return patientRepository
-            .findByDoctorDoctorIdAndEmbgContaining(doctorId, embg, adjustedPageable)
+            .findByDoctorDoctorIdAndUserEmbgContaining(doctorId, embg, adjustedPageable)
             .map { PatientDTO.fromEntity(it) }
     }
 

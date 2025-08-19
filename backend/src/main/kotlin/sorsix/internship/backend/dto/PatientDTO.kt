@@ -21,14 +21,14 @@ data class PatientDTO(
         fun fromEntity(patient: Patient): PatientDTO {
             return PatientDTO(
                 patientId = patient.patientId!!,
-                name = "${patient.firstName} ${patient.lastName}",
-                embg = patient.embg,
+                name = "${patient.user.firstName} ${patient.user.lastName}",
+                embg = patient.user.embg,
                 dateOfBirth = patient.dateOfBirth,
                 dateOfLatestCheckup = patient.dateOfLatestCheckUp,
                 gender = patient.gender,
                 sportsmanCategory = patient.sportsmanCategory,
-                email = patient.email,
-                doctor = "Dr. ${patient.doctor.firstName} ${patient.doctor.lastName}",
+                email = patient.user.email ?: "",
+                doctor = "Dr. ${patient.doctor?.user?.firstName} ${patient.doctor?.user?.lastName}",
             )
         }
     }

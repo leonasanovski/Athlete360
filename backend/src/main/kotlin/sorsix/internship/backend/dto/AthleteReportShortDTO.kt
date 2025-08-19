@@ -18,8 +18,8 @@ data class AthleteReportShortDTO (
             return AthleteReportShortDTO(
                 id         = report.reportId!!,
                 createdAt  = report.createdAt,
-                doctorName = "${report.doctor.firstName} ${report.doctor.lastName}",
-                patientName = "${report.patient.firstName} ${report.patient.lastName}",
+                doctorName = "${report.doctor.user.firstName} ${report.doctor.user.lastName}",
+                patientName = "${report.patient.user.firstName} ${report.patient.user.lastName}",
                 status     = report.status,
                 vo2Max     = report.vo2Max
             )

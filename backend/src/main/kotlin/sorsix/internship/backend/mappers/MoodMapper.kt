@@ -13,6 +13,6 @@ object MoodMapper {
         moodDescriptionScore = mood.moodDescriptionScore,
         createdAt = mood.createdAt.toString(),
         patientId = mood.patient.patientId ?: 0,
-        patientName = "${mood.patient.firstName} ${mood.patient.lastName}"
+        patientName = "${mood.patient.user.firstName} ${mood.patient.user.lastName}"
     )
 }

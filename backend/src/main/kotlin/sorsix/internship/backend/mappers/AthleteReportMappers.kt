@@ -5,11 +5,11 @@ import sorsix.internship.backend.model.AthleteReport
 
 fun AthleteReport.toDto(): AthleteReportResponse = AthleteReportResponse(
     reportId             = reportId,
-    doctor               = "${doctor.firstName} ${doctor.lastName}",
+    doctor               = "${doctor.user.firstName} ${doctor.user.lastName}",
     doctorId             = doctor.doctorId!!,
-    patient              = "${patient.firstName} ${patient.lastName}",
+    patient              = "${patient.user.firstName} ${patient.user.lastName}",
     patientId            = patient.patientId!!,
-    embg                 = patient.embg,
+    embg                 = patient.user.embg,
     createdAt            = createdAt,
     status               = status,
     vo2Max               = vo2Max,

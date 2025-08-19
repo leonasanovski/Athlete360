@@ -12,8 +12,6 @@ interface AthleteReportRepository : JpaRepository<AthleteReport, Long> {
 
     fun findByDoctorDoctorId(doctorId: Long, pageable: Pageable): Page<AthleteReport>
 
-    fun findByPatientPatientIdOrderByCreatedAtDesc(patientId: Long): List<AthleteReport>
-
     fun findTopByPatientPatientIdOrderByReportIdDesc(patientId: Long): AthleteReport?
 
 

@@ -1,33 +1,66 @@
-insert into doctor(first_name, last_name, specialization, email) values
-         ('Daze', 'Tristan', 'Physiotherapist', 'daze@gmail.com'),
-         ('Gege', 'Landovski', 'Sports medicine doctor', 'gege@yahoo.com');
+INSERT INTO app_user (user_id, first_name, last_name, embg, role, password_hash, email)
+VALUES
+    (1, 'Daze', 'Tristan', '0101010450344', 'DOCTOR', '$2a$12$GdbZ8iCmAKysEps83d7Ro.2ELtr0VDnlvgl1o9J11H8AKK95pxtOS', 'daze@gmail.com'),
+    (2, 'Gege', 'Landovski', '0202020450345', 'DOCTOR', '$2a$12$GdbZ8iCmAKysEps83d7Ro.2ELtr0VDnlvgl1o9J11H8AKK95pxtOS', 'gege@yahoo.com');
+
+-- 2) Insert app_user rows for all existing patients (role = PATIENT)
+INSERT INTO app_user (user_id, first_name, last_name, embg, role, password_hash, email)
+VALUES
+    (3,  'Pancho',     'Ribarski',       '0909999450321', 'PATIENT', '$2a$12$GdbZ8iCmAKysEps83d7Ro.2ELtr0VDnlvgl1o9J11H8AKK95pxtOS', 'pamcho@gmail.gov'),
+    (4,  'Bancho',     'Tubarski',       '0909997450321', 'PATIENT', '$2a$12$GdbZ8iCmAKysEps83d7Ro.2ELtr0VDnlvgl1o9J11H8AKK95pxtOS', 'pbancho@gmail.gov'),
+    (5,  'Ivan',       'Petrov',         '0101000450322', 'PATIENT', '$2a$12$GdbZ8iCmAKysEps83d7Ro.2ELtr0VDnlvgl1o9J11H8AKK95pxtOS', 'ivan.petrov@gmail.gov'),
+    (6,  'Elena',      'Markova',        '1503981450323', 'PATIENT', '$2a$12$GdbZ8iCmAKysEps83d7Ro.2ELtr0VDnlvgl1o9J11H8AKK95pxtOS', 'elena.markova@gmail.gov'),
+    (7,  'Goran',      'Spasovski',      '2304772450324', 'PATIENT', '$2a$12$GdbZ8iCmAKysEps83d7Ro.2ELtr0VDnlvgl1o9J11H8AKK95pxtOS', 'goran.spasovski@gmail.gov'),
+    (8,  'Ana',        'Trajanova',      '0512893450325', 'PATIENT', '$2a$12$GdbZ8iCmAKysEps83d7Ro.2ELtr0VDnlvgl1o9J11H8AKK95pxtOS', 'ana.trajanova@gmail.gov'),
+    (9,  'Petar',      'Iliev',          '1712964450326', 'PATIENT', '$2a$12$GdbZ8iCmAKysEps83d7Ro.2ELtr0VDnlvgl1o9J11H8AKK95pxtOS', 'petar.iliev@gmail.gov'),
+    (10, 'Maja',       'Nikoloska',      '2007855450327', 'PATIENT', '$2a$12$GdbZ8iCmAKysEps83d7Ro.2ELtr0VDnlvgl1o9J11H8AKK95pxtOS', 'maja.nikoloska@gmail.gov'),
+    (11, 'Stefan',     'Kolev',          '3010806450328', 'PATIENT', '$2a$12$GdbZ8iCmAKysEps83d7Ro.2ELtr0VDnlvgl1o9J11H8AKK95pxtOS', 'stefan.kolev@gmail.gov'),
+    (12, 'Sara',       'Petreska',       '1409927450329', 'PATIENT', '$2a$12$GdbZ8iCmAKysEps83d7Ro.2ELtr0VDnlvgl1o9J11H8AKK95pxtOS', 'sara.petreska@gmail.gov'),
+    (13, 'Viktor',     'Tanev',          '0505898450330', 'PATIENT', '$2a$12$GdbZ8iCmAKysEps83d7Ro.2ELtr0VDnlvgl1o9J11H8AKK95pxtOS', 'viktor.tanev@gmail.gov'),
+    (14, 'Marija',     'Popovska',       '2708949450331', 'PATIENT', '$2a$12$GdbZ8iCmAKysEps83d7Ro.2ELtr0VDnlvgl1o9J11H8AKK95pxtOS', 'marija.popovska@gmail.gov'),
+    (15, 'Kristijan',  'Georgiev',       '1006750450332', 'PATIENT', '$2a$12$GdbZ8iCmAKysEps83d7Ro.2ELtr0VDnlvgl1o9J11H8AKK95pxtOS', 'kristijan.georgiev@gmail.gov'),
+    (16, 'Aleksandra', 'Stojanova',      '0112831450333', 'PATIENT', '$2a$12$GdbZ8iCmAKysEps83d7Ro.2ELtr0VDnlvgl1o9J11H8AKK95pxtOS', 'aleksandra.stojanova@gmail.gov'),
+    (17, 'Dimitar',    'Angelov',        '1911912450334', 'PATIENT', '$2a$12$GdbZ8iCmAKysEps83d7Ro.2ELtr0VDnlvgl1o9J11H8AKK95pxtOS', 'dimitar.angelov@gmail.gov'),
+    (18, 'Ivana',      'Ristevska',      '2504993450335', 'PATIENT', '$2a$12$GdbZ8iCmAKysEps83d7Ro.2ELtr0VDnlvgl1o9J11H8AKK95pxtOS', 'ivana.ristevska@gmail.gov'),
+    (19, 'Filip',      'Milev',          '0808834450336', 'PATIENT', '$2a$12$GdbZ8iCmAKysEps83d7Ro.2ELtr0VDnlvgl1o9J11H8AKK95pxtOS', 'filip.milev@gmail.gov'),
+    (20, 'Natasha',    'Dimitrova',      '2212775450337', 'PATIENT', '$2a$12$GdbZ8iCmAKysEps83d7Ro.2ELtr0VDnlvgl1o9J11H8AKK95pxtOS', 'natasha.dimitrova@gmail.gov'),
+    (21, 'Tome',       'Krstev',         '3105986450338', 'PATIENT', '$2a$12$GdbZ8iCmAKysEps83d7Ro.2ELtr0VDnlvgl1o9J11H8AKK95pxtOS', 'tome.krstev@gmail.gov'),
+    (22, 'Biljana',    'Stefanovska',    '0909917450339', 'PATIENT', '$2a$12$GdbZ8iCmAKysEps83d7Ro.2ELtr0VDnlvgl1o9J11H8AKK95pxtOS', 'biljana.stefanovska@gmail.gov'),
+    (23, 'Zoran',      'Velkov',         '0404768450340', 'PATIENT', '$2a$12$GdbZ8iCmAKysEps83d7Ro.2ELtr0VDnlvgl1o9J11H8AKK95pxtOS', 'zoran.velkov@gmail.gov'),
+    (24, 'Katerina',   'Arsova',         '2711809450341', 'PATIENT', '$2a$12$GdbZ8iCmAKysEps83d7Ro.2ELtr0VDnlvgl1o9J11H8AKK95pxtOS', 'katerina.arsova@gmail.gov'),
+    (25, 'Nikola',     'Spiridonov',     '1202880450342', 'PATIENT', '$2a$12$GdbZ8iCmAKysEps83d7Ro.2ELtr0VDnlvgl1o9J11H8AKK95pxtOS', 'nikola.spiridonov@gmail.gov'),
+    (26, 'Dragana',    'Gjorgjieva',     '1512851450343', 'PATIENT', '$2a$12$GdbZ8iCmAKysEps83d7Ro.2ELtr0VDnlvgl1o9J11H8AKK95pxtOS', 'dragana.gjorgjieva@gmail.gov');
+
+insert into doctor(user_id, specialization) values
+         (1, 'Physiotherapist'),
+         (2, 'Sports medicine doctor');
 
 
-INSERT INTO patient (doctor_id, embg, first_name, last_name, date_of_birth, gender, sportsman_category, email) VALUES
-        (1, '0909999450321', 'Pancho', 'Ribarski', '1999-09-09', 'MALE', 'RECREATION', 'pamcho@gmail.gov'),
-        (2, '0909997450321', 'Bancho', 'Tubarski', '1997-09-09', 'FEMALE', 'AMATEUR', 'pbancho@gmail.gov'),
-        (1, '0101000450322', 'Ivan', 'Petrov', '2000-01-01', 'MALE', 'PROFESSIONAL', 'ivan.petrov@gmail.gov'),
-        (2, '1503981450323', 'Elena', 'Markova', '1981-03-15', 'FEMALE', 'AMATEUR', 'elena.markova@gmail.gov'),
-        (1, '2304772450324', 'Goran', 'Spasovski', '1977-04-23', 'MALE', 'RECREATION', 'goran.spasovski@gmail.gov'),
-        (1, '0512893450325', 'Ana', 'Trajanova', '1989-12-05', 'FEMALE', 'PROFESSIONAL', 'ana.trajanova@gmail.gov'),
-        (2, '1712964450326', 'Petar', 'Iliev', '1996-12-17', 'MALE', 'AMATEUR', 'petar.iliev@gmail.gov'),
-        (2, '2007855450327', 'Maja', 'Nikoloska', '1985-07-20', 'FEMALE', 'RECREATION', 'maja.nikoloska@gmail.gov'),
-        (1, '3010806450328', 'Stefan', 'Kolev', '1980-10-30', 'MALE', 'PROFESSIONAL', 'stefan.kolev@gmail.gov'),
-        (2, '1409927450329', 'Sara', 'Petreska', '1992-09-14', 'FEMALE', 'AMATEUR', 'sara.petreska@gmail.gov'),
-        (1, '0505898450330', 'Viktor', 'Tanev', '1989-05-05', 'MALE', 'RECREATION', 'viktor.tanev@gmail.gov'),
-        (1, '2708949450331', 'Marija', 'Popovska', '1994-08-27', 'FEMALE', 'PROFESSIONAL', 'marija.popovska@gmail.gov'),
-        (2, '1006750450332', 'Kristijan', 'Georgiev', '1975-06-10', 'MALE', 'AMATEUR', 'kristijan.georgiev@gmail.gov'),
-        (2, '0112831450333', 'Aleksandra', 'Stojanova', '1983-12-01', 'FEMALE', 'RECREATION', 'aleksandra.stojanova@gmail.gov'),
-        (1, '1911912450334', 'Dimitar', 'Angelov', '1991-11-19', 'MALE', 'PROFESSIONAL', 'dimitar.angelov@gmail.gov'),
-        (2, '2504993450335', 'Ivana', 'Ristevska', '1999-04-25', 'FEMALE', 'AMATEUR', 'ivana.ristevska@gmail.gov'),
-        (1, '0808834450336', 'Filip', 'Milev', '1983-08-08', 'MALE', 'RECREATION', 'filip.milev@gmail.gov'),
-        (1, '2212775450337', 'Natasha', 'Dimitrova', '1977-12-22', 'FEMALE', 'PROFESSIONAL', 'natasha.dimitrova@gmail.gov'),
-        (2, '3105986450338', 'Tome', 'Krstev', '1998-05-31', 'MALE', 'AMATEUR', 'tome.krstev@gmail.gov'),
-        (2, '0909917450339', 'Biljana', 'Stefanovska', '1991-09-09', 'FEMALE', 'RECREATION', 'biljana.stefanovska@gmail.gov'),
-        (1, '0404768450340', 'Zoran', 'Velkov', '1976-04-04', 'MALE', 'PROFESSIONAL', 'zoran.velkov@gmail.gov'),
-        (2, '2711809450341', 'Katerina', 'Arsova', '1980-11-27', 'FEMALE', 'AMATEUR', 'katerina.arsova@gmail.gov'),
-        (1, '1202880450342', 'Nikola', 'Spiridonov', '1988-02-12', 'MALE', 'RECREATION', 'nikola.spiridonov@gmail.gov'),
-        (1, '1512851450343', 'Dragana', 'Gjorgjieva', '1985-12-15', 'FEMALE', 'PROFESSIONAL', 'dragana.gjorgjieva@gmail.gov');
+INSERT INTO patient (user_id, doctor_id, date_of_birth, gender, sportsman_category) VALUES
+    (3,  1, '1999-09-09', 'MALE',   'RECREATION'),
+    (4,  2, '1997-09-09', 'FEMALE', 'AMATEUR'),
+    (5,  1, '2000-01-01', 'MALE',   'PROFESSIONAL'),
+    (6,  2, '1981-03-15', 'FEMALE', 'AMATEUR'),
+    (7,  1, '1977-04-23', 'MALE',   'RECREATION'),
+    (8,  1, '1989-12-05', 'FEMALE', 'PROFESSIONAL'),
+    (9,  2, '1996-12-17', 'MALE',   'AMATEUR'),
+    (10, 2, '1985-07-20', 'FEMALE', 'RECREATION'),
+    (11, 1, '1980-10-30', 'MALE',   'PROFESSIONAL'),
+    (12, 2, '1992-09-14', 'FEMALE', 'AMATEUR'),
+    (13, 1, '1989-05-05', 'MALE',   'RECREATION'),
+    (14, 1, '1994-08-27', 'FEMALE', 'PROFESSIONAL'),
+    (15, 2, '1975-06-10', 'MALE',   'AMATEUR'),
+    (16, 2, '1983-12-01', 'FEMALE', 'RECREATION'),
+    (17, 1, '1991-11-19', 'MALE',   'PROFESSIONAL'),
+    (18, 2, '1999-04-25', 'FEMALE', 'AMATEUR'),
+    (19, 1, '1983-08-08', 'MALE',   'RECREATION'),
+    (20, 1, '1977-12-22', 'FEMALE', 'PROFESSIONAL'),
+    (21, 2, '1998-05-31', 'MALE',   'AMATEUR'),
+    (22, 2, '1991-09-09', 'FEMALE', 'RECREATION'),
+    (23, 1, '1976-04-04', 'MALE',   'PROFESSIONAL'),
+    (24, 2, '1980-11-27', 'FEMALE', 'AMATEUR'),
+    (25, 1, '1988-02-12', 'MALE',   'RECREATION'),
+    (26, 1, '1985-12-15', 'FEMALE', 'PROFESSIONAL');
 
 
 insert into mood(patient_id, mood_progress, mood_emotion, hours_slept_average, mood_description, mood_description_score, created_at) values

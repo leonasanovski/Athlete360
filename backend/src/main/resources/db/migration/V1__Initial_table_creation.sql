@@ -6,36 +6,48 @@ CREATE TYPE RestrictionLevel AS ENUM ('NORMAL','HARD','EXTREME');
 CREATE TYPE MoodProgress AS ENUM ('GOOD','BAD','STALL');
 CREATE TYPE MoodEmotions AS ENUM ('EXCITED','HAPPY','NEUTRAL','TIRED','STRESSED','SAD');
 CREATE TYPE AthleteReportStatus AS ENUM ('GOOD', 'IMPROVED', 'FOLLOWUP');
+CREATE TYPE user_role AS ENUM ('PATIENT','DOCTOR','ADMIN','PENDING');
 
---doctor entity
-CREATE TABLE doctor
+CREATE TABLE app_user
 (
-    doctor_id      BIGSERIAL PRIMARY KEY,
-    first_name     VARCHAR(50)        NOT NULL,
-    last_name      VARCHAR(50)        NOT NULL,
-    specialization VARCHAR(100)       NOT NULL,
-    email          VARCHAR(50) UNIQUE NOT NULL
-);
+    user_id       BIGSERIAL PRIMARY KEY,
+    first_name    VARCHAR(100) NOT NULL,
+    last_name     VARCHAR(100) NOT NULL,
+    embg      VARCHAR(13) UNIQUE NOT NULL,
+    role      user_role DEFAULT 'PENDING',
+    password_hash TEXT         NOT NULL,
+    email         VARCHAR(150) UNIQUE,
+    created_at    TIMESTAMP DEFAULT current_timestamp,
 
---patient entity
-CREATE TABLE patient
-(
-    patient_id         BIGSERIAL PRIMARY KEY,
-    doctor_id          BIGINT,
-    embg               VARCHAR(13)         NOT NULL,
-    first_name         VARCHAR(100)        NOT NULL,
-    last_name          VARCHAR(100)        NOT NULL,
-    date_of_birth      Date                NOT NULL,
-    date_of_latest_checkup TIMESTAMP,
-    gender             Gender              NOT NULL,
-    sportsman_category SportsmanCategory default 'RECREATION',
-    email              VARCHAR(100) UNIQUE NOT NULL,
-
-    CONSTRAINT fk_patient_doctor FOREIGN KEY (doctor_id) REFERENCES doctor (doctor_id) ON DELETE RESTRICT,
     CONSTRAINT chk_embg CHECK (
         embg ~ '^[0-9]{13}$'
         AND to_date(substring(embg from 1 for 7), 'DDMMYYY') IS NOT NULL
     )
+);
+
+-- doctor entity (child of app_user)
+CREATE TABLE doctor
+(
+    doctor_id      BIGSERIAL PRIMARY KEY,
+    user_id        BIGINT       NOT NULL UNIQUE,
+    specialization VARCHAR(100) NOT NULL,
+
+    CONSTRAINT fk_doctor_user FOREIGN KEY (user_id) REFERENCES app_user (user_id) ON DELETE RESTRICT
+);
+
+-- patient entity (child of app_user)
+CREATE TABLE patient
+(
+    patient_id            BIGSERIAL PRIMARY KEY,
+    user_id               BIGINT       NOT NULL UNIQUE,
+    doctor_id             BIGINT,
+    date_of_birth         DATE         NOT NULL,
+    date_of_latest_checkup TIMESTAMP,
+    gender                Gender       NOT NULL,
+    sportsman_category    SportsmanCategory DEFAULT 'RECREATION',
+
+    CONSTRAINT fk_patient_doctor FOREIGN KEY (doctor_id) REFERENCES doctor (doctor_id) ON DELETE RESTRICT,
+    CONSTRAINT fk_patient_user   FOREIGN KEY (user_id)   REFERENCES app_user (user_id) ON DELETE RESTRICT
 );
 
 --athlete report entity

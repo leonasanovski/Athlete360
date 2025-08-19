@@ -32,7 +32,7 @@ class AthleteReportServiceImpl(
         val doctor = doctorRepository.findById(requestObject.doctorId)
             .orElseThrow { IllegalArgumentException("Doctor with id = ${requestObject.doctorId} not found") }
 
-        val patient = patientRepository.findByEmbg(requestObject.embg)
+        val patient = patientRepository.findByUserEmbg(requestObject.embg)
             ?: throw IllegalArgumentException("Patient with embg = ${requestObject.embg} not found")
 
         patient.dateOfLatestCheckUp = LocalDateTime.now();

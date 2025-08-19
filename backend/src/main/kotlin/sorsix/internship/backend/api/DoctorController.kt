@@ -31,18 +31,18 @@ class DoctorController(
     @GetMapping
     fun getAllDoctors(): List<Doctor> = doctorRepository.findAll()
 
-    @PostMapping
-    fun createDoctor(@Valid @RequestBody body: DoctorCreateRequest): ResponseEntity<Doctor> {
-        val saved = doctorRepository.save(
-            Doctor(
-                firstName = body.firstName!!,
-                lastName = body.lastName!!,
-                specialization = body.specialization!!,
-                email = body.email!!
-            )
-        )
-        return ResponseEntity.status(HttpStatus.CREATED).body(saved)
-    }
+//    @PostMapping
+//    fun createDoctor(@Valid @RequestBody body: DoctorCreateRequest): ResponseEntity<Doctor> {
+//        val saved = doctorRepository.save(
+//            Doctor(
+//                firstName = body.firstName!!,
+//                lastName = body.lastName!!,
+//                specialization = body.specialization!!,
+//                email = body.email!!
+//            )
+//        )
+//        return ResponseEntity.status(HttpStatus.CREATED).body(saved)
+//    }
 
     @GetMapping("/{id}")
     fun getDoctor(@PathVariable id: Long): ResponseEntity<Doctor> {

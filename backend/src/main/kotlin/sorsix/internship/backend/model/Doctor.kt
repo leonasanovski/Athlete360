@@ -1,7 +1,7 @@
 package sorsix.internship.backend.model
 
 import jakarta.persistence.*
-import jakarta.validation.constraints.Email
+import sorsix.internship.backend.security.model.AppUser
 
 @Entity
 @Table(name = "doctor")
@@ -11,16 +11,10 @@ data class Doctor(
     @Column(name = "doctor_id", nullable = false)
     val doctorId: Long? = null,
 
-    @Column(name = "first_name", nullable = false)
-    val firstName: String,
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    val user: AppUser,
 
-    @Column(name = "last_name", nullable = false)
-    val lastName: String,
-
-    @Column(name = "specialization", nullable = false)
-    val specialization: String,
-
-    @Email
-    @Column(nullable = false, unique = true)
-    val email: String
+    @Column(name = "specialization", nullable = false, length = 100)
+    val specialization: String
 )
