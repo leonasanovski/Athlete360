@@ -23,8 +23,11 @@ import sorsix.internship.backend.service.RecommendationService
 @RestController
 @RequestMapping("/api/patient")
 @CrossOrigin(origins = ["http://localhost:4200"])
-class PatientController(val athleteReportService: AthleteReportService, val recommendationService: RecommendationService, val patientRepository: PatientRepository) {
-
+class PatientController(
+    val athleteReportService: AthleteReportService,
+    val recommendationService: RecommendationService,
+    val patientRepository: PatientRepository
+) {
     @GetMapping("/{patientId}")
     fun getPatientObject(@PathVariable patientId: Long): ResponseEntity<PatientDTO> = ResponseEntity.ok(
         PatientMapper.mapPatientToResponseDTO(
@@ -34,9 +37,10 @@ class PatientController(val athleteReportService: AthleteReportService, val reco
     )
 
     @GetMapping("{patientId}/reports")
-    fun getPatientReports(@PathVariable patientId: Long,
-                          @PageableDefault(size = 10, sort = ["createdAt"], direction = Sort.Direction.DESC) pageable: Pageable
-    ) : ResponseEntity<Page<AthleteReportShortDTO>> =
+    fun getPatientReports(
+        @PathVariable patientId: Long,
+        @PageableDefault(size = 10, sort = ["createdAt"], direction = Sort.Direction.DESC) pageable: Pageable
+    ): ResponseEntity<Page<AthleteReportShortDTO>> =
         ResponseEntity.ok(athleteReportService.getReportsShortByPatientId(patientId, pageable));
 
     @GetMapping("{patientId}/latest/recommendations")

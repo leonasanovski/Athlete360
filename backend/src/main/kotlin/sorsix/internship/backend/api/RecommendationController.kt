@@ -15,12 +15,10 @@ import sorsix.internship.backend.service.RecommendationService
 @RequestMapping("/api/recommendations")
 @CrossOrigin(origins = ["http://localhost:4200"])
 class RecommendationController(val recommendationService: RecommendationService) {
-
     @PostMapping
     fun createRecommendation(@Valid @RequestBody body: RecommendationCreateRequest) : ResponseEntity<Long> {
         return ResponseEntity
             .status(HttpStatus.CREATED)
             .body(recommendationService.create(body))
     }
-
 }

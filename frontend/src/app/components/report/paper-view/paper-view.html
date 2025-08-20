@@ -56,7 +56,7 @@
         <tbody>
           @for (rep of report; track rep.label) {
             <tr>
-              <td>{{ rep.label[0].toUpperCase() }}{{ rep.label.substring(1) }}</td>
+              <td>{{ rep.label }}</td>
               <td [class]="flagColorClass(rep.level)">{{ rep.value }}</td>
               <td>{{ getUnit(rep.label) }}</td>
               <td

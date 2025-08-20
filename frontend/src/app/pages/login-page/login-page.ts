@@ -1,8 +1,8 @@
-import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import {Component, inject} from '@angular/core';
+import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
 import {AuthService} from '../../services/auth-service';
+import {finalize} from 'rxjs';
 
 
 @Component({
@@ -27,19 +27,24 @@ export class LoginPageComponent {
   submit(): void {
     this.serverError = '';
     if (this.formGroup.invalid || this.loading) return;
-
-    const { embg, password } = this.formGroup.getRawValue();
+    const {embg, password} = this.formGroup.getRawValue();
     this.loading = true;
-
-    this.auth.login(embg, password).subscribe({
-      next: () => {
-        this.loading = false;
-        this.router.navigate(['/']);
-      },
-      error: (err: Error) => {
-        this.loading = false;
-        this.serverError = err.message || 'Login failed';
-      }
-    });
+    this.auth.login(embg, password)
+      .pipe(finalize(() => this.loading = false))
+      .subscribe({
+        next: () => {
+          const user = this.auth.getCurrentUser()
+          const role = user?.role
+          if (role === 'DOCTOR') {
+            this.router.navigate(['/doctor'])
+          } else if (role === 'PATIENT') {
+            this.router.navigate(['/patient']);
+          }
+        },
+        error: (err: Error) => {
+          this.loading = false;
+          this.serverError = err.message || 'Login failed';
+        }
+      });
   }
 }

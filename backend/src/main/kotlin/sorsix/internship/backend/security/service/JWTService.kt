@@ -23,17 +23,20 @@ class JWTService(
     private val doctorRepository: DoctorRepository,
     private val patientRepository: PatientRepository
 ) {
-
     fun generateToken(username: String): String {
         val user = userRepository.findByEmbg(username)
             ?: throw UsernameNotFoundException("User with EMBG $username not found")
         val personId: Long? = when (user.role) {
             UserRole.DOCTOR -> {
-                doctorRepository.findByUserEmbg(username)?.doctorId ?: throw UsernameNotFoundException("DOCTOR with the embg = $username not found")
+                doctorRepository.findByUserEmbg(username)?.doctorId
+                    ?: throw UsernameNotFoundException("DOCTOR with the embg = $username not found")
             }
+
             UserRole.PATIENT -> {
-                patientRepository.findByUserEmbg(username)?.patientId ?: throw UsernameNotFoundException("PATIENT with the embg = $username not found")
+                patientRepository.findByUserEmbg(username)?.patientId
+                    ?: throw UsernameNotFoundException("PATIENT with the embg = $username not found")
             }
+
             else -> {
                 null
             }
@@ -44,7 +47,6 @@ class JWTService(
             "lastName" to user.lastName,
             "id" to personId
         )
-
         return Jwts.builder()
             .claims()
             .add(claims)

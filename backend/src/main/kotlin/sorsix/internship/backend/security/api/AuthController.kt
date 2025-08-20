@@ -19,7 +19,6 @@ import sorsix.internship.backend.security.service.UserService
 class UserController(
     private val userService: UserService
 ) {
-
     @PostMapping("/register")
     fun register(@RequestBody request: RegisterRequest): ResponseEntity<Any> =
         try {
@@ -34,6 +33,7 @@ class UserController(
             println(request)
             ResponseEntity.ok(userService.login(request))
         } catch (e: RuntimeException) {
+            println(e.message)
             ResponseEntity.badRequest().body(e.message ?: "Login error")
         }
 

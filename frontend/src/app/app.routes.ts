@@ -7,35 +7,40 @@ import {MoodFormComponent} from './components/mood-form-component/mood-form-comp
 import {MoodDetailsComponent} from './components/mood.details/mood.details.component';
 import {DoctorPage} from './pages/doctor-page/doctor-page';
 import {ReportCreationPage} from './pages/report-creation-page/report-creation-page';
-import {RecommendationCreationPage} from './pages/recommendation-creation-page/recommendation-creation-page';
 import {SummaryCreationPage} from './pages/summary-creation-page/summary-creation-page';
 import {PaperView} from './components/report/paper-view/paper-view';
 import {LoginPageComponent} from './pages/login-page/login-page';
+import {authGuard} from './core/guards/auth-guard';
+import {guestGuard} from './core/guards/guest-guard';
+import {PendingPage} from './pages/pending-page/pending-page';
 
 export const routes: Routes = [
-  {path: 'patient', component: PatientPage},
-  {path: 'patient/:id', component: PatientPage},
+  {path: 'login', component: LoginPageComponent, canActivate: [guestGuard]},
+  {
+    path: '',
+    canActivate: [authGuard],
+    canActivateChild: [authGuard],
+    children: [
+      {path: 'patient', component: PatientPage},
+      {path: 'patient/:id', component: PatientPage},
 
-  {path: 'doctor', component: DoctorPage},
+      {path: 'doctor', component: DoctorPage},
+      {path: 'moods', component: MoodComponent},
+      {path: 'moods/add-mood', component: MoodFormComponent},
+      {path: 'moods/:id/search', component: MoodComponent},
+      {path: 'moods/info/:id', component: MoodDetailsComponent},
 
-  {path: 'moods', component: MoodComponent},
-  {path: 'moods/add-mood', component: MoodFormComponent},
-  {path: 'moods/:id/search', component: MoodComponent},
-  {path: 'moods/info/:id', component: MoodDetailsComponent},
+      {path: 'reports', component: ReportsPage},
+      {path: 'reports/new', component: ReportCreationPage},
+      {path: 'reports/new/:id', component: ReportCreationPage},
+      {path: 'reports/:id', component: ReportDetailsPage},
+      {path: 'reports/:id/document', component: PaperView},
+      {path: 'summary/:reportId', component: SummaryCreationPage},
+      {path: '', redirectTo: 'patient', pathMatch: 'full'},
 
-  {path: 'reports', component: ReportsPage},
-  {path: 'reports/new', component: ReportCreationPage},
-  {path: 'reports/new/:id', component: ReportCreationPage},
-  {path: 'reports/:id', component: ReportDetailsPage},
-  {path: 'reports/:id/document', component: PaperView},
+      {path: 'pending', component: PendingPage},
 
-  {path: 'summary/:reportId', component: SummaryCreationPage},
-
-  {path: 'recommendations/new', component: RecommendationCreationPage},
-  {path: 'recommendations/new/:id', component: RecommendationCreationPage},
-
-  {path: 'login', component: LoginPageComponent},
-
-  { path: '', redirectTo: '', pathMatch: 'full' },
-  {path: '**', redirectTo: 'patient'} // TODO da nosi na 404
+    ]
+  },
+  {path: '**', redirectTo: 'patient'}
 ];

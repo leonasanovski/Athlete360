@@ -16,7 +16,7 @@ export class Sidebar {
   @Input() role: String | undefined;
   authService = inject(AuthService);
   router = inject(Router);
-
+  loggedUser = this.authService.getCurrentUser()
   onLogout() {
     this.authService.logout();
     this.router.navigate(['/login']);

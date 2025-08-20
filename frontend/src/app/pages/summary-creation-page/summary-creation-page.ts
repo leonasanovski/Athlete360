@@ -27,12 +27,10 @@ export class SummaryCreationPage implements OnInit{
   hasSummary = false;
   saving = false;
 
-  // AI generation state
   aiLoading = false;
   aiResult: string | null = null;
   aiError: string | null = null;
 
-  // ui messages
   successMessage: string | null = null;
   errorMessage: string | null = null;
 

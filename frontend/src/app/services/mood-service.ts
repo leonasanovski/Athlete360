@@ -27,7 +27,6 @@ export class MoodService {
     return this.http.get<MoodStatisticsDTO>(url)
   }
 
-
   filterSearch(
     id: number,
     from?: string,

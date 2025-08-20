@@ -14,24 +14,8 @@ import {AuthService} from './services/auth-service';
 export class App implements OnInit {
   auth = inject(AuthService);
   router = inject(Router);
-
   role: String | undefined;
-
   ngOnInit() {
-    this.role = this.auth.getCurrentUser()?.role;
-    this.router.events
-      .pipe(
-        filter(event => event instanceof NavigationEnd),
-        first() // only run on the first completed navigation
-      )
-      .subscribe((event: NavigationEnd) => {
-        if (event.urlAfterRedirects === '/' || event.urlAfterRedirects === '') {
-          if (this.role === 'PATIENT') {
-            this.router.navigate(['/patient']);
-          } else if (this.role === 'DOCTOR') {
-            this.router.navigate(['/doctor']);
-          }
-        }
-      });
+    console.log('app started')
   }
 }

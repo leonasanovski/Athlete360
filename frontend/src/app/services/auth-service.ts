@@ -48,8 +48,7 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    const u = this._currentUser$.value;
-    return !!u && u.exp * 1000 > Date.now();
+    return !!this.getToken()
   }
 
   getToken(): string | null {
