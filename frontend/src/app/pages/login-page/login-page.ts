@@ -20,8 +20,8 @@ export class LoginPageComponent {
   serverError = '';
 
   formGroup: FormGroup = new FormGroup({
-    embg: new FormControl('', [Validators.required, Validators.minLength(13), Validators.maxLength(13)]),
-    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+    embg: new FormControl('0202020450345', [Validators.required, Validators.minLength(13), Validators.maxLength(13)]),
+    password: new FormControl('p@ssw0rd', [Validators.required, Validators.minLength(8)]),
   });
 
   submit(): void {
