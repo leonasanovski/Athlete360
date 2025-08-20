@@ -20,14 +20,14 @@ export class PatientService {
   ): Observable<PageResponse<Patient>> {
     return this.auth.currentUser$.pipe(
       take(1),
-      filter(user => user.role != 'patient'),
+      filter(user => user?.role != 'PATIENT'),
       switchMap(user => {
         const params = new HttpParams()
           .set('page', page.toString())
           .set('size', size.toString())
           .set('sort', sort);
         return this.http.get<PageResponse<Patient>>(
-          `${this.url}/doctor/${user.id}/patients`,
+          `${this.url}/doctor/${user?.id}/patients`,
           { params }
         )
       })
@@ -42,7 +42,7 @@ export class PatientService {
   ): Observable<PageResponse<Patient>> {
     return this.auth.currentUser$.pipe(
       take(1),
-      filter(user => user.role != 'patient'),
+      filter(user => user?.role != 'PATIENT'),
       switchMap(user => {
         const params = new HttpParams()
           .set('embg', embg)
@@ -50,7 +50,7 @@ export class PatientService {
           .set('size', size.toString())
           .set('sort', sort);
         return this.http.get<PageResponse<Patient>>(
-          `${this.url}/doctor/${user.id}/patients/search`,
+          `${this.url}/doctor/${user?.id}/patients/search`,
           { params }
         )
       })

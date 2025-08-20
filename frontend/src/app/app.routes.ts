@@ -10,6 +10,7 @@ import {ReportCreationPage} from './pages/report-creation-page/report-creation-p
 import {RecommendationCreationPage} from './pages/recommendation-creation-page/recommendation-creation-page';
 import {SummaryCreationPage} from './pages/summary-creation-page/summary-creation-page';
 import {PaperView} from './components/report/paper-view/paper-view';
+import {LoginPageComponent} from './pages/login-page/login-page';
 
 export const routes: Routes = [
   {path: 'patient', component: PatientPage},
@@ -32,6 +33,8 @@ export const routes: Routes = [
 
   {path: 'recommendations/new', component: RecommendationCreationPage},
   {path: 'recommendations/new/:id', component: RecommendationCreationPage},
+
+  {path: 'login', component: LoginPageComponent},
 
   { path: '', redirectTo: '', pathMatch: 'full' },
   {path: '**', redirectTo: 'patient'} // TODO da nosi na 404

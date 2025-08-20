@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
+import sorsix.internship.backend.repository.DoctorRepository
+import sorsix.internship.backend.repository.PatientRepository
+import sorsix.internship.backend.security.model.UserRole
 import sorsix.internship.backend.security.repository.AppUserRepository
 import java.nio.charset.StandardCharsets
 import java.util.*
@@ -16,17 +19,30 @@ import javax.crypto.SecretKey
 @Service
 class JWTService(
     @Value("\${jwt.secret}") private val secretKey: String,
-    private val userRepository: AppUserRepository
+    private val userRepository: AppUserRepository,
+    private val doctorRepository: DoctorRepository,
+    private val patientRepository: PatientRepository
 ) {
 
     fun generateToken(username: String): String {
         val user = userRepository.findByEmbg(username)
             ?: throw UsernameNotFoundException("User with EMBG $username not found")
-
-        val claims = mutableMapOf<String, Any>(
+        val personId: Long? = when (user.role) {
+            UserRole.DOCTOR -> {
+                doctorRepository.findByUserEmbg(username)?.doctorId ?: throw UsernameNotFoundException("DOCTOR with the embg = $username not found")
+            }
+            UserRole.PATIENT -> {
+                patientRepository.findByUserEmbg(username)?.patientId ?: throw UsernameNotFoundException("PATIENT with the embg = $username not found")
+            }
+            else -> {
+                null
+            }
+        }
+        val claims = mutableMapOf<String, Any?>(
             "role" to user.role,
             "firstName" to user.firstName,
             "lastName" to user.lastName,
+            "id" to personId
         )
 
         return Jwts.builder()

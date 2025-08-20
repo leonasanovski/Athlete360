@@ -36,12 +36,12 @@ export class ReportDetailsPage implements OnInit{
   report: ReportDetails | undefined;
   recommendations: Recommendation[] = [];
   summary: Summary | undefined;
-  currentUserId?: number;
+  currentUserId?: number | null;
 
   ngOnInit(): void {
     this.authService.currentUser$
       .subscribe(user => {
-        this.currentUserId = user.id
+        this.currentUserId = user?.id ?? null
       })
 
     this.route.paramMap.pipe(

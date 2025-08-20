@@ -1,0 +1,36 @@
+<div class="login-container">
+  <form [formGroup]="formGroup" (ngSubmit)="submit()" class="card">
+    <h2 class="title">Sign in</h2>
+
+    <label>
+      <span>EMBG</span>
+      <input type="text" formControlName="embg" placeholder="e.g. 1212005455321" />
+    </label>
+
+    @if (this.formGroup.controls['embg'].touched && this.formGroup.controls['embg'].invalid) {
+      <div class="error">
+        EMBG is required
+      </div>
+    }
+
+    <label>
+      <span>Password</span>
+      <input type="password" formControlName="password" placeholder="••••••••" />
+    </label>
+    @if (this.formGroup.controls['password'].touched && this.formGroup.controls['password'].invalid) {
+      <div class="error">
+        Password is required (min 4 chars)
+      </div>
+    }
+
+
+    <button [disabled]="loading || formGroup.invalid" type="submit">
+      {{ loading ? 'Signing in…' : 'Sign in' }}
+    </button>
+
+    @if (serverError) {
+      <div class="server-error">{{ serverError }}</div>
+    }
+<!--    <a routerLink="/register" class="hint">Don’t have an account? Register</a>-->
+  </form>
+</div>

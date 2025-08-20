@@ -63,14 +63,14 @@ export class ReportCreationPage implements OnInit{
   private hideDropdownTimeout: any;
 
   ngOnInit(): void {
-    const doctorId = this.authService.getCurrentUser().id;
+    const doctorId: number | null = this.authService.getCurrentUser()?.id ?? null;
     this.formGroup.patchValue({ doctorId });
 
     this.route.paramMap.pipe(
       filter(params => params.has('id')),
       mergeMap(params => this.reportService.getReportById(+params.get('id')!!))
     ).subscribe(report =>{
-      if(report) {
+      if(report && doctorId) {
         this.report = this.mapDetailsToForm(report, doctorId);
         this.reportId = report.reportId;
         this.formGroup.patchValue(this.report);

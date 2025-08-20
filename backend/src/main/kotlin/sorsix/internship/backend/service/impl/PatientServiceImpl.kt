@@ -44,7 +44,7 @@ class PatientServiceImpl(private val patientRepository: PatientRepository) : Pat
     private fun adjustSortForFullName(sort: Sort): Sort =
         if (sort.getOrderFor("name") != null) {
             val direction = sort.getOrderFor("name")!!.direction
-            Sort.by(direction, "firstName").and(Sort.by(direction, "lastName"))
+            Sort.by(direction, "user.firstName").and(Sort.by(direction, "user.lastName"))
         } else {
             sort
         }

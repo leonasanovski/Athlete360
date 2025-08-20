@@ -6,4 +6,5 @@ import sorsix.internship.backend.model.Doctor
 
 @Repository
 interface DoctorRepository : JpaRepository<Doctor, Long> {
+    fun findByUserEmbg(username: String): Doctor?
 }

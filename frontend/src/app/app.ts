@@ -18,7 +18,7 @@ export class App implements OnInit {
   role: String | undefined;
 
   ngOnInit() {
-    this.role = this.auth.getCurrentUser().role;
+    this.role = this.auth.getCurrentUser()?.role;
     this.router.events
       .pipe(
         filter(event => event instanceof NavigationEnd),
@@ -26,9 +26,9 @@ export class App implements OnInit {
       )
       .subscribe((event: NavigationEnd) => {
         if (event.urlAfterRedirects === '/' || event.urlAfterRedirects === '') {
-          if (this.role === 'patient') {
+          if (this.role === 'PATIENT') {
             this.router.navigate(['/patient']);
-          } else if (this.role === 'doctor') {
+          } else if (this.role === 'DOCTOR') {
             this.router.navigate(['/doctor']);
           }
         }

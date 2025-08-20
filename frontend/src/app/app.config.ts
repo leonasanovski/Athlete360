@@ -7,16 +7,19 @@ import {
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import {provideHttpClient} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, provideHttpClient, withInterceptors} from '@angular/common/http';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {provideNoopAnimations} from '@angular/platform-browser/animations';
+import {authInterceptor} from './services/AuthInterceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(),
+    provideHttpClient(
+      withInterceptors([authInterceptor]) // Add your interceptor here
+    ),
     provideNoopAnimations(),
     importProvidersFrom(NgxChartsModule)
   ]

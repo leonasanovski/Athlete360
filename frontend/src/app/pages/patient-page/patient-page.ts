@@ -32,10 +32,10 @@ export class PatientPage implements OnInit{
   ngOnInit(): void {
     this.latestRecommendations$ = this.authService.currentUser$.pipe(
       switchMap(user => {
-        if (user.role === 'patient') {
+        if (user?.role === 'PATIENT') {
           this.patientId = user.id;
           this.router.navigate(['/patient']);
-          return this.recommendationService.getLatestRecommendations(this.patientId);
+          return this.recommendationService.getLatestRecommendations(this.patientId!);
         }
 
         return this.route.paramMap.pipe(

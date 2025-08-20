@@ -17,7 +17,7 @@ data class Patient(
     @Column(name = "patient_id")
     val patientId: Long? = null,
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     val user: AppUser,
 

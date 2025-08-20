@@ -13,9 +13,9 @@ import sorsix.internship.backend.security.dtos.LoginRequest
 import sorsix.internship.backend.security.dtos.RegisterRequest
 import sorsix.internship.backend.security.service.UserService
 
-@CrossOrigin(origins = ["http://localhost:4200"])
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = ["http://localhost:4200"])
 class UserController(
     private val userService: UserService
 ) {
@@ -31,6 +31,7 @@ class UserController(
     @PostMapping("/login")
     fun login(@RequestBody request: LoginRequest): ResponseEntity<Any> =
         try {
+            println(request)
             ResponseEntity.ok(userService.login(request))
         } catch (e: RuntimeException) {
             ResponseEntity.badRequest().body(e.message ?: "Login error")
