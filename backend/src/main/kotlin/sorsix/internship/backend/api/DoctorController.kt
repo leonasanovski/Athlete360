@@ -11,6 +11,7 @@ import sorsix.internship.backend.dto.AthleteReportShortDTO
 import sorsix.internship.backend.dto.PatientDTO
 import sorsix.internship.backend.model.Doctor
 import sorsix.internship.backend.repository.DoctorRepository
+import sorsix.internship.backend.security.repository.AppUserRepository
 import sorsix.internship.backend.service.AthleteReportService
 import sorsix.internship.backend.service.DoctorService
 import sorsix.internship.backend.service.PatientService
@@ -22,7 +23,7 @@ class DoctorController(
     val doctorRepository: DoctorRepository,
     val doctorService: DoctorService,
     val athleteReportService: AthleteReportService,
-    val patientService: PatientService
+    val patientService: PatientService,
 ) {
 
     @GetMapping
@@ -36,12 +37,22 @@ class DoctorController(
         return ResponseEntity.ok(d)
     }
 
-    @GetMapping("{doctorId}/patients")
-    fun getDoctorPatients(
-        @PathVariable doctorId: Long,
-        @PageableDefault(size = 10, sort = ["dateOfLatestCheckUp"], direction = Sort.Direction.DESC) pageable: Pageable
-    ): ResponseEntity<Page<PatientDTO>> =
-        ResponseEntity.ok(patientService.getPatientsByDoctorId(doctorId, pageable))
+    @PostMapping("/create-doctor-user")
+    fun createDoctorEntityForExistingUserWithRoleDoctor(
+        @RequestParam userId: Long,
+        @RequestParam specialization: String
+    ): ResponseEntity<Doctor> = doctorService.createDoctorFromUser(userId, specialization).let { ResponseEntity.ok(it) }
+
+        @GetMapping("{doctorId}/patients")
+        fun getDoctorPatients(
+            @PathVariable doctorId: Long,
+            @PageableDefault(
+                size = 10,
+                sort = ["dateOfLatestCheckUp"],
+                direction = Sort.Direction.DESC
+            ) pageable: Pageable
+        ): ResponseEntity<Page<PatientDTO>> =
+            ResponseEntity.ok(patientService.getPatientsByDoctorId(doctorId, pageable))
 
     @GetMapping("{doctorId}/patients/search")
     fun searchDoctorPatients(

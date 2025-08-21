@@ -1,7 +1,8 @@
 import {UserRole} from './types/UserRole';
 
 export interface CurrentUser {
-  id: number | null;
+  personId: number | null;
+  userId: number;
   embg: string;          // from sub
   role: UserRole;
   firstName: string;

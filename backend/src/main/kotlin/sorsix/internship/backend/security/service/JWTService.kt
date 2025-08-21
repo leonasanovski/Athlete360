@@ -29,14 +29,10 @@ class JWTService(
         val personId: Long? = when (user.role) {
             UserRole.DOCTOR -> {
                 doctorRepository.findByUserEmbg(username)?.doctorId
-                    ?: throw UsernameNotFoundException("DOCTOR with the embg = $username not found")
             }
-
             UserRole.PATIENT -> {
                 patientRepository.findByUserEmbg(username)?.patientId
-                    ?: throw UsernameNotFoundException("PATIENT with the embg = $username not found")
             }
-
             else -> {
                 null
             }
@@ -45,7 +41,8 @@ class JWTService(
             "role" to user.role,
             "firstName" to user.firstName,
             "lastName" to user.lastName,
-            "id" to personId
+            "personId" to personId,
+            "userId" to user.userId
         )
         return Jwts.builder()
             .claims()

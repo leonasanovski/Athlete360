@@ -27,7 +27,7 @@ export class PatientService {
           .set('size', size.toString())
           .set('sort', sort);
         return this.http.get<PageResponse<Patient>>(
-          `${this.url}/doctor/${user?.id}/patients`,
+          `${this.url}/doctor/${user?.personId}/patients`,
           { params }
         )
       })
@@ -50,7 +50,7 @@ export class PatientService {
           .set('size', size.toString())
           .set('sort', sort);
         return this.http.get<PageResponse<Patient>>(
-          `${this.url}/doctor/${user?.id}/patients/search`,
+          `${this.url}/doctor/${user?.personId}/patients/search`,
           { params }
         )
       })

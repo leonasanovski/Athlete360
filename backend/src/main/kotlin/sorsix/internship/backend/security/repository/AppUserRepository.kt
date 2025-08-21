@@ -7,4 +7,5 @@ import sorsix.internship.backend.security.model.AppUser
 @Repository
 interface AppUserRepository : JpaRepository<AppUser, Long> {
     fun findByEmbg(embg: String): AppUser?
+    fun findByUserId(userId: Long): AppUser?
 }

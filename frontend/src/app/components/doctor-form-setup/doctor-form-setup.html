@@ -1,0 +1,21 @@
+<div class="login-container">
+  <form [formGroup]="formGroup" (ngSubmit)="submit()" class="card">
+    <h2 class="title">Hey {{ loggedUser?.firstName }} {{ loggedUser?.lastName }}, you have been assigned as role <span
+      class="fw-bolder text-danger"> {{ loggedUser?.role }} </span>.<br> Finish your registration and welcome to the
+      system of Athlete360</h2>
+    <label>
+      <span>Enter the Specialization you finished for</span>
+      <input type="text" formControlName="specialization" placeholder="eg. Psychiatry, Dermatology, Radiology ..."/>
+    </label>
+
+    @if (this.formGroup.controls['specialization'].touched && this.formGroup.controls['specialization'].invalid) {
+      <div class="error">
+        Specialization is required for the registration to be completed.
+      </div>
+    }
+    <button [disabled]="formGroup.invalid" type="submit">
+      Finish The Registration
+    </button>
+
+  </form>
+</div>

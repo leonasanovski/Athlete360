@@ -33,7 +33,7 @@ export class PatientPage implements OnInit{
     this.latestRecommendations$ = this.authService.currentUser$.pipe(
       switchMap(user => {
         if (user?.role === 'PATIENT') {
-          this.patientId = user.id;
+          this.patientId = user.personId;
           this.router.navigate(['/patient']);
           return this.recommendationService.getLatestRecommendations(this.patientId!);
         }

@@ -63,7 +63,7 @@ export class ReportCreationPage implements OnInit{
   private hideDropdownTimeout: any;
 
   ngOnInit(): void {
-    const doctorId: number | null = this.authService.getCurrentUser()?.id ?? null;
+    const doctorId: number | null = this.authService.getCurrentUser()?.personId ?? null;
     this.formGroup.patchValue({ doctorId });
 
     this.route.paramMap.pipe(

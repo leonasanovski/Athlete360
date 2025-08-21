@@ -21,6 +21,7 @@ export const appConfig: ApplicationConfig = {
       withInterceptors([authInterceptor])
     ),
     provideNoopAnimations(),
-    importProvidersFrom(NgxChartsModule)
+    importProvidersFrom(NgxChartsModule),
+    
   ]
 };

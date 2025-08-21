@@ -32,7 +32,7 @@ export class ReportService {
       switchMap(user => {
 
         return this.http.get<PageResponse<ReportShort>>(
-          `${this.url}/${user?.role.toLowerCase()}/${user?.id}/reports`,
+          `${this.url}/${user?.role.toLowerCase()}/${user?.personId}/reports`,
           {params}
         )
       })

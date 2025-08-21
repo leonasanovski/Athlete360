@@ -13,6 +13,7 @@ import {LoginPageComponent} from './pages/login-page/login-page';
 import {authGuard} from './core/guards/auth-guard';
 import {guestGuard} from './core/guards/guest-guard';
 import {PendingPage} from './pages/pending-page/pending-page';
+import {DoctorFormSetup} from './components/doctor-form-setup/doctor-form-setup';
 
 export const routes: Routes = [
   {path: 'login', component: LoginPageComponent, canActivate: [guestGuard]},
@@ -25,6 +26,8 @@ export const routes: Routes = [
       {path: 'patient/:id', component: PatientPage},
 
       {path: 'doctor', component: DoctorPage},
+      {path: 'doctor/setup', component: DoctorFormSetup} ,//TUKA LEZI ZAJAKOT
+
       {path: 'moods', component: MoodComponent},
       {path: 'moods/add-mood', component: MoodFormComponent},
       {path: 'moods/:id/search', component: MoodComponent},
@@ -37,9 +40,7 @@ export const routes: Routes = [
       {path: 'reports/:id/document', component: PaperView},
       {path: 'summary/:reportId', component: SummaryCreationPage},
       {path: '', redirectTo: 'patient', pathMatch: 'full'},
-
       {path: 'pending', component: PendingPage},
-
     ]
   },
   {path: '**', redirectTo: 'patient'}

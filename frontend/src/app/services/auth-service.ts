@@ -17,19 +17,21 @@ export class AuthService {
 
   constructor() {
     const token = this.getToken();
-    console.log(token)
     if (token) this.setCurrentUserFromToken(token);
   }
 
   login(embg: string, password: string): Observable<string> {
+    console.log('Sega ke vlezam vo login:')
     return this.http
       .post(`${this.API_BASE}/login`, { embg, password }, { responseType: 'text' })
       .pipe(
         map((tokenText: string) => {
           const token = (tokenText || '').trim();
+          console.log(`The token is ${token}`)
           if (!token) throw new Error('Invalid login response');
           this.setToken(token);
           this.setCurrentUserFromToken(token);
+          console.log(`The token at the end is ${token}`)
           return token;
         }),
         catchError((err: HttpErrorResponse) =>
@@ -44,6 +46,8 @@ export class AuthService {
   }
 
   getCurrentUser(): CurrentUser | null {
+    console.log('blabla')
+    console.log(`Token value: ${this._currentUser$.value}`)
     return this._currentUser$.value;
   }
 
@@ -67,7 +71,8 @@ export class AuthService {
         return;
       }
       const currentUser: CurrentUser = {
-        id: payload.id ?? null,
+        personId: payload.personId ?? null,
+        userId: payload.userId,
         embg: payload.sub,
         role: payload.role,
         firstName: payload.firstName,

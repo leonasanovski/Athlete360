@@ -55,4 +55,7 @@ class SecurityConfig(
     @Throws(Exception::class)
     fun authenticationManager(config: AuthenticationConfiguration): AuthenticationManager =
         config.authenticationManager
+
+    @Bean
+    fun passwordEncoder(): PasswordEncoder = BCryptPasswordEncoder()
 }
