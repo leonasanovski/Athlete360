@@ -21,7 +21,6 @@ export class AuthService {
   }
 
   login(embg: string, password: string): Observable<string> {
-    console.log('Sega ke vlezam vo login:')
     return this.http
       .post(`${this.API_BASE}/login`, { embg, password }, { responseType: 'text' })
       .pipe(
@@ -56,6 +55,7 @@ export class AuthService {
   }
 
   getToken(): string | null {
+    console.log('token to return is ',this.TOKEN_KEY)
     return localStorage.getItem(this.TOKEN_KEY);
   }
 

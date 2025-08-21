@@ -8,7 +8,7 @@
       <input type="text" formControlName="specialization" placeholder="eg. Psychiatry, Dermatology, Radiology ..."/>
     </label>
 
-    @if (this.formGroup.controls['specialization'].touched && this.formGroup.controls['specialization'].invalid) {
+    @if (this.formGroup.controls['specialization'] && this.formGroup.controls['specialization'].invalid) {
       <div class="error">
         Specialization is required for the registration to be completed.
       </div>

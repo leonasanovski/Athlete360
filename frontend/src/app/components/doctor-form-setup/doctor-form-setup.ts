@@ -3,7 +3,7 @@ import {AuthService} from '../../services/auth-service';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {DoctorService} from '../../services/doctor-service';
 import {Router} from '@angular/router';
-import {log} from '@angular-devkit/build-angular/src/builders/ssr-dev-server';
+import {CreateDoctorDTO} from '../../models/dto/CreateDoctorDTO';
 
 @Component({
   selector: 'app-doctor-form-setup',
@@ -20,13 +20,15 @@ export class DoctorFormSetup {
   router = inject(Router)
   formGroup: FormGroup = new FormGroup({
     specialization: new FormControl('', [Validators.required]),
-    userId: new FormControl(this.loggedUser?.userId),
   });
 
   submit() {
     if (this.formGroup.invalid) return;
     const formData = this.formGroup.getRawValue()
-    this.doctorService.saveDoctorEntity(formData)
+    const obj : CreateDoctorDTO = {
+      specialization: formData.specialization
+    }
+    this.doctorService.saveDoctorEntity(obj)
       .subscribe({
         next: (resp) => {
           this.auth.logout()
@@ -37,6 +39,4 @@ export class DoctorFormSetup {
         }
       });
   }
-
-  protected readonly log = log;
 }

@@ -2,6 +2,7 @@ package sorsix.internship.backend.security.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpMethod
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.AuthenticationProvider
 import org.springframework.security.authentication.ProviderManager
@@ -34,7 +35,9 @@ class SecurityConfig(
             .authorizeHttpRequests { auth ->
                 auth
                     .requestMatchers("/api/register", "/api/login").permitAll()
-                    .requestMatchers("/admin/**").hasAuthority("ADMIN")
+                    .requestMatchers(HttpMethod.POST, "/api/doctor/create-doctor-user")
+                        .hasAnyAuthority("PENDING", "ADMIN")//deka granted authorities se ushte PENDING
+                    .requestMatchers(HttpMethod.POST, "/api/doctor/create-doctor-user").hasAuthority("DOCTOR")
                     .anyRequest().authenticated()
             }
             .httpBasic(Customizer.withDefaults())

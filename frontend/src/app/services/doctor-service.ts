@@ -1,7 +1,8 @@
 import {inject, Injectable} from '@angular/core';
 import {AuthService} from './auth-service';
-import {HttpClient} from '@angular/common/http';
-import {catchError, map, Observable, of} from 'rxjs';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {catchError, map, Observable, of, throwError} from 'rxjs';
+import {CreateDoctorDTO} from '../models/dto/CreateDoctorDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,17 @@ export class DoctorService {
   http = inject(HttpClient);
   url = "http://localhost:8080/api/doctor";
 
-  saveDoctorEntity(doctorData: any): Observable<any> {
-    return this.http.post(`${this.url}/create-doctor-user`, doctorData);
+  saveDoctorEntity(doctorData: CreateDoctorDTO): Observable<any> {
+    const token = this.auth.getToken();
+    if (!token) {
+      return throwError(() => new Error('No token present'));
+    }
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+    console.log("DoctorDTO:", doctorData)
+    console.log('Headers: ', headers)
+    return this.http.post(`${this.url}/create-doctor-user`, doctorData, {headers});
   }
 }
-//TODO TESTIRANJE
+

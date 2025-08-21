@@ -29,24 +29,30 @@ class JwtFilter(
         val authHeader = request.getHeader("Authorization")
         var token: String? = null
         var embg: String? = null
-
         if (!authHeader.isNullOrBlank() && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7)
+            println("Token: $token")
             embg = jwtService.extractEmbg(token)
+            println("Embg: $embg")
         }
 
         if (!embg.isNullOrBlank() && SecurityContextHolder.getContext().authentication == null) {
             val userDetails: UserDetails = userDetailsService.loadUserByUsername(embg)
+            println("[JWT] userDetails.username=${userDetails.username}")
+            println("[JWT] subjectMatches=${embg == userDetails.username}")
             if (token != null && jwtService.validateToken(token, userDetails)) {
+                println("[JWT] token is valid")
                 val authToken = UsernamePasswordAuthenticationToken(
                     userDetails, null, userDetails.authorities
                 ).apply {
                     details = WebAuthenticationDetailsSource().buildDetails(request)
                 }
                 SecurityContextHolder.getContext().authentication = authToken
+                println("[JWT] authentication set for ${userDetails.username}")
             }
         }
-
+        println("[JWT] auth before chain = ${SecurityContextHolder.getContext().authentication}")
         filterChain.doFilter(request, response)
+        println("[JWT] auth after chain = ${SecurityContextHolder.getContext().authentication}")
     }
 }
