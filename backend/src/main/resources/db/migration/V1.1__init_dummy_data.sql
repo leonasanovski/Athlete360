@@ -1,4 +1,8 @@
 INSERT INTO app_user (user_id, first_name, last_name, embg, role, password_hash, email)
+VALUES (-1, 'admin', 'admin', '1010000450123', 'ADMIN', '$2a$12$GdbZ8iCmAKysEps83d7Ro.2ELtr0VDnlvgl1o9J11H8AKK95pxtOS',
+        'admin@gmail.com');
+
+INSERT INTO app_user (user_id, first_name, last_name, embg, role, password_hash, email)
 VALUES (1, 'Daze', 'Tristan', '0101010450344', 'DOCTOR', '$2a$12$GdbZ8iCmAKysEps83d7Ro.2ELtr0VDnlvgl1o9J11H8AKK95pxtOS',
         'daze@gmail.com'),
        (2, 'Gege', 'Landovski', '0202020450345', 'DOCTOR',

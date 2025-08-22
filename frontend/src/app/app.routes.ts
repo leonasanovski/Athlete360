@@ -14,6 +14,7 @@ import {authGuard} from './core/guards/auth-guard';
 import {guestGuard} from './core/guards/guest-guard';
 import {PendingPage} from './pages/pending-page/pending-page';
 import {DoctorFormSetup} from './components/doctor-form-setup/doctor-form-setup';
+import {AdminPage} from './pages/admin-page/admin-page';
 
 export const routes: Routes = [
   {path: 'login', component: LoginPageComponent, canActivate: [guestGuard]},
@@ -22,6 +23,8 @@ export const routes: Routes = [
     canActivate: [authGuard],
     canActivateChild: [authGuard],
     children: [
+      {path: 'admin', component: AdminPage},
+
       {path: 'patient', component: PatientPage},
       {path: 'patient/:id', component: PatientPage},
 
