@@ -14,6 +14,7 @@ import {authGuard} from './core/guards/auth-guard';
 import {guestGuard} from './core/guards/guest-guard';
 import {PendingPage} from './pages/pending-page/pending-page';
 import {DoctorFormSetup} from './components/doctor-form-setup/doctor-form-setup';
+import {PatientFormSetup} from './components/patient-form-setup/patient-form-setup';
 
 export const routes: Routes = [
   {path: 'login', component: LoginPageComponent, canActivate: [guestGuard]},
@@ -23,10 +24,11 @@ export const routes: Routes = [
     canActivateChild: [authGuard],
     children: [
       {path: 'patient', component: PatientPage},
+      {path: 'patient/setup', component: PatientFormSetup},
       {path: 'patient/:id', component: PatientPage},
 
       {path: 'doctor', component: DoctorPage},
-      {path: 'doctor/setup', component: DoctorFormSetup} ,//TUKA LEZI ZAJAKOT
+      {path: 'doctor/setup', component: DoctorFormSetup},
 
       {path: 'moods', component: MoodComponent},
       {path: 'moods/add-mood', component: MoodFormComponent},

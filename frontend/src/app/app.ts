@@ -1,7 +1,6 @@
-import {Component, OnDestroy, OnInit, inject} from '@angular/core';
+import {Component, OnInit, inject} from '@angular/core';
 import {Router, NavigationEnd, RouterOutlet} from '@angular/router';
-import {filter, map, startWith, takeUntil, combineLatestWith} from 'rxjs';
-import {Subject} from 'rxjs';
+import {filter, map, startWith, combineLatestWith} from 'rxjs';
 import {Sidebar} from './components/sidebar/sidebar';
 import {AuthService} from './services/auth-service';
 

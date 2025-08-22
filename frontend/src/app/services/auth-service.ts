@@ -26,11 +26,9 @@ export class AuthService {
       .pipe(
         map((tokenText: string) => {
           const token = (tokenText || '').trim();
-          console.log(`The token is ${token}`)
           if (!token) throw new Error('Invalid login response');
           this.setToken(token);
           this.setCurrentUserFromToken(token);
-          console.log(`The token at the end is ${token}`)
           return token;
         }),
         catchError((err: HttpErrorResponse) =>
@@ -45,8 +43,6 @@ export class AuthService {
   }
 
   getCurrentUser(): CurrentUser | null {
-    console.log('blabla')
-    console.log(`Token value: ${this._currentUser$.value}`)
     return this._currentUser$.value;
   }
 
@@ -55,7 +51,6 @@ export class AuthService {
   }
 
   getToken(): string | null {
-    console.log('token to return is ',this.TOKEN_KEY)
     return localStorage.getItem(this.TOKEN_KEY);
   }
 

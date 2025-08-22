@@ -6,18 +6,17 @@ import org.springframework.data.domain.Sort
 import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.CrossOrigin
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.security.core.Authentication
+import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
-import sorsix.internship.backend.dto.AthleteReportShortDTO
-import sorsix.internship.backend.dto.PatientDTO
-import sorsix.internship.backend.dto.RecommendationResponse
+import sorsix.internship.backend.dto.*
 import sorsix.internship.backend.mappers.PatientMapper
+import sorsix.internship.backend.model.Doctor
+import sorsix.internship.backend.model.Patient
 import sorsix.internship.backend.repository.PatientRepository
+import sorsix.internship.backend.security.model.UserPrincipal
 import sorsix.internship.backend.service.AthleteReportService
+import sorsix.internship.backend.service.PatientService
 import sorsix.internship.backend.service.RecommendationService
 
 @RestController
@@ -26,7 +25,8 @@ import sorsix.internship.backend.service.RecommendationService
 class PatientController(
     val athleteReportService: AthleteReportService,
     val recommendationService: RecommendationService,
-    val patientRepository: PatientRepository
+    val patientRepository: PatientRepository,
+    val patientService: PatientService
 ) {
     @GetMapping("/{patientId}")
     fun getPatientObject(@PathVariable patientId: Long): ResponseEntity<PatientDTO> = ResponseEntity.ok(
@@ -36,6 +36,17 @@ class PatientController(
         )
     )
 
+    @PostMapping("/create-patient-user")
+    fun createPatientFromUser(
+        @RequestBody patientData: PatientDataDTO,
+        authentication: Authentication
+    ): ResponseEntity<Patient> {
+        println("In Patient Controller")
+        val principal = authentication.principal as UserPrincipal
+        val userId = principal.appUser.userId
+        val patient = patientService.createPatientFromUser(patientData, userId!!)
+        return ResponseEntity.ok(patient)
+    }
     @GetMapping("{patientId}/reports")
     fun getPatientReports(
         @PathVariable patientId: Long,

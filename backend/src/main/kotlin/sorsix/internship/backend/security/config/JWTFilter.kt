@@ -19,7 +19,6 @@ class JwtFilter(
     private val jwtService: JWTService,
     private val userDetailsService: UserDetailsService
 ) : OncePerRequestFilter() {
-
     @Throws(ServletException::class, IOException::class)
     override fun doFilterInternal(
         request: HttpServletRequest,

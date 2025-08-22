@@ -1,9 +1,10 @@
 import {inject, Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {filter, Observable, switchMap, take} from 'rxjs';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {filter, Observable, switchMap, take, throwError} from 'rxjs';
 import {PageResponse} from '../models/PageResponse';
 import {Patient} from '../models/Patient';
 import {AuthService} from './auth-service';
+import {CreatePatientDTO} from '../models/dto/CreatePatientDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +29,7 @@ export class PatientService {
           .set('sort', sort);
         return this.http.get<PageResponse<Patient>>(
           `${this.url}/doctor/${user?.personId}/patients`,
-          { params }
+          {params}
         )
       })
     );
@@ -51,7 +52,7 @@ export class PatientService {
           .set('sort', sort);
         return this.http.get<PageResponse<Patient>>(
           `${this.url}/doctor/${user?.personId}/patients/search`,
-          { params }
+          {params}
         )
       })
     )
@@ -60,5 +61,21 @@ export class PatientService {
   getPatientById(id: number): Observable<Patient> {
     const url = `${this.url}/patient/${id}`
     return this.http.get<Patient>(url)
+  }
+
+  savePatientEntity(patientData: CreatePatientDTO): Observable<any> {
+    const token = this.auth.getToken();
+    if (!token) {
+      return throwError(() => new Error('No token present'));
+    }
+    console.log('Patient token',token)
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    console.log("PatientDTO:", patientData)
+    console.log('Headers: ', headers)
+    return this.http.post(`${this.url}/patient/create-patient-user`, patientData, {headers});
+
   }
 }

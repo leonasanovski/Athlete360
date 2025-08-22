@@ -30,7 +30,7 @@ export class DoctorFormSetup {
     }
     this.doctorService.saveDoctorEntity(obj)
       .subscribe({
-        next: (resp) => {
+        next: () => {
           this.auth.logout()
           this.router.navigate(['/login']);
         },

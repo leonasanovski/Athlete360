@@ -36,8 +36,9 @@ class SecurityConfig(
                 auth
                     .requestMatchers("/api/register", "/api/login").permitAll()
                     .requestMatchers(HttpMethod.POST, "/api/doctor/create-doctor-user")
-                        .hasAnyAuthority("PENDING", "ADMIN")//deka granted authorities se ushte PENDING
-                    .requestMatchers(HttpMethod.POST, "/api/doctor/create-doctor-user").hasAuthority("DOCTOR")
+                        .hasAnyAuthority("PENDING", "DOCTOR")//deka granted authorities se ushte PENDING
+                    .requestMatchers(HttpMethod.POST, "/api/patient/create-patient-user")
+                        .hasAnyAuthority("PENDING", "PATIENT")//deka granted authorities se ushte PENDING
                     .anyRequest().authenticated()
             }
             .httpBasic(Customizer.withDefaults())

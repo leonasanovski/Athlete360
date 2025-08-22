@@ -27,19 +27,15 @@ export class LoginPageComponent {
   submit(): void {
     this.serverError = '';
     if (this.formGroup.invalid || this.loading) return;
-    console.log('Before new values inserted: ', this.formGroup)
     const {embg, password} = this.formGroup.getRawValue();
     this.loading = true;
-    console.log('After new values: ', this.formGroup.getRawValue())
     this.auth.login(embg, password).pipe(
       switchMap(() => {
         const user = this.auth.getCurrentUser();
-        console.log(`User Info: ${user}`)
         if (!user) throw new Error('No user session after login');
         const role = user.role as 'DOCTOR' | 'PATIENT' | 'PENDING' | 'ADMIN';
         if (role === 'DOCTOR') {
           if (user.personId) {
-            console.log('')
             this.router.navigate(['/doctor']);
           } else {
             this.router.navigate(['/doctor/setup']);
@@ -48,7 +44,14 @@ export class LoginPageComponent {
         }
 
         if (role === 'PATIENT') {
-          this.router.navigate(['/patient']);
+          console.log('PATIENT ROLE FOR THE USER')
+          console.log('user: ', user)
+          if(user.personId){
+            this.router.navigate(['/patient']);
+          }else{
+            console.log('tuka')
+            this.router.navigate(['/patient/setup']);
+          }
           return of(null);
         }
 
