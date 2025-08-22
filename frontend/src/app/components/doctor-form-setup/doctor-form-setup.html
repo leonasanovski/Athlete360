@@ -1,21 +1,36 @@
-<div class="login-container">
-  <form [formGroup]="formGroup" (ngSubmit)="submit()" class="card">
-    <h2 class="title">Hey {{ loggedUser?.firstName }} {{ loggedUser?.lastName }}, you have been assigned as role <span
-      class="fw-bolder text-danger"> {{ loggedUser?.role }} </span>.<br> Finish your registration and welcome to the
-      system of Athlete360</h2>
-    <label>
-      <span>Enter the Specialization you finished for</span>
-      <input type="text" formControlName="specialization" placeholder="eg. Psychiatry, Dermatology, Radiology ..."/>
-    </label>
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div class="card shadow-lg p-4 border-0" style="max-width: 600px; background: linear-gradient(135deg, #F2E8CF 0%, #ffffff 100%); border-radius: 16px;">
+    <form [formGroup]="formGroup" (ngSubmit)="submit()" class="card-body">
+      <h2 class="card-title text-center mb-4 fw-bold" style="color: #386641;">
+        Hey {{ loggedUser?.firstName }} {{ loggedUser?.lastName }},
+      </h2>
+      <p class="text-center mb-4">
+        you have been assigned as role
+        <span class="fw-bolder text-danger"> {{ loggedUser?.role }} </span>.<br>
+        Finish your registration and welcome to the system of <span class="fw-bold" style="color: #6A994E;">Athlete360</span>
+      </p>
 
-    @if (this.formGroup.controls['specialization'] && this.formGroup.controls['specialization'].invalid) {
-      <div class="error">
-        Specialization is required for the registration to be completed.
+      <!-- Specialization Input -->
+      <div class="mb-3">
+        <label for="specialization" class="form-label fw-semibold">Enter the Specialization you finished for</label>
+        <input type="text" id="specialization" class="form-control border-2"
+               formControlName="specialization"
+               placeholder="e.g. Psychiatry, Dermatology, Radiology ..." />
+        @if (this.formGroup.controls['specialization'] && this.formGroup.controls['specialization'].invalid) {
+          <div class="text-danger small mt-1">
+            Specialization is required for the registration to be completed.
+          </div>
+        }
       </div>
-    }
-    <button [disabled]="formGroup.invalid" type="submit">
-      Finish The Registration
-    </button>
 
-  </form>
+      <!-- Submit Button -->
+      <div class="d-grid">
+        <button [disabled]="formGroup.invalid" type="submit"
+                class="btn fw-bold text-white py-2"
+                style="background-color: #386641; border-radius: 8px;">
+          Finish The Registration
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
