@@ -1,28 +1,46 @@
-<div class="container mt-4">
-  <div class="card p-4">
-    <h4>Add Mood</h4>
-    <form [formGroup]="moodForm" (submit)="onSubmit()">
-      <input type="hidden" formControlName="patientId">
-      <div class="mb-3">
-        <label class="form-label">Hours Slept</label>
-        <input type="number" class="form-control" formControlName="hoursSleptAverage"/>
+<div class="d-flex justify-content-center align-items-center min-vh-100">
+  <div class="col-lg-8 col-xl-7">
+    <div class="card mood-form-card shadow-lg">
+      <div class="card-header text-white">
+        <h4 class="mb-0">Add Mood</h4>
       </div>
-      <div class="mb-3">
-        <label class="form-label">Mood Description</label>
-        <textarea class="form-control" formControlName="moodDescription">
-        </textarea>
+      <div class="card-body">
+        <form [formGroup]="moodForm" (submit)="onSubmit()">
+          <input type="hidden" formControlName="patientId">
+
+          <div class="mb-3">
+            <label class="form-label">Hours Slept</label>
+            <input type="number" class="form-control" formControlName="hoursSleptAverage"/>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Mood Description</label>
+            <textarea class="form-control" rows="4" formControlName="moodDescription"></textarea>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Emotion</label>
+            <select class="form-select" formControlName="moodEmotion">
+              <option value="" disabled>Select emotion</option>
+              @for (option of moodEmotionOptions; track option.toString()) {
+                <option [value]="option">{{ option }}</option>
+              }
+            </select>
+          </div>
+
+          <div class="d-grid">
+            <button class="btn btn-custom-green" type="submit">Submit</button>
+          </div>
+        </form>
       </div>
 
-      <div class="mb-3">
-        <label class="form-label">Emotion</label>
-        <select class="form-select" formControlName="moodEmotion">
-          <option value="" disabled>Select emotion</option>
-          @for (option of moodEmotionOptions; track option.toString()) {
-            <option [value]="option">{{ option }}</option>
-          }
-        </select>
+      <div class="card-footer description-box">
+        <p class="description-text">
+          Logging your moods regularly helps us provide you with better insights
+          and personalized recommendations. Your data is private and secure. Make sure you feel comfortable and write how do you feel in the last several days.
+          <br><span class="fw-bolder">Express your feelings and explain your period as it realistically is.</span>
+        </p>
       </div>
-      <button class="btn btn-success" type="submit">Submit</button>
-    </form>
+    </div>
   </div>
 </div>

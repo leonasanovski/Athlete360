@@ -1,0 +1,131 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-7">
+      <div class="card shadow-sm register-card">
+        <div class="card-header text-white">
+          <h5 class="mb-0">Create your account</h5>
+        </div>
+
+        <div class="card-body">
+          <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" novalidate>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">First name</label>
+                <input type="text" class="form-control"
+                       [class.is-invalid]="f.firstName.touched && f.firstName.invalid"
+                       formControlName="firstName">
+                <div class="invalid-feedback">First name is required.</div>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">Last name</label>
+                <input type="text" class="form-control"
+                       [class.is-invalid]="f.lastName.touched && f.lastName.invalid"
+                       formControlName="lastName">
+                <div class="invalid-feedback">Last name is required.</div>
+              </div>
+            </div>
+
+            <div class="row g-3 mt-1">
+              <div class="col-md-6">
+                <label class="form-label">EMBG</label>
+                <input type="text" inputmode="numeric" class="form-control"
+                       placeholder="e.g. 1007991450xxx"
+                       [class.is-invalid]="f.embg.touched && f.embg.invalid"
+                       formControlName="embg">
+                <div class="invalid-feedback">
+                  {{ f.embg.errors?.error || 'Invalid EMBG.' }}
+                </div>
+                <div class="form-text">Format: ddmmyyy + 450xxx (male) / 455xxx (female)</div>
+              </div>
+
+              <div class="col-md-3">
+                <label class="form-label">Date of birth</label>
+                <input type="date" class="form-control"
+                       [class.is-invalid]="f.dateOfBirth.touched && f.dateOfBirth.invalid"
+                       formControlName="dateOfBirth">
+                <div class="invalid-feedback">Date of birth is required.</div>
+              </div>
+
+              <div class="col-md-3">
+                <label class="form-label">Gender</label>
+                <select class="form-select"
+                        [class.is-invalid]="f.gender.touched && f.gender.invalid"
+                        formControlName="gender">
+                  <option value="" disabled selected>Select…</option>
+                  @for (g of genders; track g) {
+                    <option [value]="g">{{ g }}</option>
+                  }
+                </select>
+                <div class="invalid-feedback">Gender is required.</div>
+              </div>
+            </div>
+
+            <div class="mt-3">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-control"
+                     [class.is-invalid]="f.email.touched && f.email.invalid"
+                     formControlName="email" placeholder="name@example.com">
+              <div class="invalid-feedback">
+                {{ f.email.hasError('required') ? 'Email is required.' : 'Please enter a valid email.' }}
+              </div>
+            </div>
+
+            <div class="row g-3 mt-1">
+              <div class="col-md-6">
+                <label class="form-label">Password</label>
+                <input [type]="showPass ? 'text' : 'password'" class="form-control"
+                       [class.is-invalid]="f.password.touched && f.password.invalid"
+                       formControlName="password"
+                       placeholder="min 8 chars, 1 number, 1 symbol, no uppercase">
+                <div class="invalid-feedback">
+                  @if (f.password.hasError('required')) {
+                    <ng-container>Password is required.</ng-container>
+
+                  }
+                  @if (f.password.hasError('minlength')) {
+                    <ng-container>Min length is 8.</ng-container>
+
+                  }
+                  @if (f.password.hasError('pattern')) {
+                    <ng-container>
+                      Must have at least one number and one special character, lowercase only.
+                    </ng-container>
+                  }
+                </div>
+                <div class="form-check mt-2">
+                  <input class="form-check-input" type="checkbox" id="showPass" (click)="showPassword()"
+                         name="showPass">
+                  <label for="showPass" class="form-check-label">Show password</label>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">Confirm password</label>
+                <input [type]="showPass ? 'text' : 'password'" class="form-control"
+                       [class.is-invalid]="(f.confirmPassword.touched && f.confirmPassword.invalid) || formGroup.hasError('passwordMismatch') && f.confirmPassword.touched"
+                       formControlName="confirmPassword">
+                <div class="invalid-feedback">
+                  @if (f.confirmPassword.hasError('required')) {
+                    <ng-container>Confirmation is required.</ng-container>
+                  }
+                  @if (formGroup.hasError('passwordMismatch')) {
+                    <ng-container>Passwords do not match.</ng-container>
+                  }
+                </div>
+              </div>
+            </div>
+            <div class="d-grid mt-4">
+              <button class="btn btn-brand" type="submit" [disabled]="formGroup.invalid">
+                Create Account
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="card-footer text-muted small text-center">
+          By registering you agree to our Terms & Privacy.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

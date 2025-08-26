@@ -9,29 +9,8 @@
         you have been assigned as role
         <span class="fw-bolder text-danger"> {{ loggedUser?.role }} </span>.<br>
         Finish your registration and welcome to the system of
-        <span class="fw-bold" style="color: #6A994E;">Athlete360</span>
+        <span class="fw-bold" style="color: #6A994E;">Athlete360</span>.
       </p>
-
-      <div class="mb-3">
-        <label for="dob" class="form-label fw-semibold">Date of Birth</label>
-        <input id="dob" type="date" class="form-control border-2" formControlName="dateOfBirth"/>
-        @if (formGroup.controls['dateOfBirth']?.invalid) {
-          <div class="text-danger small mt-1">Date of birth is required.</div>
-        }
-      </div>
-
-      <div class="mb-3">
-        <label for="gender" class="form-label fw-semibold">Gender</label>
-        <select id="gender" class="form-select border-2" formControlName="gender">
-          <option [value]="null">Select gender</option>
-          @for (g of genders; track g) {
-            <option [value]="g">{{ g }}</option>
-          }
-        </select>
-        @if (formGroup.controls['gender']?.invalid) {
-          <div class="text-danger small mt-1">Gender is required.</div>
-        }
-      </div>
 
       <div class="mb-4">
         <label for="category" class="form-label fw-semibold">Sportsman Category</label>
@@ -46,7 +25,6 @@
         }
       </div>
 
-      <!-- Submit -->
       <div class="d-grid">
         <button [disabled]="formGroup.invalid" type="submit"
                 class="btn fw-bold text-white py-2" style="background-color: #386641; border-radius: 8px;">

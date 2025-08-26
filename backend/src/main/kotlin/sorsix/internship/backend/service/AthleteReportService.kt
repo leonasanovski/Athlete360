@@ -11,10 +11,7 @@ interface AthleteReportService {
     fun create(requestObject: AthleteReportFormDTO): Long
     fun findReportById(id: Long): AthleteReportResponse
     fun reportMetricsFlagging(reportId: Long): ReportMetricFlaggerDTO
-    //TODO DELETE REPORT FROM DATABASE (ONLY THE DOCTOR CAN DO THIS)
     fun getReportsShortByPatientId(patientId: Long, pageable: Pageable): Page<AthleteReportShortDTO>
     fun getReportsShortByDoctorId(doctorId: Long, pageable: Pageable): Page<AthleteReportShortDTO>
-    //fun findLatestReportId(): Long
     fun findLatestReportIdByPatientId(patientId: Long): Long
-    //TODO GET REPORT SUMMARY (GENERATED ONE)
 }

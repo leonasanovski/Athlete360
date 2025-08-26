@@ -1,9 +1,10 @@
 import {inject, Injectable} from '@angular/core';
-import {BehaviorSubject, catchError, map, Observable, throwError} from 'rxjs';
+import {BehaviorSubject, catchError, map, Observable, tap, throwError} from 'rxjs';
 import {CurrentUser} from '../models/CurrentUser';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {jwtDecode} from 'jwt-decode';
 import {JwtPayload} from '../models/JWTPayload';
+import {CreateAppUserDTO} from '../models/dto/CreateAppUserDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class AuthService {
 
   login(embg: string, password: string): Observable<string> {
     return this.http
-      .post(`${this.API_BASE}/login`, { embg, password }, { responseType: 'text' })
+      .post(`${this.API_BASE}/login`, {embg, password}, {responseType: 'text'})
       .pipe(
         map((tokenText: string) => {
           const token = (tokenText || '').trim();
@@ -30,6 +31,29 @@ export class AuthService {
           this.setToken(token);
           this.setCurrentUserFromToken(token);
           return token;
+        }),
+        catchError((err: HttpErrorResponse) =>
+          throwError(() => new Error(err.error?.message || 'Login failed'))
+        )
+      );
+  }
+
+  register(payload: any): Observable<string> {
+    const obj: CreateAppUserDTO = {
+      firstName: payload.firstName,
+      lastName: payload.lastName,
+      password: payload.password,
+      confirmPassword: payload.confirmPassword,
+      embg: payload.embg,
+      email: payload.email
+    }
+    return this.http.post(`${this.API_BASE}/register`, obj, {responseType: 'text'})
+      .pipe(
+        map(tokenText => (tokenText || '').trim()),
+        tap(token => {
+          if (!token) throw new Error('Empty token from server');
+          this.setToken(token);
+          this.setCurrentUserFromToken(token);
         }),
         catchError((err: HttpErrorResponse) =>
           throwError(() => new Error(err.error?.message || 'Login failed'))

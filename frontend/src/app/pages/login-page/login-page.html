@@ -27,8 +27,16 @@
       </button>
     </div>
 
+    <div class="d-grid">
+      <button type="button" class="btn btn-outline-secondary btn-lg"
+              (click)="goToRegister()">
+        Register
+      </button>
+    </div>
+
     @if (serverError) {
       <div class="server-error text-danger text-center mt-3">{{ serverError }}</div>
     }
   </form>
+
 </div>

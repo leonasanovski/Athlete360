@@ -11,7 +11,9 @@ import sorsix.internship.backend.security.dtos.ChangeRoleRequest
 import sorsix.internship.backend.security.dtos.LoginRequest
 import sorsix.internship.backend.security.dtos.RegisterRequest
 import sorsix.internship.backend.security.model.AppUser
+import sorsix.internship.backend.security.model.UserRole
 import sorsix.internship.backend.security.repository.AppUserRepository
+import java.time.LocalDateTime
 
 @Service
 class UserService(
@@ -36,7 +38,9 @@ class UserService(
             email = request.email,
             firstName = request.firstName,
             lastName = request.lastName,
-            passwordHash = encoder.encode(request.password)
+            passwordHash = encoder.encode(request.password),
+            createdAt = LocalDateTime.now(),//?
+            role = UserRole.PENDING//?
         )
 
         return userRepository.save(user)

@@ -1,0 +1,73 @@
+/* Card */
+.mood-form-card {
+  width: 100%;
+  max-width: 720px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Card header */
+.mood-form-card .card-header {
+  background: linear-gradient(135deg, #386641, #6A994E); /* dark → medium green */
+  font-weight: 600;
+  text-align: center;
+  font-size: 1.2rem;
+  border: none;
+}
+
+/* Inputs & Selects */
+.mood-form-card .form-control,
+.mood-form-card .form-select {
+  border-radius: 8px;
+  border: 1px solid #cbd5c0;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.mood-form-card .form-control:focus,
+.mood-form-card .form-select:focus {
+  border-color: #A7C957;
+  box-shadow: 0 0 0 0.2rem rgba(167, 201, 87, 0.35);
+}
+
+
+.btn-custom-green {
+  background-color: #5cb85c;
+  border-color: #5cb85c;
+  color: white;
+  border-radius: 8px;
+  font-weight: 600;
+  padding: 0.65rem;
+  transition: all 0.2s ease;
+}
+
+.btn-custom-green:hover {
+  background-color: #449d44;
+  border-color: #449d44;
+}
+
+.mood-form-card textarea {
+  min-height: 140px;
+}
+
+/* Form labels */
+.mood-form-card .form-label {
+  color: #1f7a1f;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* Footer description */
+.description-box {
+  background-color: #f2e8cf;
+  text-align: center;
+  padding: 1rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.description-text {
+  font-size: 0.9rem;
+  color: #386641;
+  font-style: italic;
+  margin: 0;
+  line-height: 1.4;
+}

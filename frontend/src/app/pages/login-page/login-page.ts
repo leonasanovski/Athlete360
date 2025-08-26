@@ -23,7 +23,6 @@ export class LoginPageComponent {
     embg: new FormControl('1104003450027', [Validators.required, Validators.minLength(13), Validators.maxLength(13)]),
     password: new FormControl('p@ssw0rd', [Validators.required, Validators.minLength(8)]),
   });
-  //todo - this shall be fixed so when someoene with unfinished account loggs in, to redirect him to finish and create patient/doctor entity and then to allow him the usage of the app
   submit(): void {
     this.serverError = '';
     if (this.formGroup.invalid || this.loading) return;
@@ -70,5 +69,9 @@ export class LoginPageComponent {
       }),
       finalize(() => (this.loading = false))
     ).subscribe();
+  }
+
+  goToRegister(){
+    this.router.navigate(['/register']);
   }
 }

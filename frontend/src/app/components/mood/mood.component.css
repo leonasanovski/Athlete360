@@ -53,29 +53,96 @@
   font-weight: 600;
 }
 
-/* Minimal custom CSS - mostly using Bootstrap */
 .filter-panel {
-  background-color: #ffffff;
+  background: linear-gradient(135deg, #f2e8cf, #ffffff);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 1.2rem;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.filter-panel:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.filter-panel h5,
+.filter-panel .panel-title {
+  color: #386641; /* dark green brand */
+  font-weight: 600;
+  margin-bottom: 1rem;
+  letter-spacing: 0.5px;
+}
+
+.filter-panel label {
+  color: #6A994E; /* medium green accent */
+  font-weight: 500;
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+  display: inline-block;
+  transition: color 0.2s ease;
+}
+
+.filter-panel label:hover {
+  color: #386641; /* darker on hover */
+}
+
+.filter-panel .form-control,
+.filter-panel .form-select {
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #cbd5c0;
+  background-color: #ffffff;
+  padding: 0.6rem 0.8rem;
+  font-size: 0.95rem;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
-/* Custom checkbox styling to match your green theme */
-.form-check-input:checked {
-  background-color: #5cb85c;
-  border-color: #5cb85c;
+.filter-panel .form-control:focus,
+.filter-panel .form-select:focus {
+  border-color: #A7C957;
+  box-shadow: 0 0 0 0.2rem rgba(167, 201, 87, 0.35);
 }
 
-.form-check-input:focus {
-  border-color: #5cb85c;
-  box-shadow: 0 0 0 0.25rem rgba(92, 184, 92, 0.25);
+.filter-panel ::placeholder {
+  color: #9ca3af;
+  font-style: italic;
+  opacity: 0.9;
 }
 
-/* Submit button custom color */
+.filter-panel .form-check-input:checked {
+  background-color: #386641;
+  border-color: #386641;
+}
+
+.filter-panel .form-check-label {
+  color: #333;
+  font-size: 0.9rem;
+  margin-left: 4px;
+}
+
+.filter-panel .form-control,
+.filter-panel .form-select {
+  transition: all 0.2s ease-in-out;
+}
+
+.filter-panel .form-control:hover,
+.filter-panel .form-select:hover {
+  border-color: #6A994E;
+}
+
 .btn-custom-green {
   background-color: #5cb85c;
   border-color: #5cb85c;
   color: white;
+}
+
+.btn-reset {
+  background-color: darkred;
+  color: #f2e8cf;
+  border-radius: 0.5em;
+  border: none;
+  padding: 0 19px;
 }
 
 .btn-custom-green:hover {

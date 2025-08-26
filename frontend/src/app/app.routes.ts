@@ -16,9 +16,11 @@ import {PendingPage} from './pages/pending-page/pending-page';
 import {DoctorFormSetup} from './components/doctor-form-setup/doctor-form-setup';
 import {PatientFormSetup} from './components/patient-form-setup/patient-form-setup';
 import {AdminPage} from './pages/admin-page/admin-page';
+import {RegisterPage} from './pages/register-page/register-page';
 
 export const routes: Routes = [
   {path: 'login', component: LoginPageComponent, canActivate: [guestGuard]},
+  {path: 'register', component: RegisterPage, canActivate: [guestGuard]},
   {
     path: '',
     canActivate: [authGuard],

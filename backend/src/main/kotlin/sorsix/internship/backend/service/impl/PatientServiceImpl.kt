@@ -1,6 +1,5 @@
 package sorsix.internship.backend.service.impl
 
-import org.springframework.data.crossstore.ChangeSetPersister
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
@@ -53,13 +52,20 @@ class PatientServiceImpl(
     override fun createPatientFromUser(patientData: PatientDataDTO, userId: Long): Patient {
         val user =
             userRepository.findById(userId).orElseThrow { throw RuntimeException("User with id = $userId not found") }
-        println("In CREATE PATIENT FROM USER")
+        val gender = if (user.embg.slice(7..9) == "455") {
+            Gender.FEMALE
+        } else {
+            Gender.MALE
+        }
+        val date = parseToDate(user.embg.slice(0..6))
+        println("Gender: $gender")
+        println("Date: $date")
         val patient = Patient(
             user = user,
             doctor = null,
-            dateOfBirth = LocalDate.parse(patientData.dateOfBirth),
+            dateOfBirth = date,
             dateOfLatestCheckUp = null,
-            gender = patientData.gender,
+            gender = gender,
             sportsmanCategory = patientData.sportsmanCategory
         )
         return patientRepository.save(patient)
@@ -74,4 +80,13 @@ class PatientServiceImpl(
             sort
         }
 
+    private fun parseToDate(slicedEmbg: String): LocalDate =
+        LocalDate.of(
+            if (slicedEmbg.slice(4..6).toInt() < 26)
+                "2${slicedEmbg.slice(4..6)}".toInt()
+            else
+                "1${slicedEmbg.slice(4..6)}".toInt(),
+            slicedEmbg.slice(2..3).toInt(),
+            slicedEmbg.slice(0..1).toInt()
+        )
 }

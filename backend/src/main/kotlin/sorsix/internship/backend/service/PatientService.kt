@@ -7,7 +7,6 @@ import sorsix.internship.backend.dto.PatientDataDTO
 import sorsix.internship.backend.model.Patient
 
 interface PatientService {
-    //TODO GET ALL MOODS
     fun getPatientsByDoctorId(doctorId: Long, pageable: Pageable): Page<PatientDTO>
     fun searchPatientsByDoctorIdAndEmbg(doctorId: Long, embg: String, pageable: Pageable): Page<PatientDTO>
     fun createPatientFromUser(patientData: PatientDataDTO, userId: Long): Patient;
