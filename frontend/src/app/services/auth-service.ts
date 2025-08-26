@@ -4,6 +4,7 @@ import {CurrentUser} from '../models/CurrentUser';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {jwtDecode} from 'jwt-decode';
 import {JwtPayload} from '../models/JWTPayload';
+import {UserRole} from '../models/types/UserRole';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +41,19 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem(this.TOKEN_KEY);
     this._currentUser$.next(null);
+  }
+
+  getRole(): UserRole | null {
+    const token = this.getToken();
+    if (!token) return null;
+
+    try {
+      const decoded = jwtDecode<JwtPayload>(token);
+      return decoded.role ?? null;
+    } catch (e) {
+      console.error('Invalid token', e);
+      return null;
+    }
   }
 
   getCurrentUser(): CurrentUser | null {
