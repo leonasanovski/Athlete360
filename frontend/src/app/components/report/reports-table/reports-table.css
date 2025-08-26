@@ -1,0 +1,7 @@
+.empty-placeholder {
+  border: 2px dashed #d1d5db;
+  border-radius: 16px;
+  background: #f9fafb;
+  color: #6b7280;
+  font-size: 1rem;
+}

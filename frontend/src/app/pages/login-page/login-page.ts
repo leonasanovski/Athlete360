@@ -49,7 +49,6 @@ export class LoginPageComponent {
           if(user.personId){
             this.router.navigate(['/patient']);
           }else{
-            console.log('tuka')
             this.router.navigate(['/patient/setup']);
           }
           return of(null);
@@ -57,6 +56,11 @@ export class LoginPageComponent {
 
         if (role === 'PENDING') {
           this.router.navigate(['/pending']);
+          return of(null);
+        }
+
+        if(role === 'ADMIN') {
+          this.router.navigate(['/admin']);
           return of(null);
         }
 

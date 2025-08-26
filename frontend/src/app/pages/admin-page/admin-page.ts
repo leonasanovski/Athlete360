@@ -5,6 +5,8 @@ import {UserRole} from '../../models/types/UserRole';
 import {debounceTime, distinctUntilChanged, Subject, switchMap} from 'rxjs';
 import {DatePipe} from '@angular/common';
 import {FormsModule} from '@angular/forms';
+import {AuthService} from '../../services/auth-service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'admin-page',
@@ -16,6 +18,9 @@ import {FormsModule} from '@angular/forms';
   styleUrl: './admin-page.css'
 })
 export class AdminPage implements OnInit {
+  authService = inject(AuthService);
+  router = inject(Router);
+
   users: AppUserDTO[] = []
   page = 0
   size = 20
@@ -94,5 +99,10 @@ export class AdminPage implements OnInit {
     if (p < 0 || p >= this.totalPages) return
     this.page = p
     this.load()
+  }
+
+  onLogout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }

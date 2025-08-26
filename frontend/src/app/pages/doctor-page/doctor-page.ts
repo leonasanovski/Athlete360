@@ -1,7 +1,9 @@
-import {Component} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {PatientsTable} from '../../components/patient/patients-table/patients-table';
 import {ReportsTable} from '../../components/report/reports-table/reports-table';
 import {RouterLink, RouterLinkActive} from '@angular/router';
+import {AuthService} from '../../services/auth-service';
+import {CurrentUser} from '../../models/CurrentUser';
 
 @Component({
   selector: 'doctor-page',
@@ -15,5 +17,12 @@ import {RouterLink, RouterLinkActive} from '@angular/router';
   standalone: true,
   styleUrl: './doctor-page.css'
 })
-export class DoctorPage {
+export class DoctorPage implements OnInit {
+  authService = inject(AuthService);
+  currentUser: CurrentUser | null = null;
+
+
+  ngOnInit(): void {
+    this.currentUser = this.authService.getCurrentUser();
+  }
 }
