@@ -3,11 +3,12 @@ import {Router, NavigationEnd, RouterOutlet} from '@angular/router';
 import {filter, map, startWith, combineLatestWith} from 'rxjs';
 import {Sidebar} from './components/sidebar/sidebar';
 import {AuthService} from './services/auth-service';
+import {NgClass} from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, Sidebar],
+  imports: [RouterOutlet, Sidebar, NgClass],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

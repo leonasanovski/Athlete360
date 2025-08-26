@@ -3,16 +3,16 @@ VALUES (-1, 'admin', 'admin', '1010000450123', 'ADMIN', '$2a$12$GdbZ8iCmAKysEps8
         'admin@gmail.com');
 
 INSERT INTO app_user (user_id, first_name, last_name, embg, role, password_hash, email)
-VALUES (1, 'Daze', 'Tristan', '0101010450344', 'DOCTOR', '$2a$12$GdbZ8iCmAKysEps83d7Ro.2ELtr0VDnlvgl1o9J11H8AKK95pxtOS',
+VALUES (1, 'Branko', 'Ristovski', '0101010450344', 'DOCTOR', '$2a$12$GdbZ8iCmAKysEps83d7Ro.2ELtr0VDnlvgl1o9J11H8AKK95pxtOS',
         'daze@gmail.com'),
-       (2, 'Gege', 'Landovski', '0202020450345', 'DOCTOR',
+       (2, 'Goran', 'Petreski', '0202020450345', 'DOCTOR',
         '$2a$12$GdbZ8iCmAKysEps83d7Ro.2ELtr0VDnlvgl1o9J11H8AKK95pxtOS', 'gege@yahoo.com');
 
 -- 2) Insert app_user rows for all existing patients (role = PATIENT)
 INSERT INTO app_user (user_id, first_name, last_name, embg, role, password_hash, email)
-VALUES (3, 'Pancho', 'Ribarski', '0909999450321', 'PATIENT',
+VALUES (3, 'Pavel', 'Tanurovski', '0909999450321', 'PATIENT',
         '$2a$12$GdbZ8iCmAKysEps83d7Ro.2ELtr0VDnlvgl1o9J11H8AKK95pxtOS', 'pamcho@gmail.gov'),
-       (4, 'Bancho', 'Tubarski', '0909997450321', 'PATIENT',
+       (4, 'Vlatko', 'Smilevski', '0909997450321', 'PATIENT',
         '$2a$12$GdbZ8iCmAKysEps83d7Ro.2ELtr0VDnlvgl1o9J11H8AKK95pxtOS', 'pbancho@gmail.gov'),
        (5, 'Ivan', 'Petrov', '0101000450322', 'PATIENT', '$2a$12$GdbZ8iCmAKysEps83d7Ro.2ELtr0VDnlvgl1o9J11H8AKK95pxtOS',
         'ivan.petrov@gmail.gov'),

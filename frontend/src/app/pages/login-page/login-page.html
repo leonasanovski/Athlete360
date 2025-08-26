@@ -1,32 +1,34 @@
-<div class="login-container">
-  <form [formGroup]="formGroup" (ngSubmit)="submit()" class="login-card">
-    <h2 class="title">Sign in</h2>
+<div class="login-container d-flex justify-content-center align-items-center vh-100 bg-light">
+  <form [formGroup]="formGroup" (ngSubmit)="submit()" class="login-card shadow-lg p-4 rounded bg-white">
+    <h2 class="title text-center mb-4">Sign in</h2>
 
     <!-- EMBG -->
-    <label>
-      <span>EMBG</span>
-      <input type="text" formControlName="embg" placeholder="e.g. 1212005455321" />
-    </label>
-    @if (this.formGroup.controls['embg'] && this.formGroup.controls['embg'].invalid) {
-      <div class="error">EMBG is required</div>
-    }
+    <div class="mb-3">
+      <label class="form-label">EMBG</label>
+      <input type="text" class="form-control" formControlName="embg" placeholder="e.g. 1212005455321" />
+      @if (this.formGroup.controls['embg'] && this.formGroup.controls['embg'].invalid) {
+        <div class="error text-danger small mt-1">EMBG is required</div>
+      }
+    </div>
 
     <!-- Password -->
-    <label>
-      <span>Password</span>
-      <input type="password" formControlName="password" placeholder="••••••••" />
-    </label>
-    @if (this.formGroup.controls['password'] && this.formGroup.controls['password'].invalid) {
-      <div class="error">Password is required (min 4 chars)</div>
-    }
+    <div class="mb-3">
+      <label class="form-label">Password</label>
+      <input type="password" class="form-control" formControlName="password" placeholder="••••••••" />
+      @if (this.formGroup.controls['password'] && this.formGroup.controls['password'].invalid) {
+        <div class="error text-danger small mt-1">Password is required (min 4 chars)</div>
+      }
+    </div>
 
     <!-- Submit -->
-    <button [disabled]="loading || formGroup.invalid" type="submit">
-      {{ loading ? 'Signing in…' : 'Sign in' }}
-    </button>
+    <div class="d-grid">
+      <button [disabled]="loading || formGroup.invalid" type="submit" class="btn btn-primary btn-lg">
+        {{ loading ? 'Signing in…' : 'Sign in' }}
+      </button>
+    </div>
 
     @if (serverError) {
-      <div class="server-error">{{ serverError }}</div>
+      <div class="server-error text-danger text-center mt-3">{{ serverError }}</div>
     }
   </form>
 </div>

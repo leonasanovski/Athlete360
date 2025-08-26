@@ -10,7 +10,7 @@
   @if (!hideSidebar) {
     <sidebar [role]="role"/>
   }
-<div class="flex-grow-1 p-3 overflow-y-scroll">
+<div class="flex-grow-1 overflow-y-scroll" [ngClass]="{ 'p-3': !hideSidebar }">
   <router-outlet></router-outlet>
 </div>
 </body>
