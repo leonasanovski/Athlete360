@@ -10,16 +10,49 @@
   font-size: 0.95rem;
 }
 
-.login-card .btn {
+.btn-signin,
+.btn-register {
   border-radius: 12px;
   padding: 12px;
-  transition: all 0.2s ease;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.25s ease-in-out;
+  width: 100%;
 }
 
-.login-card .btn:hover {
-  background-color: #0d6efd;
+.btn-signin {
+  background: linear-gradient(135deg, #38522a, #208b57);
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 10px rgb(45, 64, 34);
+}
+
+.btn-signin:hover:not(:disabled) {
+  background: linear-gradient(135deg, #208b57, #38522a);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
+  box-shadow: 0 6px 14px rgba(13, 110, 253, 0.35);
+}
+
+/* Secondary Register button */
+.btn-register {
+  background: #fff;
+  color: #6a994e;
+  border: 2px solid #38522a;
+}
+
+.btn-register:hover {
+  background: #6a994e;
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgb(56, 82, 42);
+}
+
+/* Disabled state */
+.btn-signin:disabled {
+  background: #a3c4fd;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
 }
 
 .login-card .title {
@@ -34,3 +67,4 @@
 body {
   background: linear-gradient(135deg, #f0f4ff, #e8efff);
 }
+
