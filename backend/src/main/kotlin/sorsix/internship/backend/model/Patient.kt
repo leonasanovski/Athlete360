@@ -24,7 +24,7 @@ data class Patient(
     // patient may be assigned to one doctor
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "doctor_id")
-    val doctor: Doctor? = null,
+    var doctor: Doctor? = null,
 
     @Column(name = "date_of_birth", nullable = false)
     val dateOfBirth: LocalDate,

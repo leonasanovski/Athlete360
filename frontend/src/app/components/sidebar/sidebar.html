@@ -1,5 +1,5 @@
 <div class="sidebar-container">
-  <a href="/" class="logo-section">
+  <a [routerLink]="role === 'PATIENT' ? '/patient' : '/doctor'" class="logo-section">
     <svg class="athlete-logo" viewBox="0 0 100 100" aria-hidden="true">
       <defs>
         <linearGradient id="circleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -91,10 +91,6 @@
             {{ loggedUser.firstName }} {{ loggedUser.lastName }}
           </div>
         </div>
-        <svg class="dropdown-arrow" fill="currentColor" viewBox="0 0 16 16">
-          <path
-            d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
-        </svg>
       </a>
       <ul class="dropdown-menu shadow">
         <li>

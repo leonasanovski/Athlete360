@@ -35,6 +35,10 @@ class AthleteReportServiceImpl(
         val patient = patientRepository.findByUserEmbg(requestObject.embg)
             ?: throw IllegalArgumentException("Patient with embg = ${requestObject.embg} not found")
 
+        if(patient.doctor == null) {
+            patient.doctor = doctor;
+        }
+
         patient.dateOfLatestCheckUp = LocalDateTime.now();
         patientRepository.save(patient);
 

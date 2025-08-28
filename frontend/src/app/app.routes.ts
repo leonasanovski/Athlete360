@@ -19,6 +19,7 @@ import {AdminPage} from './pages/admin-page/admin-page';
 import {RegisterPage} from './pages/register-page/register-page';
 import {adminOnlyGuard} from './core/guards/admin-only-guard';
 import {adminLockChildGuard, adminLockGuard} from './core/guards/admin-lock-guard';
+import {RecommendationCreationPage} from './pages/recommendation-creation-page/recommendation-creation-page';
 
 export const routes: Routes = [
   {path: 'login', component: LoginPageComponent, canActivate: [guestGuard]},
@@ -46,7 +47,11 @@ export const routes: Routes = [
       {path: 'reports/new/:id', component: ReportCreationPage},
       {path: 'reports/:id', component: ReportDetailsPage},
       {path: 'reports/:id/document', component: PaperView},
+
       {path: 'summary/:reportId', component: SummaryCreationPage},
+
+      {path: 'recommendations/new', component: RecommendationCreationPage},
+
       {path: '', redirectTo: 'patient', pathMatch: 'full'},
       {path: 'pending', component: PendingPage},
     ]
