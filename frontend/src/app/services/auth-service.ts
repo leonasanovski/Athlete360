@@ -5,6 +5,7 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {jwtDecode} from 'jwt-decode';
 import {JwtPayload} from '../models/JWTPayload';
 import {CreateAppUserDTO} from '../models/dto/CreateAppUserDTO';
+import {UserRole} from '../models/types/UserRole';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class AuthService {
 
   login(embg: string, password: string): Observable<string> {
     return this.http
-      .post(`${this.API_BASE}/login`, {embg, password}, {responseType: 'text'})
+      .post(`${this.API_BASE}/login`, { embg, password }, { responseType: 'text' })
       .pipe(
         map((tokenText: string) => {
           const token = (tokenText || '').trim();
@@ -64,6 +65,19 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem(this.TOKEN_KEY);
     this._currentUser$.next(null);
+  }
+
+  getRole(): UserRole | null {
+    const token = this.getToken();
+    if (!token) return null;
+
+    try {
+      const decoded = jwtDecode<JwtPayload>(token);
+      return decoded.role ?? null;
+    } catch (e) {
+      console.error('Invalid token', e);
+      return null;
+    }
   }
 
   getCurrentUser(): CurrentUser | null {

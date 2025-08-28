@@ -1,67 +1,71 @@
-<div class="container p-3">
-  <h3>Pending users</h3>
+<div class="container admin-page p-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h3 class="mb-0">Pending Users</h3>
+    <button class="btn btn-primary btn-sm" (click)="onLogout()">Sign Out</button>
+  </div>
 
-  <div class="row mb-3">
-    <div class="col-6">
-      <input #searchInput class="form-control" placeholder="Search by EMBG" (input)="onSearch(searchInput.value)" />
+  <div class="row mb-3 g-3">
+    <div class="col-md-6">
+      <input #searchInput class="form-control shadow-sm rounded" placeholder="Search by EMBG" (input)="onSearch(searchInput.value)" />
     </div>
-    <div class="col-6 text-end">
-      <button class="btn btn-outline-secondary" (click)="toggleSort()">Sort createdAt</button>
+    <div class="col-md-6 text-md-end">
+      <button class="btn btn-outline-secondary btn-sm shadow-sm" (click)="toggleSort()">Sort by Created At</button>
     </div>
   </div>
 
-
-  <table class="table table-hover">
-    <thead>
-    <tr>
-      <th>EMBG</th>
-      <th>First</th>
-      <th>Last</th>
-      <th>Email</th>
-      <th>Created At</th>
-      <th>Role</th>
-      <th></th>
-    </tr>
-    </thead>
-    <tbody>
-      @for (u of users; track u.userId) {
-        <tr>
-          <td>{{ u.embg }}</td>
-          <td>{{ u.firstName }}</td>
-          <td>{{ u.lastName }}</td>
-          <td>{{ u.email || '-' }}</td>
-          <td>{{ u.createdAt ? (u.createdAt | date: 'short') : '-' }}</td>
-          <td>
-            <select class="form-select form-select-sm" [ngModel]="u.role" (ngModelChange)="onRoleChange(u, $event)">
-              <option value="PATIENT">PATIENT</option>
-              <option value="DOCTOR">DOCTOR</option>
-              <option value="PENDING">PENDING</option>
-            </select>
-          </td>
-          <td class="text-end">
-            <button class="btn btn-sm btn-outline-danger" (click)="confirmAndDelete(u)" title="Delete">
-              <!-- simple bin svg -->
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                <path d="M5.5 5.5A.5.5 0 0 1 6 5h4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5H6a.5.5 0 0 1-.5-.5v-7z"/>
-                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 1 1 0-2h3.5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1H14.5a1 1 0 0 1 1 1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3a.5.5 0 0 0 0 1H3h10h.5a.5.5 0 0 0 0-1H2.5z"/>
-              </svg>
-            </button>
-          </td>
-        </tr>
-      }
-    </tbody>
-  </table>
+  <div class="table-responsive shadow-sm rounded bg-white p-3">
+    <table class="table table-borderless table-hover align-middle mb-0">
+      <thead class="table-light">
+      <tr>
+        <th>EMBG</th>
+        <th>First</th>
+        <th>Last</th>
+        <th>Email</th>
+        <th>Created At</th>
+        <th>Role</th>
+        <th class="text-end">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+        @for (u of users; track u.userId) {
+          <tr class="align-middle">
+            <td>{{ u.embg }}</td>
+            <td>{{ u.firstName }}</td>
+            <td>{{ u.lastName }}</td>
+            <td>{{ u.email || '-' }}</td>
+            <td>{{ u.createdAt ? (u.createdAt | date: 'short') : '-' }}</td>
+            <td>
+              <select class="form-select form-select-sm shadow-sm" [ngModel]="u.role" (ngModelChange)="onRoleChange(u, $event)">
+                <option value="PATIENT">PATIENT</option>
+                <option value="DOCTOR">DOCTOR</option>
+                <option value="PENDING">PENDING</option>
+              </select>
+            </td>
+            <td class="text-end">
+              <button class="btn btn-outline-danger btn-sm shadow-sm" (click)="confirmAndDelete(u)" title="Delete">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
 
   @if (totalPages > 1) {
-    <nav>
-      <ul class="pagination">
-        <li class="page-item" [class.disabled]="page === 0"><a class="page-link" (click)="goToPage(page - 1)">Previous</a></li>
+    <nav class="mt-4 d-flex justify-content-center">
+      <ul class="pagination pagination-sm shadow-sm rounded">
+        <li class="page-item" [class.disabled]="page === 0">
+          <a class="page-link">Previous</a>
+        </li>
         @for (p of [].constructor(totalPages); track p.id; let i = $index) {
           <li class="page-item" [class.active]="i === page">
-            <a class="page-link" (click)="goToPage(i)">{{ i + 1 }}</a>
+            <a class="page-link">{{ i + 1 }}</a>
           </li>
         }
-        <li class="page-item" [class.disabled]="page >= totalPages - 1"><a class="page-link" (click)="goToPage(page + 1)">Next</a></li>
+        <li class="page-item" [class.disabled]="page >= totalPages - 1">
+          <a class="page-link">Next</a>
+        </li>
       </ul>
     </nav>
   }

@@ -17,17 +17,18 @@ import {DoctorFormSetup} from './components/doctor-form-setup/doctor-form-setup'
 import {PatientFormSetup} from './components/patient-form-setup/patient-form-setup';
 import {AdminPage} from './pages/admin-page/admin-page';
 import {RegisterPage} from './pages/register-page/register-page';
+import {adminOnlyGuard} from './core/guards/admin-only-guard';
+import {adminLockChildGuard, adminLockGuard} from './core/guards/admin-lock-guard';
 
 export const routes: Routes = [
   {path: 'login', component: LoginPageComponent, canActivate: [guestGuard]},
   {path: 'register', component: RegisterPage, canActivate: [guestGuard]},
+  {path: 'admin', component: AdminPage, canActivate: [authGuard,adminOnlyGuard]},
   {
     path: '',
-    canActivate: [authGuard],
-    canActivateChild: [authGuard],
+    canActivate: [authGuard,adminLockGuard],
+    canActivateChild: [authGuard,adminLockChildGuard],
     children: [
-      {path: 'admin', component: AdminPage},
-
       {path: 'patient', component: PatientPage},
       {path: 'patient/setup', component: PatientFormSetup},
       {path: 'patient/:id', component: PatientPage},

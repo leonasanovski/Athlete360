@@ -1,54 +1,60 @@
-<div class="table-responsive mt-3">
-  <table class="table w-100 table-hover">
-    <thead>
-    <tr>
-      <th scope="col">Patient</th>
-      <th scope="col">Doctor</th>
-      <th scope="col">Status</th>
-      <th scope="col">
-        Date
-        <button
-          type="button"
-          class="btn btn-sm btn-link p-0 ms-2"
-          (click)="toggleSortByCreatedAt()"
-          aria-label="Sort by name"
-          title="Sort by name"
-        >
-          @if(sortDirection === 'asc' && sortField === 'createdAt') {
-            <span>▲</span>
-          } @else if (sortDirection === 'desc' && sortField === 'createdAt') {
-            <span>▼</span>
-          } @else {
-            <span>⇅</span>
-          }
-        </button>
-      </th>
-      <th scope="col">VO2 max</th>
-      <th scope="col"></th>
-    </tr>
-    </thead>
-    <tbody>
-      @for (report of reports; track report.id) {
-        <tr>
-          <td>{{report.patientName}}</td>
-          <td>{{report.doctorName}}</td>
-          <td><status-pill [status]="report.status" /></td>
-          <td>{{report.createdAt | date:'MMM d y, h:mm a' }}</td>
-          <td>{{report.vo2Max}}</td>
-          <td><button class="btn btn-outline-secondary btn-sm" [routerLink]="['/reports',report.id]">Details</button></td>
-        </tr>
-      }
-    </tbody>
-  </table>
-</div>
+@if (reports.length == 0) {
+  <div class="empty-placeholder text-center p-5">
+    <div class="fw-medium text-muted">No reports available</div>
+  </div>
+} @else {
+  <div class="table-responsive mt-3">
+    <table class="table w-100 table-hover">
+      <thead>
+      <tr>
+        <th scope="col">Patient</th>
+        <th scope="col">Doctor</th>
+        <th scope="col">Status</th>
+        <th scope="col">
+          Date
+          <button
+            type="button"
+            class="btn btn-sm btn-link p-0 ms-2"
+            (click)="toggleSortByCreatedAt()"
+            aria-label="Sort by name"
+            title="Sort by name"
+          >
+            @if(sortDirection === 'asc' && sortField === 'createdAt') {
+              <span>▲</span>
+            } @else if (sortDirection === 'desc' && sortField === 'createdAt') {
+              <span>▼</span>
+            } @else {
+              <span>⇅</span>
+            }
+          </button>
+        </th>
+        <th scope="col">VO2 max</th>
+        <th scope="col"></th>
+      </tr>
+      </thead>
+      <tbody>
+        @for (report of reports; track report.id) {
+          <tr>
+            <td>{{report.patientName}}</td>
+            <td>{{report.doctorName}}</td>
+            <td><status-pill [status]="report.status" /></td>
+            <td>{{report.createdAt | date:'MMM d y, h:mm a' }}</td>
+            <td>{{report.vo2Max}}</td>
+            <td><button class="btn btn-outline-secondary btn-sm" [routerLink]="['/reports',report.id]">Details</button></td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
 
-@if (totalElements > size) {
-  <ul class="pagination">
-    <li class="page-item" [class.disabled]="page === 0">
-      <button class="page-link" (click)="onPageChange(page - 1)">Previous</button>
-    </li>
-    <li class="page-item" [class.disabled]="(page + 1) * size >= totalElements">
-      <button class="page-link" (click)="onPageChange(page + 1)">Next</button>
-    </li>
-  </ul>
+  @if (totalElements > size) {
+    <ul class="pagination">
+      <li class="page-item" [class.disabled]="page === 0">
+        <button class="page-link" (click)="onPageChange(page - 1)">Previous</button>
+      </li>
+      <li class="page-item" [class.disabled]="(page + 1) * size >= totalElements">
+        <button class="page-link" (click)="onPageChange(page + 1)">Next</button>
+      </li>
+    </ul>
+  }
 }

@@ -156,7 +156,146 @@ a:not(.nav-link):hover,
   border-color: var(--bs-primary-dark) !important;
 }
 
-
 .table-primary {
   background-color: var(--bs-primary);
+}
+
+
+
+/* === General Page Styling === */
+h1, h3 {
+  font-weight: 600;
+  color: #2c4731;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin: 1.5rem 0;
+}
+
+/* === Search Input === */
+input[type="text"] {
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  width: 100%;
+  max-width: 350px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input[type="text"]:focus {
+  border-color: #386641;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(56, 102, 65, 0.2);
+}
+
+/* === Tables === */
+.table {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  font-size: 0.95rem;
+}
+
+.table thead {
+  background: #f8f9fa;
+}
+
+.table thead th {
+  font-weight: 600;
+  color: #333;
+  border-bottom: none;
+  padding: 14px;
+  vertical-align: middle;
+}
+
+.table tbody td {
+  padding: 14px;
+  vertical-align: middle;
+  border-top: 1px solid #f1f3f5;
+}
+
+/* Hover row */
+.table-hover tbody tr:hover {
+  background: #f6faf7;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+/* Sort buttons */
+.table thead button {
+  color: #6b7280;
+  font-size: 0.85rem;
+}
+.table thead button:hover {
+  color: #386641;
+}
+
+/* === Pagination === */
+.pagination {
+  margin-top: 1rem;
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+
+.page-item .page-link {
+  border-radius: 8px;
+  border: none;
+  color: #386641;
+  background: #f6faf7;
+  padding: 6px 12px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.page-item .page-link:hover {
+  background: #386641;
+  color: #fff;
+}
+
+.page-item.disabled .page-link {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* === Buttons === */
+.btn {
+  border-radius: 10px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+/* Primary button (Create Report) */
+.btn-primary {
+  background: #386641;
+  border-color: #386641;
+}
+.btn-primary:hover {
+  background: #2c4f32;
+  border-color: #2c4f32;
+}
+
+/* Outline buttons */
+.btn-outline-secondary {
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  color: #333;
+  background: #fff;
+}
+.btn-outline-secondary:hover {
+  background: #f6faf7;
+  border-color: #386641;
+  color: #386641;
+}
+
+/* === Empty placeholder === */
+.empty-placeholder {
+  border: 2px dashed #d1d5db;
+  border-radius: 16px;
+  background: #f9fafb;
+  color: #6b7280;
+  font-size: 1rem;
 }
