@@ -1,6 +1,5 @@
 package sorsix.internship.backend.security.api
 
-import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.web.bind.annotation.CrossOrigin
@@ -20,7 +19,6 @@ import sorsix.internship.backend.security.service.UserService
 class UserController(
     private val userService: UserService,
     private val userRepository: AppUserRepository,
-
 ) {
     @PostMapping("/register")
     fun register(@RequestBody request: RegisterRequest): ResponseEntity<Any> =
@@ -28,7 +26,6 @@ class UserController(
             val registeredUser = userService.register(request)
             val loginRequest = LoginRequest(embg = registeredUser.embg, password = request.password)
             ResponseEntity.ok(userService.login(loginRequest))
-//            ResponseEntity.status(HttpStatus.CREATED).body(userService.register(request))
         } catch (e: RuntimeException) {
             ResponseEntity.badRequest().body(e.message ?: "Registration error")
         }
@@ -37,10 +34,8 @@ class UserController(
     fun login(@RequestBody request: LoginRequest): ResponseEntity<Any> =
         try {
             val u = userRepository.findByEmbg(request.embg.trim()) ?: error("no user")
-            println("Korisnik: $u")
             ResponseEntity.ok(userService.login(request))
         } catch (e: RuntimeException) {
-            println("There is an error caught: ${e.message}")
             ResponseEntity.badRequest().body(e.message ?: "Login error")
         }
 

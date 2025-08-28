@@ -1,9 +1,7 @@
 package sorsix.internship.backend.security.dtos
-
 import sorsix.internship.backend.security.model.AppUser
 import sorsix.internship.backend.security.model.UserRole
 import java.time.LocalDateTime
-
 
 data class AppUserDTO(
     val userId: Long?,

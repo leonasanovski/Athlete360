@@ -1,0 +1,295 @@
+/* Athlete360 Sidebar Styles */
+/* Color Palette Variables */
+:root {
+  --color-dark-green: #386641;
+  --color-medium-green: #6A994E;
+  --color-light-green: #A7C957;
+  --color-cream: #F2E8CF;
+  --color-coral: #BC4749;
+}
+
+/* Sidebar Container */
+.sidebar-container {
+  width: 280px;
+  background: linear-gradient(180deg, var(--color-dark-green) 0%, var(--color-medium-green) 100%);
+  padding: 1.5rem;
+  height: 100vh;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Logo Section */
+.logo-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+  text-decoration: none;
+  color: var(--color-cream);
+  transition: opacity 0.2s ease;
+}
+
+.logo-section:hover {
+  opacity: 0.9;
+  color: var(--color-cream);
+  text-decoration: none;
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-left: 0.75rem;
+  letter-spacing: -0.5px;
+}
+
+/* Athlete Logo SVG */
+.athlete-logo {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+}
+
+/* Divider */
+.sidebar-divider {
+  border: none;
+  height: 1px;
+  background: rgba(242, 232, 207, 0.3);
+  margin: 0 0 1.5rem 0;
+}
+
+/* Navigation */
+.nav-section {
+  flex-grow: 1;
+  margin-bottom: 1.5rem;
+}
+
+.nav-pills {
+  --bs-nav-pills-border-radius: 8px;
+  gap: 0.5rem;
+}
+
+.nav-pills .nav-link {
+  color: var(--color-cream);
+  background: transparent;
+  border: none;
+  padding: 0.875rem 1rem;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-pills .nav-link:hover {
+  background: rgba(242, 232, 207, 0.15);
+  color: var(--color-cream);
+  transform: translateX(2px);
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .nav-link:focus {
+  background: var(--color-cream);
+  color: var(--color-dark-green);
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Nav Icons */
+.nav-icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 0.75rem;
+  opacity: 0.9;
+}
+
+/* User Profile Section */
+.profile-section {
+  margin-top: auto;
+}
+
+.profile-dropdown {
+  position: relative;
+}
+
+.profile-toggle {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(242, 232, 207, 0.1);
+  border: 1px solid rgba(242, 232, 207, 0.2);
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--color-cream);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.profile-toggle::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(242, 232, 207, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.profile-toggle:hover::before {
+  left: 100%;
+}
+
+.profile-toggle:hover {
+  background: rgba(242, 232, 207, 0.2);
+  color: var(--color-cream);
+  text-decoration: none;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Default User Avatar */
+.profile-avatar-container {
+  width: 40px;
+  height: 40px;
+  margin-right: 1rem;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.profile-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid var(--color-cream);
+  object-fit: cover;
+  background: var(--color-cream);
+}
+
+.default-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--color-cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--color-cream);
+  position: relative;
+}
+
+.default-avatar svg {
+  width: 24px;
+  height: 24px;
+  fill: var(--color-dark-green);
+}
+
+.profile-info {
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.profile-role {
+  font-size: 0.75rem;
+  opacity: 0.8;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.profile-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+}
+
+.dropdown-arrow {
+  width: 16px;
+  height: 16px;
+  opacity: 0.7;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+  margin-left: 0.5rem;
+}
+
+.profile-toggle[aria-expanded="true"] .dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+  background: var(--color-cream);
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  margin-top: 0.75rem;
+  min-width: 220px;
+  padding: 0.75rem 0;
+  backdrop-filter: blur(10px);
+}
+
+.dropdown-item {
+  color: var(--color-dark-green);
+  padding: 0.875rem 1.5rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  text-align: left;
+  position: relative;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+  background: var(--color-coral);
+  color: var(--color-cream);
+  transform: translateX(4px);
+}
+
+.dropdown-item:hover::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--color-cream);
+}
+
+.dropdown-divider {
+  border-color: rgba(56, 102, 65, 0.2);
+  margin: 0.5rem 1rem;
+}
+
+@media (max-width: 768px) {
+  .sidebar-container {
+    width: 100%;
+    height: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+  }
+
+  .logo-text {
+    font-size: 1.25rem;
+  }
+
+  .athlete-logo {
+    width: 40px;
+    height: 40px;
+  }
+}

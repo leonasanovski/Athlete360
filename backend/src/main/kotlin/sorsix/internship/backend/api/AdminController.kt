@@ -30,7 +30,6 @@ class AdminController(
         } else {
             userRepository.findAllByRoleAndEmbgContainingIgnoreCase(UserRole.PENDING, embg, pageable)
         }
-
         return ResponseEntity.ok(usersPage.map { AppUserDTO.fromEntity(it) })
     }
 

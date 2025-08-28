@@ -30,23 +30,30 @@ class PatientServiceImpl(
             pageable.pageSize,
             adjustedSort
         )
-
         return patientRepository.findByDoctorDoctorId(doctorId, adjustedPageable)
             .map { PatientDTO.fromEntity(it) }
     }
 
     override fun searchPatientsByDoctorIdAndEmbg(doctorId: Long, embg: String, pageable: Pageable): Page<PatientDTO> {
         val adjustedSort = adjustSortForFullName(pageable.sort)
-
         val adjustedPageable = PageRequest.of(
             pageable.pageNumber,
             pageable.pageSize,
             adjustedSort
         )
-
         return patientRepository
             .findByDoctorDoctorIdAndUserEmbgContaining(doctorId, embg, adjustedPageable)
             .map { PatientDTO.fromEntity(it) }
+    }
+
+    override fun getUnassignedPatients(embg: String, pageable: Pageable): Page<PatientDTO> {
+        val adjustedSort = adjustSortForFullName(pageable.sort)
+        val adjustedPageable = PageRequest.of(
+            pageable.pageNumber,
+            pageable.pageSize,
+            adjustedSort
+        )
+        return patientRepository.findUnassignedUsers(embg, adjustedPageable).map { PatientDTO.fromEntity(it) }
     }
 
     override fun createPatientFromUser(patientData: PatientDataDTO, userId: Long): Patient {
@@ -58,8 +65,6 @@ class PatientServiceImpl(
             Gender.MALE
         }
         val date = parseToDate(user.embg.slice(0..6))
-        println("Gender: $gender")
-        println("Date: $date")
         val patient = Patient(
             user = user,
             doctor = null,
@@ -69,7 +74,6 @@ class PatientServiceImpl(
             sportsmanCategory = patientData.sportsmanCategory
         )
         return patientRepository.save(patient)
-
     }
 
     private fun adjustSortForFullName(sort: Sort): Sort =

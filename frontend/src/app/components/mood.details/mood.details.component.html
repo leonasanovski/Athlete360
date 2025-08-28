@@ -1,24 +1,52 @@
 @if (mood_object) {
-  <div class="container mt-4">
-    <div class="card shadow-sm">
-      <div class="card-header" style="background-color: #A7C957;">
-        <h5 class="mb-0 text-dark">
-          Mood #{{ mood_object.moodId }} - {{ mood_object.moodEmotion }} | {{ mood_object.moodProgress }}
-        </h5>
+  <div class="mood-details container">
+    <div class="card mood-card">
+      <!-- Header -->
+      <div class="card-header mood-header d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center gap-3">
+          <div>
+            <h5 class="mb-1">
+              Mood #{{ mood_object.moodId }}
+            </h5>
+            <div class="chips">
+              <span class="chip chip-emotion">{{ mood_object.moodEmotion }}</span>
+              <span class="chip chip-progress">{{ mood_object.moodProgress }}</span>
+            </div>
+          </div>
+        </div>
+
+        <a class="btn btn-sm btn-outline-light"
+           [routerLink]="['/moods', mood_object.patientId, 'search']">
+          Back to Moods
+        </a>
       </div>
-      <div class="card-body" style="background-color: #F2E8CF;">
-        <p><strong>Hours Slept:</strong> {{ mood_object.hoursSleptAverage }}h</p>
-        <p><strong>Description:</strong> {{ mood_object.moodDescription }}</p>
-        <p><strong>Created:</strong> {{ mood_object.createdAt | date:'dd.MM.yyyy HH:mm' }}</p>
-        <p><strong>Patient:</strong> {{ mood_object.patientName }} (ID: {{ mood_object.patientId }})</p>
-      </div>
-      <div class="card-footer text-end">
-        <a class="btn btn-sm btn-secondary" [routerLink]="['/moods', mood_object.patientId,'search']">Back to Moods</a>
+
+      <!-- Body -->
+      <div class="card-body mood-body">
+        <dl class="details-grid">
+          <div class="detail">
+            <dt>Hours Slept</dt>
+            <dd>{{ mood_object.hoursSleptAverage }}h</dd>
+          </div>
+
+          <div class="detail">
+            <dt>Created</dt>
+            <dd>{{ mood_object.createdAt | date:'dd.MM.yyyy HH:mm' }}</dd>
+          </div>
+
+          <div class="detail full">
+            <dt>Patient</dt>
+            <dd>{{ mood_object.patientName }} (ID: {{ mood_object.patientId }})</dd>
+          </div>
+
+          <div class="detail full">
+            <dt>Description</dt>
+            <dd class="desc">{{ mood_object.moodDescription }}</dd>
+          </div>
+        </dl>
       </div>
     </div>
   </div>
 } @else {
-  <div class="text-center mt-4 text-muted">
-    Loading mood details...
-  </div>
+  <div class="text-center mt-4 text-muted">Loading mood details...</div>
 }

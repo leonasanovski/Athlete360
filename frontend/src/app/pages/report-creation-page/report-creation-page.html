@@ -8,7 +8,25 @@
       <input type="text" class="form-control" formControlName="embg"
              (blur)="hideDropdownAfterDelay()"
       >
-      @if(showEmbgDropdown && embgResults.length > 0) {
+      <!--      fixme style-->
+      <div class="patient-type-search d-flex justify-content-start gap-3">
+        <div>
+          <input type="radio"
+                 name="patientType"
+                 value="new"
+                 (change)="patientType = true">
+          <label>New patient</label>
+        </div>
+        <div>
+          <input type="radio"
+                 name="patientType"
+                 value="assigned"
+                 (change)="patientType = false"
+                 checked>
+          <label>Assigned patient</label>
+        </div>
+      </div>
+      @if (showEmbgDropdown && embgResults.length > 0) {
         <ul class="list-group position-absolute w-100"
             style="z-index: 1000; max-height: 200px; overflow-y: auto;">
           @for (patient of embgResults; track patient.patientId) {

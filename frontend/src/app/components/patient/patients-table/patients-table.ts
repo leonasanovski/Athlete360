@@ -18,7 +18,6 @@ import {RouterLink} from '@angular/router';
 export class PatientsTable implements OnInit{
   patientService = inject(PatientService);
   query$ = new Subject<string>();
-
   patients: Patient[] = [];
   totalElements = 0;
   page = 0;
@@ -29,7 +28,6 @@ export class PatientsTable implements OnInit{
 
   ngOnInit() {
     this.loadPatients();
-
     this.query$.pipe(
       debounceTime(400),
       distinctUntilChanged(),

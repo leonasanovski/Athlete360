@@ -14,7 +14,6 @@ class UserDetailsServiceImpl(val userRepository: AppUserRepository) : UserDetail
         if (username.isNullOrBlank()) {
             throw UsernameNotFoundException("Username cannot be null or empty")
         }
-
         return try {
             val user = userRepository.findByEmbg(username)
                 ?: throw UsernameNotFoundException("User with EMBG $username not found")

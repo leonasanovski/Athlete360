@@ -26,8 +26,6 @@ data class AthleteReport(
     @Column(name = "created_at", nullable = false)
     val createdAt: LocalDateTime = LocalDateTime.now(),
 
-    // TODO potrebno za short summary, za doktorot lesno
-    //  da kazhe dali e ok, podobar, ili pak treba da dojde
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     @JdbcTypeCode(SqlTypes.NAMED_ENUM)

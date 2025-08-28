@@ -55,8 +55,6 @@ class OpenAiService(
             val content = response?.message?.content?.trim() ?: "0"
             content.toIntOrNull() ?: 0
         } catch (ex: WebClientResponseException) {
-            println("HTTP Status: ${ex.statusCode}")
-            println("Response body: ${ex.responseBodyAsString}")
             ex.printStackTrace()
             0
         }
@@ -110,8 +108,6 @@ class OpenAiService(
 
         val prompt = promptBuilder.toString()
 
-        println(prompt)
-
         val requestBody = mapOf(
             "model" to openAiModel,
             "prompt" to prompt,
@@ -126,12 +122,8 @@ class OpenAiService(
                 .retrieve()
                 .bodyToMono(OpenAiResponse2::class.java)
                 .block()
-
-            println("RAW RESPONSE:\n$raw")
             raw?.response?.trim() ?: ""
         } catch (ex: WebClientResponseException) {
-            println("HTTP Status: ${ex.statusCode}")
-            println("Response body: ${ex.responseBodyAsString}")
             ex.printStackTrace()
             "Couldn't generate summary"
         }

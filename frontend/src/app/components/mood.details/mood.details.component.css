@@ -1,0 +1,111 @@
+/* Container width & spacing */
+.mood-details {
+  max-width: 980px;
+  margin-top: 1.25rem;
+}
+
+/* Card & header */
+.mood-card {
+  border: none;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+  background: #fff;
+}
+
+/* Default (neutral) header gradient; overridden by emotion classes below */
+.mood-header {
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #A7C957, #7BAE3B);
+  color: #fff;
+}
+
+/* Icon circle on the left */
+.icon-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(255,255,255,0.2);
+  font-size: 22px;
+}
+
+/* Chips for emotion/progress */
+.chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip {
+  display: inline-block;
+  padding: 4px 10px;
+  font-size: .8rem;
+  border-radius: 999px;
+  font-weight: 600;
+  background: rgba(255,255,255,0.18);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+/* Body */
+.mood-body {
+  background: #FAF6EA; /* soft “paper” tone */
+  padding: 20px;
+}
+
+/* Definition list as grid */
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 14px 24px;
+  margin: 0;
+}
+
+.detail dt {
+  margin: 0;
+  font-size: .78rem;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: #6b7280; /* muted */
+}
+
+.detail dd {
+  margin: 2px 0 0 0;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.detail.full { grid-column: 1 / -1; }
+
+.desc {
+  background: #fff;
+  border-radius: 10px;
+  padding: 12px 14px;
+  line-height: 1.5;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+@media (max-width: 768px) {
+  .details-grid { grid-template-columns: 1fr; }
+}
+
+.mood-neutral .mood-header {
+  background: linear-gradient(135deg, #B0BEC5, #78909C);
+}
+
+.mood-happy .mood-header {
+  background: linear-gradient(135deg, #F6C445, #F59E0B);
+}
+
+.mood-excited .mood-header {
+  background: linear-gradient(135deg, #5C6BC0, #3949AB);
+}
+
+.mood-tired .mood-header {
+  background: linear-gradient(135deg, #9FA8DA, #7986CB);
+}
+
+.mood-stressed .mood-header {
+  background: linear-gradient(135deg, #EF4444, #B91C1C);
+}
+
+.mood-sad .mood-header {
+  background: linear-gradient(135deg, #60A5FA, #2563EB);
+}

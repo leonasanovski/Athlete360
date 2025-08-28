@@ -21,7 +21,7 @@ export class ReportCreationPage implements OnInit{
   authService = inject(AuthService);
   reportService = inject(ReportService);
   patientService = inject(PatientService);
-
+  patientType = false;
   router = inject(Router);
   route = inject(ActivatedRoute);
   report: ReportForm | undefined;
@@ -87,7 +87,9 @@ export class ReportCreationPage implements OnInit{
       }),
       switchMap(query => {
         this.showEmbgDropdown = true;
-        return this.patientService.searchPatientsByEmbg(query)
+        console.log('Query:', query)
+        console.log('Patient type: ', this.patientType ? 'New' : 'Old')
+        return this.patientService.searchPatientsByEmbg(query, this.patientType)
       })
     ).subscribe(res => {
       this.embgResults = res.content;

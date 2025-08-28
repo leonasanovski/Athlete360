@@ -37,6 +37,7 @@ export class PatientService {
 
   searchPatientsByEmbg(
     embg: string,
+    patientType?: boolean | null,
     page: number = 0,
     size: number = 10,
     sort: string = 'name,asc'
@@ -45,15 +46,28 @@ export class PatientService {
       take(1),
       filter(user => user?.role != 'PATIENT'),
       switchMap(user => {
-        const params = new HttpParams()
+        let params = new HttpParams()
           .set('embg', embg)
           .set('page', page.toString())
           .set('size', size.toString())
-          .set('sort', sort);
-        return this.http.get<PageResponse<Patient>>(
-          `${this.url}/doctor/${user?.personId}/patients/search`,
-          {params}
-        )
+          .set('sort', sort)
+        if (patientType === undefined || patientType === null){
+          params = params.set('patientType', false)
+        }else{
+          params = params.set('patientType', String(patientType))
+        }
+        console.log('Parameteres: ',params)
+        if(patientType === true){
+          return this.http.get<PageResponse<Patient>>(
+            `${this.url}/doctor/${user?.personId}/patients/search`,
+            {params}
+          )
+        }else{
+          return this.http.get<PageResponse<Patient>>(
+            `${this.url}/doctor/${user?.personId}/patients/search`,
+            {params}
+          )
+        }
       })
     )
   }
@@ -68,14 +82,14 @@ export class PatientService {
     if (!token) {
       return throwError(() => new Error('No token present'));
     }
-    console.log('Patient token',token)
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
     });
-
-    console.log("PatientDTO:", patientData)
-    console.log('Headers: ', headers)
     return this.http.post(`${this.url}/patient/create-patient-user`, patientData, {headers});
 
+  }
+
+  searchUnasignedPatients(query: string) {
+    return undefined;
   }
 }

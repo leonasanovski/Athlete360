@@ -9,5 +9,4 @@ import sorsix.internship.backend.model.Mood
 interface MoodRepository : JpaRepository<Mood, Long>, JpaSpecificationExecutor<Mood> {
     fun findByPatientPatientId(patientId: Long): List<Mood>
     fun findByMoodId(id: Long): Mood?
-
 }

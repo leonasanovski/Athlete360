@@ -6,6 +6,7 @@ import org.springframework.data.domain.Sort
 import org.springframework.data.web.PageableDefault
 import org.springframework.security.core.Authentication
 import org.springframework.http.ResponseEntity
+import org.springframework.jdbc.datasource.DataSourceTransactionManager
 import org.springframework.web.bind.annotation.*
 import sorsix.internship.backend.dto.AthleteReportShortDTO
 import sorsix.internship.backend.dto.CreateDoctorDTO
@@ -24,7 +25,7 @@ class DoctorController(
     val doctorRepository: DoctorRepository,
     val doctorService: DoctorService,
     val athleteReportService: AthleteReportService,
-    val patientService: PatientService,
+    val patientService: PatientService
 ) {
 
     @GetMapping
@@ -64,9 +65,14 @@ class DoctorController(
     fun searchDoctorPatients(
         @PathVariable doctorId: Long,
         @RequestParam(required = false, defaultValue = "") embg: String,
+        @RequestParam(required = false, defaultValue = false.toString()) patientType: Boolean?,
         @PageableDefault(size = 10, sort = ["dateOfLatestCheckUp"], direction = Sort.Direction.DESC) pageable: Pageable
     ): ResponseEntity<Page<PatientDTO>> {
+        if(patientType == true){
+            return ResponseEntity.ok(patientService.getUnassignedPatients(embg, pageable))
+        }
         return ResponseEntity.ok(patientService.searchPatientsByDoctorIdAndEmbg(doctorId, embg, pageable))
+
     }
 
     @GetMapping("{doctorId}/reports")

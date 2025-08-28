@@ -141,3 +141,21 @@ tbody tr td:nth-child(3){
 .val-yellow { color: #d39e00; font-weight: bold; }
 .val-red    { color: #d9534f; font-weight: bold; }
 .val-green  { color: #1f7a1f; font-weight: bold; }
+
+
+.export-pdf-button {
+  background: linear-gradient(135deg, #e53935, #b71c1c);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.25s ease-in-out;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+  letter-spacing: 1px;
+}
