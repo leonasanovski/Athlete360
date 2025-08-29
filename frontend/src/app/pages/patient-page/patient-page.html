@@ -28,6 +28,7 @@
         } @else {
           <div
             [routerLink]="['/reports/new']"
+            [queryParams]="{ embg: patient?.embg }"
             class="add-recommendation-card h-100 d-flex flex-column justify-content-center align-items-center rounded-4 border border-dashed"
             role="button"
             tabindex="0"

@@ -9,10 +9,12 @@ import {debounceTime, distinctUntilChanged, filter, mergeMap, of, switchMap} fro
 import {ReportDetails} from '../../models/ReportDetails';
 import {Patient} from '../../models/Patient';
 import {PatientService} from '../../services/patient-service';
+import {reportCreationFormGroup} from '../../models/forms/ReportCreationFormGroup';
+import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'report-creation-page',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NgIf],
   templateUrl: './report-creation-page.html',
   standalone: true,
   styleUrl: './report-creation-page.css'
@@ -27,36 +29,35 @@ export class ReportCreationPage implements OnInit{
   report: ReportForm | undefined;
   reportId: number | null = null;
 
-  formGroup: FormGroup = new FormGroup({
-    doctorId: new FormControl(0, Validators.required),
-    embg: new FormControl('', Validators.required),
-    status: new FormControl('GOOD', Validators.required),
-    vo2Max: new FormControl('', Validators.required),
-    restingHeartRate: new FormControl('', Validators.required),
-    underPressureHeartRate: new FormControl('', Validators.required),
-    bodyFatPercentage: new FormControl('', Validators.required),
-    leanMuscleMass: new FormControl(''),
-    boneDensity: new FormControl('', Validators.required),
-    height: new FormControl('', Validators.required),
-    weight: new FormControl('', Validators.required),
-    oneRepMaxBench: new FormControl(''),
-    oneRepMaxSquat: new FormControl(''),
-    oneRepMaxDeadlift: new FormControl(''),
-    jumpHeight: new FormControl(''),
-    averageRunPerKilometer: new FormControl('', Validators.required),
-    shoulderFlexibility: new FormControl(''),
-    hipFlexibility: new FormControl(''),
-    balanceTime: new FormControl('', Validators.required),
-    reactionTime: new FormControl('', Validators.required),
-    coreStabilityScore: new FormControl('', Validators.required),
-    hemoglobin: new FormControl('', Validators.required),
-    glucose: new FormControl('', Validators.required),
-    creatinine: new FormControl('', Validators.required),
-    vitaminD: new FormControl('', Validators.required),
-    iron: new FormControl('', Validators.required),
-    testosterone: new FormControl('', Validators.required),
-    cortisol: new FormControl('', Validators.required)
-  });
+  fields = [
+    { name: 'vo2Max', label: 'VO₂ Max', type: 'number', step: 0.01, required: true, min: 0, max: 100 },
+    { name: 'restingHeartRate', label: 'Resting Heart Rate', type: 'number', step: 1, required: true, min: 20, max: 250 },
+    { name: 'underPressureHeartRate', label: 'Under Pressure Heart Rate', type: 'number', step: 1, required: true, min: 50, max: 250 },
+    { name: 'bodyFatPercentage', label: 'Body Fat %', type: 'number', step: 0.1, required: true, min: 0, max: 100 },
+    { name: 'leanMuscleMass', label: 'Lean Muscle Mass', type: 'number', step: 0.1, min: 0, max: 100 },
+    { name: 'boneDensity', label: 'Bone Density', type: 'number', step: 0.01, required: true, min: 0, max: 5 },
+    { name: 'height', label: 'Height', type: 'number', step: 0.1, required: true, min: 50, max: 300 },
+    { name: 'weight', label: 'Weight', type: 'number', step: 0.1, required: true, min: 2, max: 500 },
+    { name: 'oneRepMaxBench', label: 'One Rep Max Bench', type: 'number', step: 0.1, min: 0, max: 500 },
+    { name: 'oneRepMaxSquat', label: 'One Rep Max Squat', type: 'number', step: 0.1, min: 0, max: 1000 },
+    { name: 'oneRepMaxDeadlift', label: 'One Rep Max Deadlift', type: 'number', step: 0.1, min: 0, max: 1500 },
+    { name: 'jumpHeight', label: 'Jump Height', type: 'number', step: 0.1, min: 0, max: 100 },
+    { name: 'averageRunPerKilometer', label: 'Average Run per KM', type: 'number', step: 0.01, required: true, min: 60, max: 1000 },
+    { name: 'shoulderFlexibility', label: 'Shoulder Flexibility', type: 'number', step: 1, min: 0, max: 360 },
+    { name: 'hipFlexibility', label: 'Hip Flexibility', type: 'number', step: 1, min: 0, max: 360 },
+    { name: 'balanceTime', label: 'Balance Time', type: 'number', step: 0.1, required: true, min: 0, max: 100 },
+    { name: 'reactionTime', label: 'Reaction Time', type: 'number', step: 0.001, required: true, min: 0, max: 100 },
+    { name: 'coreStabilityScore', label: 'Core Stability Score', type: 'number', step: 1, required: true, min: 0, max: 100 },
+    { name: 'hemoglobin', label: 'Hemoglobin', type: 'number', step: 0.1, required: true, min: 0, max: 100 },
+    { name: 'glucose', label: 'Glucose', type: 'number', step: 0.1, required: true, min: 0, max: 100 },
+    { name: 'creatinine', label: 'Creatinine', type: 'number', step: 0.01, required: true, min: 0, max: 100 },
+    { name: 'vitaminD', label: 'Vitamin D', type: 'number', step: 0.1, required: true, min: 0, max: 100 },
+    { name: 'iron', label: 'Iron', type: 'number', step: 0.1, required: true, min: 0, max: 100 },
+    { name: 'testosterone', label: 'Testosterone', type: 'number', step: 0.1, required: true, min: 0, max: 100 },
+    { name: 'cortisol', label: 'Cortisol', type: 'number', step: 0.1, required: true, min: 0, max: 100 }
+  ];
+
+  formGroup: FormGroup = reportCreationFormGroup;
 
   embgResults: Patient[] = [];
   showEmbgDropdown = false;
@@ -75,6 +76,12 @@ export class ReportCreationPage implements OnInit{
         this.reportId = report.reportId;
         this.formGroup.patchValue(this.report);
       }
+    })
+
+    this.route.queryParamMap.pipe(
+      filter(params => params.has('embg')),
+    ).subscribe(params => {
+      this.formGroup.patchValue({embg: params.get('embg')})
     })
 
     this.formGroup.get('embg')!.valueChanges.pipe(
@@ -102,7 +109,9 @@ export class ReportCreationPage implements OnInit{
     } else {
       this.reportService.createReport(this.formGroup.value)
         .subscribe(id => {
-          this.router.navigate([`/reports/${id}`]);
+          this.router.navigate(['/recommendations/new'], {
+            queryParams: { reportId: id }
+          });
         })
     }
   }
