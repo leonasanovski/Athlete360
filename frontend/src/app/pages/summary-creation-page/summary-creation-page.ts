@@ -1,13 +1,16 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {SummaryService} from '../../services/summary-service';
 import {filter, map, mergeMap} from 'rxjs';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {QuillModule} from 'ngx-quill';
 
 @Component({
   selector: 'summary-creation-page',
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    QuillModule,
+    RouterLink
   ],
   templateUrl: './summary-creation-page.html',
   standalone: true,
@@ -33,6 +36,23 @@ export class SummaryCreationPage implements OnInit{
 
   successMessage: string | null = null;
   errorMessage: string | null = null;
+
+  quillModules = {
+    toolbar: [
+      ['bold', 'italic', 'underline', 'strike'],
+      [{ 'header': 1 }, { 'header': 2 }],
+      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+      [{ 'script': 'sub'}, { 'script': 'super' }],
+      [{ 'indent': '-1'}, { 'indent': '+1' }],
+      [{ 'direction': 'rtl' }],
+      [{ 'size': ['small', false, 'large', 'huge'] }],
+      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+      [{ 'color': [] }, { 'background': [] }],
+      [{ 'font': [] }],
+      [{ 'align': [] }],
+      ['clean']
+    ]
+  };
 
   ngOnInit(): void {
     this.route.paramMap.pipe(

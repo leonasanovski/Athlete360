@@ -42,137 +42,27 @@
     <div class="col-md-4">
       <label class="form-label">Status</label>
       <select class="form-select" formControlName="status">
-        <option value="">Select status</option>
         <option value="GOOD">GOOD</option>
         <option value="IMPROVED">IMPROVED</option>
         <option value="FOLLOWUP">FOLLOWUP</option>
       </select>
     </div>
 
-    <div class="col-md-4">
-      <label class="form-label">VO₂ Max</label>
-      <input type="number" step="0.01" class="form-control" formControlName="vo2Max">
-    </div>
-
-    <div class="col-md-4">
-      <label class="form-label">Resting Heart Rate</label>
-      <input type="number" class="form-control" formControlName="restingHeartRate">
-    </div>
-
-    <div class="col-md-4">
-      <label class="form-label">Under Pressure Heart Rate</label>
-      <input type="number" class="form-control" formControlName="underPressureHeartRate">
-    </div>
-
-    <div class="col-md-4">
-      <label class="form-label">Body Fat %</label>
-      <input type="number" step="0.01" class="form-control" formControlName="bodyFatPercentage">
-    </div>
-
-    <div class="col-md-4">
-      <label class="form-label">Lean Muscle Mass</label>
-      <input type="number" step="0.01" class="form-control" formControlName="leanMuscleMass">
-    </div>
-
-    <div class="col-md-4">
-      <label class="form-label">Bone Density</label>
-      <input type="number" step="0.01" class="form-control" formControlName="boneDensity">
-    </div>
-
-    <div class="col-md-4">
-      <label class="form-label">Height</label>
-      <input type="number" step="0.01" class="form-control" formControlName="height">
-    </div>
-
-    <div class="col-md-4">
-      <label class="form-label">Weight</label>
-      <input type="number" step="0.01" class="form-control" formControlName="weight">
-    </div>
-
-    <div class="col-md-4">
-      <label class="form-label">One Rep Max Bench</label>
-      <input type="number" step="0.01" class="form-control" formControlName="oneRepMaxBench">
-    </div>
-
-    <div class="col-md-4">
-      <label class="form-label">One Rep Max Squat</label>
-      <input type="number" step="0.01" class="form-control" formControlName="oneRepMaxSquat">
-    </div>
-
-    <div class="col-md-4">
-      <label class="form-label">One Rep Max Deadlift</label>
-      <input type="number" step="0.01" class="form-control" formControlName="oneRepMaxDeadlift">
-    </div>
-
-    <div class="col-md-4">
-      <label class="form-label">Jump Height</label>
-      <input type="number" step="0.01" class="form-control" formControlName="jumpHeight">
-    </div>
-
-    <div class="col-md-4">
-      <label class="form-label">Average Run per KM</label>
-      <input type="number" step="0.01" class="form-control" formControlName="averageRunPerKilometer">
-    </div>
-
-    <div class="col-md-4">
-      <label class="form-label">Shoulder Flexibility</label>
-      <input type="number" class="form-control" formControlName="shoulderFlexibility">
-    </div>
-
-    <div class="col-md-4">
-      <label class="form-label">Hip Flexibility</label>
-      <input type="number" class="form-control" formControlName="hipFlexibility">
-    </div>
-
-    <div class="col-md-4">
-      <label class="form-label">Balance Time</label>
-      <input type="number" step="0.01" class="form-control" formControlName="balanceTime">
-    </div>
-
-    <div class="col-md-4">
-      <label class="form-label">Reaction Time</label>
-      <input type="number" step="0.01" class="form-control" formControlName="reactionTime">
-    </div>
-
-    <div class="col-md-4">
-      <label class="form-label">Core Stability Score</label>
-      <input type="number" class="form-control" formControlName="coreStabilityScore">
-    </div>
-
-    <div class="col-md-4">
-      <label class="form-label">Hemoglobin</label>
-      <input type="number" step="0.01" class="form-control" formControlName="hemoglobin">
-    </div>
-
-    <div class="col-md-4">
-      <label class="form-label">Glucose</label>
-      <input type="number" step="0.01" class="form-control" formControlName="glucose">
-    </div>
-
-    <div class="col-md-4">
-      <label class="form-label">Creatinine</label>
-      <input type="number" step="0.01" class="form-control" formControlName="creatinine">
-    </div>
-
-    <div class="col-md-4">
-      <label class="form-label">Vitamin D</label>
-      <input type="number" step="0.01" class="form-control" formControlName="vitaminD">
-    </div>
-
-    <div class="col-md-4">
-      <label class="form-label">Iron</label>
-      <input type="number" step="0.01" class="form-control" formControlName="iron">
-    </div>
-
-    <div class="col-md-4">
-      <label class="form-label">Testosterone</label>
-      <input type="number" step="0.01" class="form-control" formControlName="testosterone">
-    </div>
-
-    <div class="col-md-4">
-      <label class="form-label">Cortisol</label>
-      <input type="number" step="0.01" class="form-control" formControlName="cortisol">
-    </div>
+    @for (field of fields; track $index) {
+      <div class="col-md-4">
+        <label class="form-label">{{ field.label }}</label>
+        <input [type]="field.type"
+               class="form-control"
+               [formControlName]="field.name"
+               [step]="field.step">
+        <div class="text-danger" *ngIf="formGroup.get(field.name)?.invalid && formGroup.get(field.name)?.touched">
+          <small *ngIf="formGroup.get(field.name)?.errors?.['required']">{{ field.label }} is required.</small>
+          <small *ngIf="formGroup.get(field.name)?.errors?.['min']">Minimum {{ field.min }}.</small>
+          <small *ngIf="formGroup.get(field.name)?.errors?.['max']">Maximum {{ field.max }}.</small>
+          <small *ngIf="formGroup.get(field.name)?.errors?.['pattern']">Invalid format.</small>
+        </div>
+      </div>
+    }
 
     <div class="col-12">
       <button type="submit" class="btn btn-primary" [disabled]="!formGroup.valid">Create Report</button>

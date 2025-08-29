@@ -1,3 +1,5 @@
+<button class="btn btn-outline-primary" [routerLink]="['/reports', reportId]">Back to Report</button>
+
 <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="p-3 rounded shadow-sm bg-light">
 
   <input type="hidden" formControlName="reportId">
@@ -19,14 +21,14 @@
 
   <div class="mb-3">
     <label for="summarizedContent" class="form-label fw-semibold">Summary</label>
-    <textarea
+    <quill-editor
       id="summarizedContent"
       formControlName="summarizedContent"
-      class="form-control"
-      rows="6"
-      placeholder="Write or generate the summary here..."
+      [styles]="{ height: '400px' }"
+      [placeholder]="'Write or generate the summary here...'"
       [class.is-invalid]="formGroup.get('summarizedContent')?.invalid && formGroup.get('summarizedContent')?.touched"
-    ></textarea>
+      [modules]="quillModules"
+    ></quill-editor>
     @if(formGroup.get('summarizedContent')?.invalid && formGroup.get('summarizedContent')?.touched) {
       <div class="invalid-feedback">
         Summary is required.
@@ -92,7 +94,7 @@
           </div>
         </div>
         <div class="card-body">
-          <pre class="mb-0" style="white-space: pre-wrap; word-break: break-word;">{{ aiResult }}</pre>
+          <div [innerHTML]="aiResult"></div>
         </div>
       </div>
     </div>

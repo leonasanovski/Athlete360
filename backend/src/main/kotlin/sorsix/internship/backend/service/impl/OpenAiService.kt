@@ -72,11 +72,11 @@ class OpenAiService(
         
         Instructions:
         - Start with a short overview (2–4 sentences) describing overall themes, major priorities, estimated monthly cost total, and any potential conflicts or important cautions.
-        - Then produce a section for each recommendation using it's label property, exactly like "Label:".
+        - Then produce a separate section for each recommendation using it's label property, something like "<Recommendation's label>: ". Make sure you separate them so they aren't one continuous text!
         - End with a short "Action plan" (as many bullet points as you deem worthy) summarizing next steps across all recommendations.
         
         Formatting rules:
-        - Use plain text.
+        - Format the text using HTML, as it shall be displayed on a frontend application using innerHTML.
         - Keep language professional, concise, and actionable.
         - Do NOT include anything outside the requested summary (no meta commentary, no explanation of how you generated the summary).
         - Do NOT repeat the recommendations back to me, just give your professional summary of them and any other advice you deem worthy from your professional experience.
@@ -100,7 +100,7 @@ class OpenAiService(
         }
 
         promptBuilder.appendLine()
-        promptBuilder.appendLine("Return only the requested professional summary following the instructions above. Nothing else. Don't use any markdown or any kind of formatting what so ever, just respond with TEXT.")
+        promptBuilder.appendLine("Return only the requested professional summary following the instructions above. Nothing else. Again, just format it with HTML.")
         promptBuilder.appendLine()
         promptBuilder.appendLine("IMPORTANT: Do NOT output only the word 'Overview' or any single-word headings.")
         promptBuilder.appendLine("Start immediately with the 2-4 sentence overview (no standalone heading), then continue with the specifics.")

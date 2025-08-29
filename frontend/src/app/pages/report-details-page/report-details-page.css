@@ -126,6 +126,24 @@
   color: var(--training-dark);
 }
 
+.report-card .card-body h2,
+.report-card .card-body h3 {
+  margin-top: 1rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.25rem;
+  color: var(--training-dark);
+}
+
+.report-card .card-body p {
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+
+.report-card .card-body ul {
+  padding-left: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
 @media (max-width: 991px) {
   .report-layout {
     grid-template-columns: 1fr 200px;

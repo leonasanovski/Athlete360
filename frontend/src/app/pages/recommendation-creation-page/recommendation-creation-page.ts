@@ -87,7 +87,7 @@ export class RecommendationCreationPage implements OnInit {
     forkJoin(calls).subscribe({
       next: (results) => {
         this.submitting = false;
-        this.router.navigate([`/reports/${this.reportId}`])
+        this.router.navigate([`/summary/${this.reportId}`])
       },
       error: (err) => {
         console.error('Error creating recommendations', err);
