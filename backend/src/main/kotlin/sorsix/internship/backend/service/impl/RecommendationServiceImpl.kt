@@ -1,19 +1,15 @@
 package sorsix.internship.backend.service.impl
 
-import org.springframework.data.crossstore.ChangeSetPersister
+import jakarta.persistence.EntityNotFoundException
 import org.springframework.stereotype.Service
 import sorsix.internship.backend.dto.RecommendationCreateRequest
 import sorsix.internship.backend.dto.RecommendationResponse
 import sorsix.internship.backend.mappers.toDto
-import sorsix.internship.backend.model.AthleteReport
-import sorsix.internship.backend.model.Recommendation
 import sorsix.internship.backend.repository.AthleteReportRepository
 import sorsix.internship.backend.repository.DoctorRepository
 import sorsix.internship.backend.repository.PatientRepository
 import sorsix.internship.backend.repository.RecommendationRepository
-import sorsix.internship.backend.service.AthleteReportService
 import sorsix.internship.backend.service.RecommendationService
-import sorsix.internship.backend.service.SummaryService
 
 @Service
 class RecommendationServiceImpl(
@@ -24,7 +20,7 @@ class RecommendationServiceImpl(
 ) : RecommendationService {
     override fun findRecommendationsByDoctorId(doctorId: Long): List<RecommendationResponse> {
         val doctor = doctorRepository.findById(doctorId)
-            .orElseThrow { throw NoSuchElementException("There is no doctor with id=$doctorId in the database.") }
+            .orElseThrow { throw EntityNotFoundException("There is no doctor with id=$doctorId in the database.") }
         return recommendationRepository.findByReportDoctorDoctorId(doctorId).map { recommendation ->
             recommendation.toDto()
         };
@@ -32,7 +28,7 @@ class RecommendationServiceImpl(
 
     override fun findRecommendationsByPatientId(patientId: Long): List<RecommendationResponse> {
         val patient = patientRepository.findById(patientId)
-            .orElseThrow { throw NoSuchElementException("There is no patient with id=$patientId in the database.") }
+            .orElseThrow { throw EntityNotFoundException("There is no patient with id=$patientId in the database.") }
         return recommendationRepository.findByReportPatientPatientId(patientId).map { recommendation ->
             recommendation.toDto()
         };
@@ -40,7 +36,7 @@ class RecommendationServiceImpl(
 
     override fun findRecommendationsByReportId(reportId: Long): List<RecommendationResponse> {
         val report = athleteReportRepository.findById(reportId)
-            .orElseThrow { throw NoSuchElementException("There is no report with id=$reportId in the database.") }
+            .orElseThrow { throw EntityNotFoundException("There is no report with id=$reportId in the database.") }
         return recommendationRepository.findByReportReportId(reportId).map { recommendation ->
             recommendation.toDto()
         };
@@ -48,7 +44,7 @@ class RecommendationServiceImpl(
 
     override fun create(recommendation: RecommendationCreateRequest): Long {
         val report = athleteReportRepository.findById(recommendation.reportId!!)
-            .orElseThrow { IllegalArgumentException("Report with id = ${recommendation.reportId} not found") }
+            .orElseThrow { EntityNotFoundException("Report with id = ${recommendation.reportId} not found") }
         val res = RecommendationCreateRequest.toEntity(recommendation, report);
         recommendationRepository.save(res);
 

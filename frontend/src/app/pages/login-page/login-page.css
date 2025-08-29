@@ -54,3 +54,26 @@
   font-size: 0.9rem;
 }
 
+.alert {
+  position: relative;
+  margin-top: 12px;
+  padding: 12px 36px 12px 12px;
+  border-radius: 8px;
+  background: #fdecea;
+  color: #611a15;
+  border: 1px solid #f5c2c0;
+  text-align: center;
+}
+.alert .alert-close {
+  position: absolute;
+  right: 8px;
+  top: 6px;
+  border: 0;
+  background: transparent;
+  font-size: 20px;
+  line-height: 20px;
+  cursor: pointer;
+  color: inherit;
+}
+.alert .alert-close:hover { opacity: 0.7; }
+

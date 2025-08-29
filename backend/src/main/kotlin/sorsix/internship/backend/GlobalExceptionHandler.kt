@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 
 @RestControllerAdvice
 class GlobalExceptionHandler {
-
     @ExceptionHandler(MethodArgumentNotValidException::class)
     fun handleValidation(ex: MethodArgumentNotValidException): ResponseEntity<Map<String, String?>> =
         ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
@@ -20,7 +19,7 @@ class GlobalExceptionHandler {
     @ExceptionHandler(HttpMessageNotReadableException::class)
     fun handleMalformedJson(ex: HttpMessageNotReadableException): ResponseEntity<String> =
         ResponseEntity.status(HttpStatus.BAD_REQUEST)
-            .body("Malformed request JSON: ${ ex.localizedMessage }")
+            .body("Malformed request JSON: ${ex.localizedMessage}")
 
     @ExceptionHandler(NoSuchElementException::class)
     fun handleNotFound(ex: NoSuchElementException): ResponseEntity<String> =
@@ -30,4 +29,9 @@ class GlobalExceptionHandler {
     fun handleEntityNotFound(ex: EntityNotFoundException): ResponseEntity<String> =
         ResponseEntity.status(HttpStatus.NOT_FOUND)
             .body(ex.message ?: "Resource not found")
+
+    @ExceptionHandler(RuntimeException::class)
+    fun handleRuntimeException(ex: RuntimeException): ResponseEntity<String> =
+        ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            .body(ex.message ?: "Runtime error occurred while processing the request. Retry the move.")
 }

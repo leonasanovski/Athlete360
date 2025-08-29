@@ -36,9 +36,11 @@
       </div>
     </div>
 
-
     @if (serverError) {
-      <div class="server-error text-danger text-center mt-3">{{ serverError }}</div>
+      <div class="alert">
+        <span class="alert-text">{{ serverError }}</span>
+        <button class="alert-close" type="button" (click)="serverError = ''" aria-label="Close">×</button>
+      </div>
     }
   </form>
 

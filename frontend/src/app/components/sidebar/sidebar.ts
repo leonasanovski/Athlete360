@@ -12,14 +12,14 @@ import {AuthService} from '../../services/auth-service';
   standalone: true,
   styleUrl: './sidebar.css'
 })
-export class Sidebar {
+export class Sidebar{
   @Input() role: String | undefined;
   authService = inject(AuthService);
   router = inject(Router);
   loggedUser = this.authService.getCurrentUser()!
+
   onLogout() {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
-
 }

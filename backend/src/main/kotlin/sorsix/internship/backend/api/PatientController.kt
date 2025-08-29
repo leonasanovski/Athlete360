@@ -47,6 +47,7 @@ class PatientController(
         val patient = patientService.createPatientFromUser(patientData, userId!!)
         return ResponseEntity.ok(patient)
     }
+
     @GetMapping("{patientId}/reports")
     fun getPatientReports(
         @PathVariable patientId: Long,

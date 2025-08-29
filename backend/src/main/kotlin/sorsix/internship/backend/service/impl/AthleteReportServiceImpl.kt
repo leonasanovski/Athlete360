@@ -30,12 +30,12 @@ class AthleteReportServiceImpl(
 
     override fun create(requestObject: AthleteReportFormDTO): Long {
         val doctor = doctorRepository.findById(requestObject.doctorId)
-            .orElseThrow { IllegalArgumentException("Doctor with id = ${requestObject.doctorId} not found") }
+            .orElseThrow { EntityNotFoundException("Doctor with id = ${requestObject.doctorId} not found") }
 
         val patient = patientRepository.findByUserEmbg(requestObject.embg)
-            ?: throw IllegalArgumentException("Patient with embg = ${requestObject.embg} not found")
+            ?: throw EntityNotFoundException("Patient with embg = ${requestObject.embg} not found")
 
-        if(patient.doctor == null) {
+        if (patient.doctor == null) {
             patient.doctor = doctor;
         }
 
@@ -55,7 +55,7 @@ class AthleteReportServiceImpl(
 
     override fun reportMetricsFlagging(reportId: Long): ReportMetricFlaggerDTO {
         val report = athleteReportRepository.findById(reportId)
-            .orElseThrow { NoSuchElementException("Report with id = $reportId not found") }
+            .orElseThrow { EntityNotFoundException("Report with id = $reportId not found") }
         val flagger = ReportMetricFlaggerDTO()
         flagger.vo2Max = metricsFlagHelper.flagVo2Max(
             report.vo2Max.toDouble(),
@@ -95,6 +95,6 @@ class AthleteReportServiceImpl(
 
     override fun findLatestReportIdByPatientId(patientId: Long): Long =
         athleteReportRepository.findTopByPatientPatientIdOrderByReportIdDesc(patientId)?.reportId
-            ?: throw NoSuchElementException("No reports found.")
+            ?: throw EntityNotFoundException("No reports found.")
 
 }

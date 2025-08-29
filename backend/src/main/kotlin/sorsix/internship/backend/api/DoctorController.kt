@@ -1,12 +1,12 @@
 package sorsix.internship.backend.api
 
+import jakarta.persistence.EntityNotFoundException
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
 import org.springframework.data.web.PageableDefault
 import org.springframework.security.core.Authentication
 import org.springframework.http.ResponseEntity
-import org.springframework.jdbc.datasource.DataSourceTransactionManager
 import org.springframework.web.bind.annotation.*
 import sorsix.internship.backend.dto.AthleteReportShortDTO
 import sorsix.internship.backend.dto.CreateDoctorDTO
@@ -35,7 +35,7 @@ class DoctorController(
     fun getDoctor(@PathVariable id: Long): ResponseEntity<Doctor> {
         val d = doctorRepository
             .findById(id)
-            .orElseThrow { NoSuchElementException("Doctor not found") }
+            .orElseThrow { EntityNotFoundException("Doctor not found") }
         return ResponseEntity.ok(d)
     }
 
@@ -68,7 +68,7 @@ class DoctorController(
         @RequestParam(required = false, defaultValue = false.toString()) patientType: Boolean?,
         @PageableDefault(size = 10, sort = ["dateOfLatestCheckUp"], direction = Sort.Direction.DESC) pageable: Pageable
     ): ResponseEntity<Page<PatientDTO>> {
-        if(patientType == true){
+        if (patientType == true) {
             return ResponseEntity.ok(patientService.getUnassignedPatients(embg, pageable))
         }
         return ResponseEntity.ok(patientService.searchPatientsByDoctorIdAndEmbg(doctorId, embg, pageable))

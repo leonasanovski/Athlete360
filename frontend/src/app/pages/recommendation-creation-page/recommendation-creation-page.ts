@@ -1,7 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {AuthService} from '../../services/auth-service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {RecommendationFormDTO} from '../../models/RecommendationFormDTO';
 import {
   FormArray,
   FormBuilder,
@@ -27,14 +25,11 @@ import {RecommendationForm} from '../../components/recommendation/recommendation
   styleUrl: './recommendation-creation-page.css'
 })
 export class RecommendationCreationPage implements OnInit {
-  authService = inject(AuthService);
   recommendationService = inject(RecommendationService);
   fb = inject(FormBuilder);
   router = inject(Router);
   route = inject(ActivatedRoute);
-
   forms: FormArray<FormGroup> = this.fb.array<FormGroup>([]);
-
   reportId: number | null = null;
   submitting = false;
 
@@ -54,7 +49,7 @@ export class RecommendationCreationPage implements OnInit {
       const elems = document.getElementsByClassName('card');
       if (elems.length) {
         const el = elems[elems.length - 1] as HTMLElement;
-        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        el.scrollIntoView({behavior: 'smooth', block: 'center'});
       }
     }, 50);
   }
@@ -77,7 +72,6 @@ export class RecommendationCreationPage implements OnInit {
       this.forms.markAllAsTouched();
       return;
     }
-
     this.submitting = true;
     const payloads = this.forms.controls.map(fg => fg.value);
 

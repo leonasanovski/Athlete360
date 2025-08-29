@@ -69,11 +69,11 @@
           <div class="col-sm-4">
             <div class="d-flex align-items-center">
             <span class="fw-semibold text-uppercase small"
-                  style="color: #386641; letter-spacing: 1px;">Assigned Doctor</span>
+                  style="color: #224228; letter-spacing: 1px;">Assigned Doctor</span>
             </div>
           </div>
           <div class="col-sm-8 text-sm-end">
-            <span class="fw-semibold" style="color: #6A994E;">{{ patient?.doctorInfo }}</span>
+            <span class="fw-semibold" style="{{ patient?.doctorInfo ? 'color: #6A994E;' : 'color: #224228;' }}">{{ patient?.doctorInfo ?? 'No Doctor Assigned Yet' }}</span>
           </div>
         </div>
       </div>

@@ -1,5 +1,6 @@
 package sorsix.internship.backend.service.impl
 
+import jakarta.persistence.EntityNotFoundException
 import jakarta.persistence.criteria.Predicate
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
@@ -38,14 +39,14 @@ class MoodServiceImpl(
 
     override fun save(dto: MoodCreatingResponseDTO): Mood {
         val patient = patientRepository.findById(dto.patientId)
-            .orElseThrow { NoSuchElementException("Patient not found with id: ${dto.patientId}") }
-        println(patient)
-        val aiScore: Int = openAiService.getMoodScoreFromDescription(dto.moodDescription).toInt() //or default for test
+            .orElseThrow { EntityNotFoundException("Patient not found with id: ${dto.patientId}") }
+
+        val aiScore: Int = openAiService.getMoodScoreFromDescription(dto.moodDescription)
         val emotionScore = calculateEmotionScore(dto.moodEmotion)
         val sleepScore = calculateSleepScore(dto.hoursSleptAverage)
         val totalScore = calculateTotalMoodScore(aiScore, emotionScore, sleepScore)
         val moodProgress = determineMoodProgress(totalScore)
-        //testing
+
         println("AiScore is -> ${aiScore}, emotionScore is -> $emotionScore")
         println("EmotionScore is -> $emotionScore")
         println("SleepScore is -> $sleepScore")
@@ -53,7 +54,7 @@ class MoodServiceImpl(
         val mood = Mood(
             patient = patient,
             moodDescription = dto.moodDescription,
-            moodEmotion = MoodEmotion.valueOf(dto.moodEmotion.uppercase()),
+            moodEmotion = dto.moodEmotion,
             hoursSleptAverage = dto.hoursSleptAverage,
             createdAt = LocalDateTime.now(),
             moodProgress = moodProgress,
@@ -134,13 +135,13 @@ class MoodServiceImpl(
     }
 
     //helper functions
-    private fun calculateEmotionScore(emotion: String): Int = when (emotion.uppercase()) {
-        "EXCITED" -> 8
-        "HAPPY" -> 10
-        "NEUTRAL" -> 5
-        "TIRED" -> 4
-        "STRESSED" -> 3
-        "SAD" -> 2
+    private fun calculateEmotionScore(emotion: MoodEmotion): Int = when (emotion) {
+        MoodEmotion.EXCITED -> 8
+        MoodEmotion.HAPPY -> 10
+        MoodEmotion.NEUTRAL -> 5
+        MoodEmotion.TIRED -> 4
+        MoodEmotion.STRESSED -> 3
+        MoodEmotion.SAD -> 2
         else -> 5
     }
 

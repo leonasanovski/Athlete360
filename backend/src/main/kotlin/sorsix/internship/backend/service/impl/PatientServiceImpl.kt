@@ -1,5 +1,6 @@
 package sorsix.internship.backend.service.impl
 
+import jakarta.persistence.EntityNotFoundException
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
@@ -58,7 +59,7 @@ class PatientServiceImpl(
 
     override fun createPatientFromUser(patientData: PatientDataDTO, userId: Long): Patient {
         val user =
-            userRepository.findById(userId).orElseThrow { throw RuntimeException("User with id = $userId not found") }
+            userRepository.findById(userId).orElseThrow { throw EntityNotFoundException("User with id = $userId not found") }
         val gender = if (user.embg.slice(7..9) == "455") {
             Gender.FEMALE
         } else {

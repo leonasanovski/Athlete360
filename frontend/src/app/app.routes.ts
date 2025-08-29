@@ -20,15 +20,17 @@ import {RegisterPage} from './pages/register-page/register-page';
 import {adminOnlyGuard} from './core/guards/admin-only-guard';
 import {adminLockChildGuard, adminLockGuard} from './core/guards/admin-lock-guard';
 import {RecommendationCreationPage} from './pages/recommendation-creation-page/recommendation-creation-page';
+import {patientRoleOnlyGuard} from './core/guards/patient-role-only-guard';
+import {RoleRedirect} from './components/role-redirect/role-redirect';
 
 export const routes: Routes = [
   {path: 'login', component: LoginPageComponent, canActivate: [guestGuard]},
   {path: 'register', component: RegisterPage, canActivate: [guestGuard]},
-  {path: 'admin', component: AdminPage, canActivate: [authGuard,adminOnlyGuard]},
+  {path: 'admin', component: AdminPage, canActivate: [authGuard, adminOnlyGuard]},
   {
     path: '',
-    canActivate: [authGuard,adminLockGuard],
-    canActivateChild: [authGuard,adminLockChildGuard],
+    canActivate: [authGuard, adminLockGuard],
+    canActivateChild: [authGuard, adminLockChildGuard],
     children: [
       {path: 'patient', component: PatientPage},
       {path: 'patient/setup', component: PatientFormSetup},
@@ -37,10 +39,10 @@ export const routes: Routes = [
       {path: 'doctor', component: DoctorPage},
       {path: 'doctor/setup', component: DoctorFormSetup},
 
-      {path: 'moods', component: MoodComponent},
-      {path: 'moods/add-mood', component: MoodFormComponent},
-      {path: 'moods/:id/search', component: MoodComponent},
-      {path: 'moods/info/:id', component: MoodDetailsComponent},
+      {path: 'moods', component: MoodComponent, canActivate: [patientRoleOnlyGuard]},
+      {path: 'moods/add-mood', component: MoodFormComponent, canActivate: [patientRoleOnlyGuard]},
+      {path: 'moods/:id/search', component: MoodComponent, canActivate: [patientRoleOnlyGuard]},
+      {path: 'moods/info/:id', component: MoodDetailsComponent, canActivate: [patientRoleOnlyGuard]},
 
       {path: 'reports', component: ReportsPage},
       {path: 'reports/new', component: ReportCreationPage},
@@ -52,9 +54,9 @@ export const routes: Routes = [
 
       {path: 'recommendations/new', component: RecommendationCreationPage},
 
-      {path: '', redirectTo: 'patient', pathMatch: 'full'},
       {path: 'pending', component: PendingPage},
+
+      {path: '', component: RoleRedirect, pathMatch: 'full'},
     ]
   },
-  {path: '**', redirectTo: 'patient'}
 ];

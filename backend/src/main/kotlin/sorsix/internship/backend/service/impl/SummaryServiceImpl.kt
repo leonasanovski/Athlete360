@@ -1,5 +1,6 @@
 package sorsix.internship.backend.service.impl
 
+import jakarta.persistence.EntityNotFoundException
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
@@ -21,7 +22,7 @@ class SummaryServiceImpl(
 
     override fun findSummaryByReportId(reportId: Long): SummaryDTO {
         val report = athleteReportRepository.findById(reportId)
-            .orElseThrow { throw NoSuchElementException("There is no doctor with id=$reportId in the database.") }
+            .orElseThrow { throw EntityNotFoundException("There is no doctor with id=$reportId in the database.") }
 
         return summaryRepository.findByAthleteReportReportId(reportId)
             ?.toDto()
@@ -30,7 +31,7 @@ class SummaryServiceImpl(
 
     override fun create(summary: SummaryCreateRequest): Long {
         val report = athleteReportRepository.findById(summary.reportId!!)
-            .orElseThrow { IllegalArgumentException("Report with id = ${summary.reportId} not found") }
+            .orElseThrow { EntityNotFoundException("Report with id = ${summary.reportId} not found") }
         val res = SummaryCreateRequest.toEntity(summary, report)
         summaryRepository.save(res)
 
@@ -39,7 +40,7 @@ class SummaryServiceImpl(
 
     override fun getSummaryAI(reportId: Long): String {
         val report = athleteReportRepository.findById(reportId)
-            .orElseThrow { IllegalArgumentException("Report with id = $reportId not found") }
+            .orElseThrow { EntityNotFoundException("Report with id = $reportId not found") }
 
         val recommendations = recommendationService.findRecommendationsByReportId(reportId)
         val summarized = openAiService.summarizeRecommendations(recommendations)
@@ -49,7 +50,7 @@ class SummaryServiceImpl(
 
     override fun update(reportId: Long, request: SummaryCreateRequest): Long {
         val summary = summaryRepository.findByAthleteReportReportId(reportId)
-            ?: throw IllegalArgumentException("Report with id = $reportId not found")
+            ?: throw EntityNotFoundException("Report with id = $reportId not found")
 
         request.summarizedContent?.let { summary.summarizedContent = it }
 
