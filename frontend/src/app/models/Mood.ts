@@ -7,6 +7,7 @@ export interface Mood {
   moodEmotion: MoodEmotion;
   hoursSleptAverage: number;
   moodDescription: string;
+  moodDescriptionScore: number,
   createdAt: string;
   patientId: number;
   patientName: string;

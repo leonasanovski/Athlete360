@@ -26,22 +26,17 @@
 
   --bs-white-muted: rgba(255, 255, 255, 0.8);
 
-  /* training (green) — existing look */
   --training-start: #e6f3cb;
   --training-end: #A7C957;
-  --training-dark: #386641; /* used for headings / contrast */
+  --training-dark: #386641;
 
-  /* diet (blue) */
   --diet-start: #E6F0FF;
   --diet-end: #2B6CB0;
-  --diet-dark: #153E6B; /* for text contrast */
+  --diet-dark: #153E6B;
 
-  /* supplement (yellow / amber) */
   --supp-start: #FFF9E6;
   --supp-end: #FFB84D;
-  --supp-dark: #6B4B00; /* dark amber for contrast */
-
-  /* small shared tokens */
+  --supp-dark: #6B4B00;
   --card-elev-shadow: 0 8px 24px rgba(56, 102, 65, 0.06);
   --card-radius: 12px;
 
@@ -53,7 +48,6 @@
   --error-color: #BC4749;
 }
 
-/* NAV & LINKS */
 .nav-pills .nav-link {
   color: var(--bs-primary) !important;
 }
@@ -95,7 +89,6 @@ a:not(.nav-link):hover,
   color: var(--bs-primary) !important;
 }
 
-/* YOUR BTN-PRIMARY OVERRIDES */
 .btn-primary {
   background-color: var(--bs-primary) !important;
   border-color: var(--bs-primary) !important;
@@ -133,7 +126,6 @@ a:not(.nav-link):hover,
   box-shadow: none !important;
 }
 
-/* OUTLINE PRIMARY */
 .btn-outline-primary {
   color: var(--bs-primary) !important;
   border-color: var(--bs-primary) !important;
@@ -160,9 +152,6 @@ a:not(.nav-link):hover,
   background-color: var(--bs-primary);
 }
 
-
-
-/* === General Page Styling === */
 h1, h3 {
   font-weight: 600;
   color: #2c4731;
@@ -174,7 +163,6 @@ hr {
   margin: 1.5rem 0;
 }
 
-/* === Search Input === */
 input[type="text"] {
   border: 1px solid #d1d5db;
   border-radius: 12px;
@@ -191,7 +179,6 @@ input[type="text"]:focus {
   box-shadow: 0 0 0 3px rgba(56, 102, 65, 0.2);
 }
 
-/* === Tables === */
 .table {
   background: #fff;
   border-radius: 12px;
@@ -217,23 +204,21 @@ input[type="text"]:focus {
   border-top: 1px solid #f1f3f5;
 }
 
-/* Hover row */
 .table-hover tbody tr:hover {
   background: #f6faf7;
   cursor: pointer;
   transition: background 0.2s ease;
 }
 
-/* Sort buttons */
 .table thead button {
   color: #6b7280;
   font-size: 0.85rem;
 }
+
 .table thead button:hover {
   color: #386641;
 }
 
-/* === Pagination === */
 .pagination {
   margin-top: 1rem;
   display: flex;
@@ -261,37 +246,35 @@ input[type="text"]:focus {
   pointer-events: none;
 }
 
-/* === Buttons === */
 .btn {
   border-radius: 10px;
   font-weight: 500;
   transition: all 0.2s ease;
 }
 
-/* Primary button (Create Report) */
 .btn-primary {
   background: #386641;
   border-color: #386641;
 }
+
 .btn-primary:hover {
   background: #2c4f32;
   border-color: #2c4f32;
 }
 
-/* Outline buttons */
 .btn-outline-secondary {
   border-radius: 8px;
   border: 1px solid #d1d5db;
   color: #333;
   background: #fff;
 }
+
 .btn-outline-secondary:hover {
   background: #f6faf7;
   border-color: #386641;
   color: #386641;
 }
 
-/* === Empty placeholder === */
 .empty-placeholder {
   border: 2px dashed #d1d5db;
   border-radius: 16px;

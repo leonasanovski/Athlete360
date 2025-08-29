@@ -10,7 +10,8 @@ import {AuthService} from '../../services/auth-service';
 import {CurrentUser} from '../../models/CurrentUser';
 import {PatientService} from '../../services/patient-service';
 import {Patient} from '../../models/Patient';
-import {logger} from 'html2canvas/dist/types/core/__mocks__/logger';
+import {MoodService} from '../../services/mood-service';
+import { NgxGaugeModule } from 'ngx-gauge';
 
 @Component({
   selector: 'patient-page',
@@ -19,14 +20,16 @@ import {logger} from 'html2canvas/dist/types/core/__mocks__/logger';
     RouterLink,
     RecommendationCard,
     AsyncPipe,
-    JsonPipe
+    JsonPipe,
+    NgxGaugeModule
   ],
   templateUrl: './patient-page.html',
   standalone: true,
   styleUrl: './patient-page.css'
 })
-export class PatientPage implements OnInit{
+export class PatientPage implements OnInit {
   authService = inject(AuthService);
+  moodService = inject(MoodService)
   recommendationService = inject(RecommendationService);
   patientService = inject(PatientService);
   route = inject(ActivatedRoute);
@@ -37,43 +40,50 @@ export class PatientPage implements OnInit{
   latestRecommendations$: Observable<Recommendation[]> | undefined;
   patientId: number | null = null;
 
+  averageScore: number | undefined;
+
   ngOnInit(): void {
     this.currentUser = this.authService.getCurrentUser();
 
     this.latestRecommendations$ = this.authService.currentUser$.pipe(
       switchMap(user => {
-        let id$: Observable<number>;
-
-        if (user?.role === 'PATIENT') {
-          this.patientId = user.personId;
-          id$ = of(this.patientId!);
-          this.router.navigate(['/patient']);
-        } else {
-          id$ = this.route.paramMap.pipe(
-            map(params => params.get('id')),
-            filter((id): id is string => !!id),
-            map(id => +id),
-            tap(id => (this.patientId = id))
-          );
-        }
-
-        // fetch patient first, then recommendations
+        const id$: Observable<number> =
+          user?.role === 'PATIENT'
+            ? of(user.personId!)
+            : this.route.paramMap.pipe(
+              map(pm => pm.get('id')),
+              filter((id): id is string => !!id),
+              map(id => +id)
+            );
         return id$.pipe(
+          tap(id => (this.patientId = id)),
           switchMap(id =>
             this.patientService.getPatientById(id).pipe(
-              tap(patient => {
-                this.patient = patient;
+              tap(p => {
+                this.patient = p;
                 this.setAvatarName();
+                if (user?.role === 'PATIENT' && this.router.url !== '/patient') {
+                  this.router.navigate(['/patient']);
+                }
               }),
               switchMap(() =>
-                this.recommendationService.getLatestRecommendations(id).pipe(
-                  defaultIfEmpty([]), // in case no recommendations
-                  catchError(err => {
-                    console.warn('Failed to fetch recommendations', err);
-                    return of([]); // always return empty array on error
-                  })
-                )
-              )
+                forkJoin({
+                  avg: this.moodService.getMoodsForSpecificPatient(this.patientId!).pipe(
+                    map(moods => {
+                      if (!moods?.length) return -1;
+                      const total = moods.reduce((acc, m) => acc + (m.moodDescriptionScore ?? 0), 0);
+                      return Math.round((total / moods.length) * 100) / 100;
+                    }),
+                    catchError(() => of(null))
+                  ),
+                  recs: this.recommendationService.getLatestRecommendations(this.patientId!).pipe(
+                    defaultIfEmpty([]),
+                    catchError(() => of<Recommendation[]>([]))
+                  )
+                })
+              ),
+              tap(({avg}) => (this.averageScore = avg ?? -1)),
+              map(({recs}) => recs)
             )
           )
         );
@@ -82,9 +92,15 @@ export class PatientPage implements OnInit{
   }
 
   setAvatarName() {
-    if(this.patient) {
+    if (this.patient) {
       const name = this.patient.name.split(' ');
       this.avatarName = `${name[0][0].toUpperCase()}${name[1][0].toUpperCase()}`
     }
+  }
+
+  getMoodMeterParams(averageScore: number): { color: string, label: string } {
+    if (averageScore <= 3) return {color: '#ef4444', label: 'BAD'};
+    if (averageScore <= 7) return {color: '#f59e0b', label: 'STALL'};
+    return {color: '#22c55e', label: 'GOOD'};
   }
 }

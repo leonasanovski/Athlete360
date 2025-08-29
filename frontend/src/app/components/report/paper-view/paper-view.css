@@ -6,27 +6,27 @@
   border: 2px solid #ddd;
   font-family: Arial, Helvetica, sans-serif;
   color: #000;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   border-radius: 8px;
 }
 
-/* Header */
 .report-header {
   text-align: center;
   padding: 15px;
   border-bottom: 3px solid #1a75bc;
 }
+
 .report-title {
   font-size: 26px;
   font-weight: bold;
   color: #1a75bc;
 }
+
 .report-subtitle {
   font-size: 15px;
   color: #555;
 }
 
-/* Athlete Info */
 .patient-info {
   background: #f5faff;
   padding: 15px;
@@ -34,22 +34,24 @@
   border-radius: 6px;
   margin-top: 20px;
 }
+
 .info-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 12px;
 }
+
 .info-label {
   font-size: 12px;
   font-weight: bold;
   text-transform: uppercase;
   color: #333;
 }
+
 .info-value {
   font-size: 14px;
 }
 
-/* Status badge */
 .status-badge {
   padding: 4px 10px;
   border-radius: 12px;
@@ -58,17 +60,19 @@
   color: #222222;
   display: inline-block;
 }
+
 .status-good {
   background-color: #28a745;
 }
+
 .status-bad {
   background-color: #dc3545;
 }
+
 .status-neutral {
   background-color: #6c757d;
 }
 
-/* Section Title */
 .section-title {
   font-weight: bold;
   margin: 25px 0 8px;
@@ -78,45 +82,49 @@
   color: #1a75bc;
 }
 
-/* Table Styling */
 .results-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 14px;
   margin-bottom: 20px;
 }
+
 .results-table th, .results-table td {
   border: 1px solid #ccc;
   padding: 8px 10px;
   text-align: left;
 }
+
 .results-table th {
   background-color: #f1f5f9;
   font-weight: bold;
 }
+
 .results-table tbody tr:nth-child(even) {
   background-color: #fafafa;
 }
+
 .results-table tbody tr:hover {
   background-color: #f0f7ff;
 }
+
 .test-name {
   font-weight: bold;
 }
 
-/* Flags */
 .flag {
   text-align: center;
   font-weight: bold;
 }
+
 .flag-h {
   color: #d9534f;
 }
+
 .flag-l {
   color: #0275d8;
 }
 
-/* Footer */
 .footer {
   border-top: 2px solid #ccc;
   padding-top: 10px;
@@ -125,23 +133,34 @@
   text-align: center;
   margin-top: 30px;
 }
-.results-table tr th{
-  text-align: center;
-}
-tbody tr td + td{
+
+.results-table tr th {
   text-align: center;
 }
 
-tbody tr td:nth-child(3){
+tbody tr td + td {
+  text-align: center;
+}
+
+tbody tr td:nth-child(3) {
   font-style: italic;
   color: #6c757d;
 }
 
+.val-yellow {
+  color: #d39e00;
+  font-weight: bold;
+}
 
-.val-yellow { color: #d39e00; font-weight: bold; }
-.val-red    { color: #d9534f; font-weight: bold; }
-.val-green  { color: #1f7a1f; font-weight: bold; }
+.val-red {
+  color: #d9534f;
+  font-weight: bold;
+}
 
+.val-green {
+  color: #1f7a1f;
+  font-weight: bold;
+}
 
 .export-pdf-button {
   background: linear-gradient(135deg, #e53935, #b71c1c);

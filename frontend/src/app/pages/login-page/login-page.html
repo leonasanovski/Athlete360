@@ -27,7 +27,8 @@
       </div>
 
       <div class="d-grid flex-fill">
-        <button type="button"
+        <button [disabled]="loading || formGroup.invalid"
+                type="button"
                 class="btn btn-register"
                 (click)="goToRegister()">
           Register

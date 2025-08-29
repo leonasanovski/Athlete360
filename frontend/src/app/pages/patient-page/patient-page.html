@@ -42,7 +42,6 @@
     }
   </div>
 
-  <!-- Reports -->
   <div class="row mt-5">
     <h3 class="section-title mb-3">Reports</h3>
 
@@ -57,7 +56,26 @@
 
     <div class="col-md-3">
       <div class="card-modern h-100 d-flex align-items-center justify-content-center">
-        <div class="mood-meter w-100" style="aspect-ratio: 1/1;"></div>
+        @if (averageScore && averageScore > 0) {
+          <ngx-gauge
+            [value]="averageScore!"
+            [min]="0"
+            [max]="10"
+            [type]="'semi'"
+            [thick]="8"
+            [foregroundColor]="getMoodMeterParams(averageScore!).color"
+            [backgroundColor]="'#6d6d6d'"
+            [cap]="'round'"
+            [size]="300"
+            [label]="getMoodMeterParams(averageScore!).label"
+            [append]="''"
+            [prepend]="''">
+          </ngx-gauge>
+        } @else {
+          <div class="text-center text-secondary">
+            <h3>No mood information is provided for now, check when a new mood entry is stored.</h3>
+          </div>
+        }
       </div>
     </div>
   </div>

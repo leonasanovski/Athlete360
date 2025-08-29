@@ -1,4 +1,3 @@
-/* Card */
 .mood-form-card {
   width: 100%;
   max-width: 720px;
@@ -6,16 +5,14 @@
   overflow: hidden;
 }
 
-/* Card header */
 .mood-form-card .card-header {
-  background: linear-gradient(135deg, #386641, #6A994E); /* dark → medium green */
+  background: linear-gradient(135deg, #386641, #6A994E);
   font-weight: 600;
   text-align: center;
   font-size: 1.2rem;
   border: none;
 }
 
-/* Inputs & Selects */
 .mood-form-card .form-control,
 .mood-form-card .form-select {
   border-radius: 8px;
@@ -49,14 +46,12 @@
   min-height: 140px;
 }
 
-/* Form labels */
 .mood-form-card .form-label {
   color: #1f7a1f;
   font-size: 1rem;
   font-weight: 600;
 }
 
-/* Footer description */
 .description-box {
   background-color: #f2e8cf;
   text-align: center;

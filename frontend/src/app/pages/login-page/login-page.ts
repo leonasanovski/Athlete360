@@ -3,7 +3,7 @@ import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {Router} from '@angular/router';
 import {AuthService} from '../../services/auth-service';
 import {of} from 'rxjs';
-import {switchMap, catchError, finalize, take} from 'rxjs/operators';
+import {switchMap, catchError, finalize} from 'rxjs/operators';
 
 
 @Component({
@@ -11,7 +11,7 @@ import {switchMap, catchError, finalize, take} from 'rxjs/operators';
   standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './login-page.html',
-  styleUrl: './login-page.css'
+  styleUrl: './login-page.css',
 })
 export class LoginPageComponent {
   private auth = inject(AuthService);
@@ -23,6 +23,7 @@ export class LoginPageComponent {
     embg: new FormControl('1104003450027', [Validators.required, Validators.minLength(13), Validators.maxLength(13)]),
     password: new FormControl('p@ssw0rd', [Validators.required, Validators.minLength(8)]),
   });
+
   submit(): void {
     this.serverError = '';
     if (this.formGroup.invalid || this.loading) return;
@@ -32,7 +33,7 @@ export class LoginPageComponent {
       switchMap(() => {
         const user = this.auth.getCurrentUser();
         if (!user) throw new Error('No user session after login');
-        const role = user.role as 'DOCTOR' | 'PATIENT' | 'PENDING' | 'ADMIN';
+        const role = user.role;
         if (role === 'DOCTOR') {
           if (user.personId) {
             this.router.navigate(['/doctor']);
@@ -41,13 +42,10 @@ export class LoginPageComponent {
           }
           return of(null);
         }
-
         if (role === 'PATIENT') {
-          console.log('PATIENT ROLE FOR THE USER')
-          console.log('user: ', user)
-          if(user.personId){
+          if (user.personId) {
             this.router.navigate(['/patient']);
-          }else{
+          } else {
             this.router.navigate(['/patient/setup']);
           }
           return of(null);
@@ -58,12 +56,10 @@ export class LoginPageComponent {
           return of(null);
         }
 
-        if(role === 'ADMIN') {
+        if (role === 'ADMIN') {
           this.router.navigate(['/admin']);
           return of(null);
         }
-
-        // ADMIN or anything else
         this.router.navigate(['/']);
         return of(null);
       }),
@@ -75,7 +71,7 @@ export class LoginPageComponent {
     ).subscribe();
   }
 
-  goToRegister(){
+  goToRegister() {
     this.router.navigate(['/register']);
   }
 }

@@ -1,5 +1,3 @@
-/* Athlete360 Sidebar Styles */
-/* Color Palette Variables */
 :root {
   --color-dark-green: #386641;
   --color-medium-green: #6A994E;
@@ -8,7 +6,6 @@
   --color-coral: #BC4749;
 }
 
-/* Sidebar Container */
 .sidebar-container {
   width: 280px;
   background: linear-gradient(180deg, var(--color-dark-green) 0%, var(--color-medium-green) 100%);
@@ -19,7 +16,6 @@
   flex-direction: column;
 }
 
-/* Logo Section */
 .logo-section {
   display: flex;
   align-items: center;
@@ -42,14 +38,12 @@
   letter-spacing: -0.5px;
 }
 
-/* Athlete Logo SVG */
 .athlete-logo {
   width: 48px;
   height: 48px;
   flex-shrink: 0;
 }
 
-/* Divider */
 .sidebar-divider {
   border: none;
   height: 1px;
@@ -57,7 +51,6 @@
   margin: 0 0 1.5rem 0;
 }
 
-/* Navigation */
 .nav-section {
   flex-grow: 1;
   margin-bottom: 1.5rem;
@@ -97,7 +90,6 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* Nav Icons */
 .nav-icon {
   width: 18px;
   height: 18px;
@@ -105,7 +97,6 @@
   opacity: 0.9;
 }
 
-/* User Profile Section */
 .profile-section {
   margin-top: auto;
 }
@@ -153,7 +144,6 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Default User Avatar */
 .profile-avatar-container {
   width: 40px;
   height: 40px;
@@ -225,7 +215,6 @@
   transform: rotate(180deg);
 }
 
-/* Dropdown Menu */
 .dropdown-menu {
   background: var(--color-cream);
   border: none;

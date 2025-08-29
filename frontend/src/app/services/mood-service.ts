@@ -50,4 +50,9 @@ export class MoodService {
     const url = `${this.mood_url}/${id}/search`
     return this.http.get<Page<Mood>>(url, {params});
   }
+
+  getMoodsForSpecificPatient(patientId: number): Observable<Mood[]> {
+    const url = `${this.mood_url}/${patientId}/all-moods`
+    return this.http.get<Mood[]>(url);
+  }
 }

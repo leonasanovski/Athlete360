@@ -1,23 +1,19 @@
-/* Page background */
 .admin-page {
   min-height: 100vh;
   font-family: 'Inter', sans-serif;
 }
 
-/* Table card */
 .table-responsive {
   border-radius: 0.75rem;
   overflow: hidden;
 }
 
-/* Hover effect on rows */
 .table-hover tbody tr:hover {
-  background-color: #eaf5ec; /* subtle green tint to match primary color */
+  background-color: #eaf5ec;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
 }
 
-/* Buttons */
 .btn-primary {
   background-color: #386641;
   border-color: #386641;
@@ -36,12 +32,10 @@
   background-color: #f0f0f0;
 }
 
-/* Trash icon button */
 .btn-outline-danger i {
   color: #e63946;
 }
 
-/* Pagination */
 .pagination .page-item.active .page-link {
   background-color: #386641;
   border-color: #386641;

@@ -1,4 +1,5 @@
 package sorsix.internship.backend.api
+
 import org.springframework.data.domain.Page
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -44,6 +45,13 @@ class MoodController(
             .findAllFiltered(patientId, fromDateTime, toDateTime, moodEmotion, moodProgress, pageSize, pageNumber)
             .map { MoodMapper.mapMoodToResponseDto(it) }
     }
+
+    @GetMapping("/{patientId}/all-moods")
+    fun getMoodsForPatient(@PathVariable patientId: Long): List<MoodDTO> =
+        moodRepository
+            .findByPatientPatientId(patientId)
+            .map { MoodMapper.mapMoodToResponseDto(it) }
+
 
     @GetMapping("/info/{moodId}")
     fun getSpecificMoodForPatient(

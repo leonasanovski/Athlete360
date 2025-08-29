@@ -10,8 +10,13 @@
   font-size: 0.95rem;
 }
 
-.btn-signin,
-.btn-register {
+.login-card .form-control:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(80, 144, 94, 0.25);
+  border-color: #0e5d1b;
+}
+
+.button-sequence .btn {
   border-radius: 12px;
   padding: 12px;
   font-size: 1rem;
@@ -20,36 +25,21 @@
   width: 100%;
 }
 
-.btn-signin {
-  background: linear-gradient(135deg, #38522a, #208b57);
+.button-sequence .btn {
+  background: linear-gradient(135deg, #386641, #6a994e);
   color: #fff;
   border: none;
   box-shadow: 0 4px 10px rgb(45, 64, 34);
 }
 
-.btn-signin:hover:not(:disabled) {
-  background: linear-gradient(135deg, #208b57, #38522a);
+.button-sequence .btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #6a994e, rgb(56, 102, 65));
   transform: translateY(-1px);
-  box-shadow: 0 6px 14px rgba(13, 110, 253, 0.35);
+  box-shadow: 0 6px 14px rgba(50, 53, 57, 0.35);
 }
 
-/* Secondary Register button */
-.btn-register {
-  background: #fff;
-  color: #6a994e;
-  border: 2px solid #38522a;
-}
-
-.btn-register:hover {
-  background: #6a994e;
-  color: #fff;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 14px rgb(56, 82, 42);
-}
-
-/* Disabled state */
-.btn-signin:disabled {
-  background: #a3c4fd;
+.button-sequence .btn:disabled {
+  background: rgba(41, 95, 8, 0.29);
   cursor: not-allowed;
   box-shadow: none;
   transform: none;
@@ -62,9 +52,5 @@
 
 .server-error {
   font-size: 0.9rem;
-}
-
-body {
-  background: linear-gradient(135deg, #f0f4ff, #e8efff);
 }
 

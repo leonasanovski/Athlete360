@@ -69,14 +69,14 @@
 
 .filter-panel h5,
 .filter-panel .panel-title {
-  color: #386641; /* dark green brand */
+  color: #386641;
   font-weight: 600;
   margin-bottom: 1rem;
   letter-spacing: 0.5px;
 }
 
 .filter-panel label {
-  color: #6A994E; /* medium green accent */
+  color: #6A994E;
   font-weight: 500;
   font-size: 0.95rem;
   margin-bottom: 4px;
@@ -85,7 +85,7 @@
 }
 
 .filter-panel label:hover {
-  color: #386641; /* darker on hover */
+  color: #386641;
 }
 
 .filter-panel .form-control,
