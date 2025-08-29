@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
 import sorsix.internship.backend.dto.*
 import sorsix.internship.backend.mappers.PatientMapper
-import sorsix.internship.backend.model.Doctor
 import sorsix.internship.backend.model.Patient
 import sorsix.internship.backend.repository.PatientRepository
 import sorsix.internship.backend.security.model.UserPrincipal
@@ -41,7 +40,6 @@ class PatientController(
         @RequestBody patientData: PatientDataDTO,
         authentication: Authentication
     ): ResponseEntity<Patient> {
-        println("In Patient Controller")
         val principal = authentication.principal as UserPrincipal
         val userId = principal.appUser.userId
         val patient = patientService.createPatientFromUser(patientData, userId!!)
@@ -53,7 +51,7 @@ class PatientController(
         @PathVariable patientId: Long,
         @PageableDefault(size = 10, sort = ["createdAt"], direction = Sort.Direction.DESC) pageable: Pageable
     ): ResponseEntity<Page<AthleteReportShortDTO>> =
-        ResponseEntity.ok(athleteReportService.getReportsShortByPatientId(patientId, pageable));
+        ResponseEntity.ok(athleteReportService.getReportsShortByPatientId(patientId, pageable))
 
     @GetMapping("{patientId}/latest/recommendations")
     fun getPatientRecommendationsForLatestReport(@PathVariable patientId: Long): ResponseEntity<List<RecommendationResponse>> {

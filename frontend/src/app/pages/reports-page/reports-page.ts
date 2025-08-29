@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {ReportsTable} from '../../components/report/reports-table/reports-table';
+import {ReportsTable} from '../../components/report-components/reports-table/reports-table';
 
 @Component({
   selector: 'app-reports-page',

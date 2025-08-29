@@ -1,12 +1,12 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {ReportsTable} from '../../components/report/reports-table/reports-table';
+import {ReportsTable} from '../../components/report-components/reports-table/reports-table';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
-import {RecommendationCard} from '../../components/recommendation/recommendation-card/recommendation-card';
+import {RecommendationCard} from '../../components/recommendation-components/recommendation-card/recommendation-card';
 import {catchError, defaultIfEmpty, filter, forkJoin, map, Observable, of, switchMap, tap} from 'rxjs';
 import {Recommendation} from '../../models/Recommendation';
 import {RecommendationService} from '../../services/recommendation-service';
 import {AsyncPipe, JsonPipe} from '@angular/common';
-import {AuthService} from '../../services/auth-service';
+import {AuthService} from '../../core/services/auth-service';
 import {CurrentUser} from '../../models/CurrentUser';
 import {PatientService} from '../../services/patient-service';
 import {Patient} from '../../models/Patient';

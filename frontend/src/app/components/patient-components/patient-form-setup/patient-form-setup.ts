@@ -1,12 +1,10 @@
 import {Component, inject} from '@angular/core';
-import {AuthService} from '../../services/auth-service';
-import {DoctorService} from '../../services/doctor-service';
+import {AuthService} from '../../../core/services/auth-service';
 import {Router} from '@angular/router';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {PatientService} from '../../services/patient-service';
-import {Gender} from '../../models/types/Gender';
-import {SportsmanCategory} from '../../models/types/SportsmanCategory';
-import {CreatePatientDTO} from '../../models/dto/CreatePatientDTO';
+import {PatientService} from '../../../services/patient-service';
+import {SportsmanCategory} from '../../../models/types/SportsmanCategory';
+import {CreatePatientDTO} from '../../../models/dto/CreatePatientDTO';
 
 @Component({
   selector: 'app-patient-form-setup',
@@ -46,6 +44,4 @@ export class PatientFormSetup {
       }
     });
   }
-
-
 }

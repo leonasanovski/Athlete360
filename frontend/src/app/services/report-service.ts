@@ -1,9 +1,9 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {Observable, switchMap, take, tap} from 'rxjs';
+import {Observable, switchMap, take} from 'rxjs';
 import {ReportShort} from '../models/ReportShort';
 import {ReportDetails} from '../models/ReportDetails';
-import {AuthService} from './auth-service';
+import {AuthService} from '../core/services/auth-service';
 import {PageResponse} from '../models/PageResponse';
 import {ReportForm} from '../models/ReportForm';
 import {ReportFlags} from '../models/ReportFlags';

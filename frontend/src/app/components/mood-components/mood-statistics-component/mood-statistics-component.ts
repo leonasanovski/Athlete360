@@ -1,11 +1,11 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {Patient} from '../../models/Patient';
-import {PatientService} from '../../services/patient-service';
-import {MoodService} from '../../services/mood-service';
-import {ActivatedRoute, Route} from '@angular/router';
+import {Patient} from '../../../models/Patient';
+import {PatientService} from '../../../services/patient-service';
+import {MoodService} from '../../../services/mood-service';
+import {ActivatedRoute} from '@angular/router';
 import {DatePipe} from '@angular/common';
-import {MoodStatisticsDTO} from '../../models/MoodStatistics';
-import {filter, map, mergeMap, switchMap, tap} from 'rxjs';
+import {MoodStatisticsDTO} from '../../../models/MoodStatistics';
+import {filter, map, switchMap, tap} from 'rxjs';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {LineChartComponent} from './line-chart-component/line-chart-component';
 

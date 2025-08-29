@@ -4,13 +4,13 @@ import {ReportDetails} from '../../models/ReportDetails';
 import {ReportService} from '../../services/report-service';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {DatePipe} from '@angular/common';
-import {StatusPill} from '../../components/report/status-pill/status-pill';
+import {StatusPill} from '../../components/report-components/status-pill/status-pill';
 import {Recommendation} from '../../models/Recommendation';
 import {RecommendationService} from '../../services/recommendation-service';
-import {RecommendationCard} from '../../components/recommendation/recommendation-card/recommendation-card';
+import {RecommendationCard} from '../../components/recommendation-components/recommendation-card/recommendation-card';
 import {SummaryService} from '../../services/summary-service';
 import {Summary} from '../../models/Summary';
-import {AuthService} from '../../services/auth-service';
+import {AuthService} from '../../core/services/auth-service';
 
 @Component({
   selector: 'report-details-page',

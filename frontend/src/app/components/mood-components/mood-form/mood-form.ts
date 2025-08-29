@@ -1,19 +1,19 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {MoodService} from '../../services/mood-service';
-import {AiLoadingComponent} from '../ai-loading-component/ai-loading-component';
+import {MoodService} from '../../../services/mood-service';
+import {OpenAiGeneratingLoader} from '../../open-ai-generating-loader/open-ai-generating-loader';
 
 @Component({
   selector: 'app-mood-form-component',
   imports: [
     ReactiveFormsModule,
-    AiLoadingComponent
+    OpenAiGeneratingLoader
   ],
-  templateUrl: './mood-form-component.html',
-  styleUrl: './mood-form-component.css'
+  templateUrl: './mood-form.html',
+  styleUrl: './mood-form.css'
 })
-export class MoodFormComponent implements OnInit {
+export class MoodForm implements OnInit {
   formBuilder: FormBuilder = inject(FormBuilder)
   route = inject(ActivatedRoute);
   router = inject(Router);

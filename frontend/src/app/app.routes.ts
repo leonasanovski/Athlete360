@@ -1,20 +1,20 @@
 import {Routes} from '@angular/router';
-import {MoodComponent} from './components/mood/mood.component';
+import {MoodPage} from './pages/mood-page/mood-page';
 import {PatientPage} from './pages/patient-page/patient-page';
 import {ReportDetailsPage} from './pages/report-details-page/report-details-page';
 import {ReportsPage} from './pages/reports-page/reports-page';
-import {MoodFormComponent} from './components/mood-form-component/mood-form-component';
-import {MoodDetailsComponent} from './components/mood.details/mood.details.component';
+import {MoodForm} from './components/mood-components/mood-form/mood-form';
+import {MoodDetails} from './components/mood-components/mood-details/mood-details';
 import {DoctorPage} from './pages/doctor-page/doctor-page';
 import {ReportCreationPage} from './pages/report-creation-page/report-creation-page';
 import {SummaryCreationPage} from './pages/summary-creation-page/summary-creation-page';
-import {PaperView} from './components/report/paper-view/paper-view';
+import {PaperView} from './components/report-components/paper-view/paper-view';
 import {LoginPageComponent} from './pages/login-page/login-page';
 import {authGuard} from './core/guards/auth-guard';
 import {guestGuard} from './core/guards/guest-guard';
 import {PendingPage} from './pages/pending-page/pending-page';
-import {DoctorFormSetup} from './components/doctor-form-setup/doctor-form-setup';
-import {PatientFormSetup} from './components/patient-form-setup/patient-form-setup';
+import {DoctorFormSetup} from './components/doctor-components/doctor-form-setup/doctor-form-setup';
+import {PatientFormSetup} from './components/patient-components/patient-form-setup/patient-form-setup';
 import {AdminPage} from './pages/admin-page/admin-page';
 import {RegisterPage} from './pages/register-page/register-page';
 import {adminOnlyGuard} from './core/guards/admin-only-guard';
@@ -39,10 +39,10 @@ export const routes: Routes = [
       {path: 'doctor', component: DoctorPage},
       {path: 'doctor/setup', component: DoctorFormSetup},
 
-      {path: 'moods', component: MoodComponent, canActivate: [patientRoleOnlyGuard]},
-      {path: 'moods/add-mood', component: MoodFormComponent, canActivate: [patientRoleOnlyGuard]},
-      {path: 'moods/:id/search', component: MoodComponent, canActivate: [patientRoleOnlyGuard]},
-      {path: 'moods/info/:id', component: MoodDetailsComponent, canActivate: [patientRoleOnlyGuard]},
+      {path: 'moods', component: MoodPage, canActivate: [patientRoleOnlyGuard]},
+      {path: 'moods/add-mood', component: MoodForm, canActivate: [patientRoleOnlyGuard]},
+      {path: 'moods/:id/search', component: MoodPage, canActivate: [patientRoleOnlyGuard]},
+      {path: 'moods/info/:id', component: MoodDetails, canActivate: [patientRoleOnlyGuard]},
 
       {path: 'reports', component: ReportsPage},
       {path: 'reports/new', component: ReportCreationPage},

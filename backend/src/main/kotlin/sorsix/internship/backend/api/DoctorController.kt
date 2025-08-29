@@ -80,5 +80,5 @@ class DoctorController(
         @PathVariable doctorId: Long,
         @PageableDefault(size = 10, sort = ["createdAt"], direction = Sort.Direction.DESC) pageable: Pageable
     ): ResponseEntity<Page<AthleteReportShortDTO>> =
-        ResponseEntity.ok(athleteReportService.getReportsShortByDoctorId(doctorId, pageable));
+        ResponseEntity.ok(athleteReportService.getReportsShortByDoctorId(doctorId, pageable))
 }

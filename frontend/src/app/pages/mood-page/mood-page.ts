@@ -3,7 +3,7 @@ import {MoodService} from '../../services/mood-service';
 import {Mood} from '../../models/Mood';
 import {DatePipe, SlicePipe} from '@angular/common';
 import {ActivatedRoute, RouterLink} from '@angular/router';
-import {MoodStatisticsComponent} from '../mood-statistics-component/mood-statistics-component';
+import {MoodStatisticsComponent} from '../../components/mood-components/mood-statistics-component/mood-statistics-component';
 import {Page} from '../../models/Page';
 import {filter, map, switchMap, tap} from 'rxjs';
 import {FormArray, FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
@@ -17,10 +17,10 @@ import {FormArray, FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/f
     MoodStatisticsComponent,
     ReactiveFormsModule
   ],
-  templateUrl: './mood.component.html',
-  styleUrl: './mood.component.css'
+  templateUrl: './mood-page.html',
+  styleUrl: './mood-page.css'
 })
-export class MoodComponent implements OnInit {
+export class MoodPage implements OnInit {
   moodEmotionOptions = ['EXCITED', 'HAPPY', 'NEUTRAL', 'TIRED', 'STRESSED', 'SAD'];
   moodProgressOptions = ['GOOD', 'BAD', 'STALL'];
   moodObjects: Mood[] = []

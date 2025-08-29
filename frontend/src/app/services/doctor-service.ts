@@ -1,7 +1,7 @@
 import {inject, Injectable} from '@angular/core';
-import {AuthService} from './auth-service';
+import {AuthService} from '../core/services/auth-service';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {catchError, map, Observable, of, throwError} from 'rxjs';
+import {Observable, throwError} from 'rxjs';
 import {CreateDoctorDTO} from '../models/dto/CreateDoctorDTO';
 
 @Injectable({

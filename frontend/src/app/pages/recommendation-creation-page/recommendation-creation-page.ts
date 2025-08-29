@@ -3,7 +3,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {
   FormArray,
   FormBuilder,
-  FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
@@ -11,7 +10,7 @@ import {
 } from '@angular/forms';
 import {RecommendationService} from '../../services/recommendation-service';
 import {catchError, filter, forkJoin, map, of} from 'rxjs';
-import {RecommendationForm} from '../../components/recommendation/recommendation-form/recommendation-form';
+import {RecommendationForm} from '../../components/recommendation-components/recommendation-form/recommendation-form';
 
 @Component({
   selector: 'recommendation-creation-page',
@@ -85,7 +84,7 @@ export class RecommendationCreationPage implements OnInit {
     );
 
     forkJoin(calls).subscribe({
-      next: (results) => {
+      next: () => {
         this.submitting = false;
         this.router.navigate([`/summary/${this.reportId}`])
       },

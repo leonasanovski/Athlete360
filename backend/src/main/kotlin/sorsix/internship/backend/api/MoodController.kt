@@ -39,8 +39,6 @@ class MoodController(
     ): Page<MoodDTO> {
         val fromDateTime = from?.let { LocalDateTime.parse(from) }
         val toDateTime = to?.let { LocalDateTime.parse(to) }
-        println("From:$fromDateTime")
-        println("To:$toDateTime")
         return moodService
             .findAllFiltered(patientId, fromDateTime, toDateTime, moodEmotion, moodProgress, pageSize, pageNumber)
             .map { MoodMapper.mapMoodToResponseDto(it) }

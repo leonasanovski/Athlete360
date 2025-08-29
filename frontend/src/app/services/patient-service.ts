@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {filter, Observable, switchMap, take, throwError} from 'rxjs';
 import {PageResponse} from '../models/PageResponse';
 import {Patient} from '../models/Patient';
-import {AuthService} from './auth-service';
+import {AuthService} from '../core/services/auth-service';
 import {CreatePatientDTO} from '../models/dto/CreatePatientDTO';
 
 @Injectable({
@@ -51,18 +51,18 @@ export class PatientService {
           .set('page', page.toString())
           .set('size', size.toString())
           .set('sort', sort)
-        if (patientType === undefined || patientType === null){
+        if (patientType === undefined || patientType === null) {
           params = params.set('patientType', false)
-        }else{
+        } else {
           params = params.set('patientType', String(patientType))
         }
-        console.log('Parameteres: ',params)
-        if(patientType === true){
+        console.log('Parameteres: ', params)
+        if (patientType === true) {
           return this.http.get<PageResponse<Patient>>(
             `${this.url}/doctor/${user?.personId}/patients/search`,
             {params}
           )
-        }else{
+        } else {
           return this.http.get<PageResponse<Patient>>(
             `${this.url}/doctor/${user?.personId}/patients/search`,
             {params}
@@ -87,9 +87,5 @@ export class PatientService {
     });
     return this.http.post(`${this.url}/patient/create-patient-user`, patientData, {headers});
 
-  }
-
-  searchUnasignedPatients(query: string) {
-    return undefined;
   }
 }

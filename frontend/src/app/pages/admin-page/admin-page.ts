@@ -5,18 +5,16 @@ import {UserRole} from '../../models/types/UserRole';
 import {
   BehaviorSubject,
   combineLatest,
-  combineLatestAll,
   debounceTime,
   distinctUntilChanged,
-  mergeMap,
   startWith,
   Subject,
   switchMap
 } from 'rxjs';
 import {DatePipe} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {AuthService} from '../../services/auth-service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {AuthService} from '../../core/services/auth-service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'admin-page',

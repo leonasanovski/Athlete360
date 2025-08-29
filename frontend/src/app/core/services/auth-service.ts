@@ -1,11 +1,11 @@
 import {inject, Injectable} from '@angular/core';
 import {BehaviorSubject, catchError, map, Observable, tap, throwError} from 'rxjs';
-import {CurrentUser} from '../models/CurrentUser';
+import {CurrentUser} from '../../models/CurrentUser';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {jwtDecode} from 'jwt-decode';
-import {JwtPayload} from '../models/JWTPayload';
-import {CreateAppUserDTO} from '../models/dto/CreateAppUserDTO';
-import {UserRole} from '../models/types/UserRole';
+import {JwtPayload} from '../../models/JWTPayload';
+import {CreateAppUserDTO} from '../../models/dto/CreateAppUserDTO';
+import {UserRole} from '../../models/types/UserRole';
 
 @Injectable({
   providedIn: 'root'

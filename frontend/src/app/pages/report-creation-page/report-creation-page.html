@@ -8,22 +8,14 @@
       <input type="text" class="form-control" formControlName="embg"
              (blur)="hideDropdownAfterDelay()"
       >
-      <!--      fixme style-->
       <div class="patient-type-search d-flex justify-content-start gap-3">
         <div>
-          <input type="radio"
-                 name="patientType"
-                 value="new"
-                 (change)="patientType = true">
-          <label>New patient</label>
+          <input type="radio" id="new-patient" name="patientType" value="new" (change)="patientType = true">
+          <label for="new-patient">New patients</label>
         </div>
         <div>
-          <input type="radio"
-                 name="patientType"
-                 value="assigned"
-                 (change)="patientType = false"
-                 checked>
-          <label>Assigned patient</label>
+          <input type="radio" id="assigned-patient" name="patientType" value="assigned" (change)="patientType = false" checked>
+          <label for="assigned-patient">Assigned patients</label>
         </div>
       </div>
       @if (showEmbgDropdown && embgResults.length > 0) {

@@ -1,9 +1,9 @@
 import {Component, inject} from '@angular/core';
-import {AuthService} from '../../services/auth-service';
+import {AuthService} from '../../../core/services/auth-service';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {DoctorService} from '../../services/doctor-service';
+import {DoctorService} from '../../../services/doctor-service';
 import {Router} from '@angular/router';
-import {CreateDoctorDTO} from '../../models/dto/CreateDoctorDTO';
+import {CreateDoctorDTO} from '../../../models/dto/CreateDoctorDTO';
 
 @Component({
   selector: 'app-doctor-form-setup',

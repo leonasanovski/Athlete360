@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import sorsix.internship.backend.security.dtos.LoginRequest
 import sorsix.internship.backend.security.dtos.RegisterRequest
-import sorsix.internship.backend.security.repository.AppUserRepository
 import sorsix.internship.backend.security.service.UserService
 
 @RestController
@@ -18,7 +17,6 @@ import sorsix.internship.backend.security.service.UserService
 @CrossOrigin(origins = ["http://localhost:4200"])
 class UserController(
     private val userService: UserService,
-    private val userRepository: AppUserRepository,
 ) {
     @PostMapping("/register")
     fun register(@RequestBody request: RegisterRequest): ResponseEntity<Any> =
@@ -33,7 +31,6 @@ class UserController(
     @PostMapping("/login")
     fun login(@RequestBody request: LoginRequest): ResponseEntity<Any> =
         try {
-            val u = userRepository.findByEmbg(request.embg.trim()) ?: error("no user")
             ResponseEntity.ok(userService.login(request))
         } catch (e: RuntimeException) {
             ResponseEntity.badRequest().body(e.message ?: "Login error")

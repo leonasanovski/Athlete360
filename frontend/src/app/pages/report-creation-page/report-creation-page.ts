@@ -1,11 +1,10 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {ReportService} from '../../services/report-service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ReportForm} from '../../models/ReportForm';
-import {AthleteReportStatus} from '../../models/types/AthleteReportStatus';
-import {AuthService} from '../../services/auth-service';
-import {debounceTime, distinctUntilChanged, filter, mergeMap, of, switchMap} from 'rxjs';
+import {AuthService} from '../../core/services/auth-service';
+import {debounceTime, distinctUntilChanged, filter, mergeMap, switchMap} from 'rxjs';
 import {ReportDetails} from '../../models/ReportDetails';
 import {Patient} from '../../models/Patient';
 import {PatientService} from '../../services/patient-service';

@@ -2,7 +2,7 @@ import {Component, OnInit, inject} from '@angular/core';
 import {Router, NavigationEnd, RouterOutlet} from '@angular/router';
 import {filter, map, startWith, combineLatestWith} from 'rxjs';
 import {Sidebar} from './components/sidebar/sidebar';
-import {AuthService} from './services/auth-service';
+import {AuthService} from './core/services/auth-service';
 import {NgClass} from '@angular/common';
 
 @Component({

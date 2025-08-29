@@ -1,6 +1,6 @@
 import {Component, Input, OnChanges} from '@angular/core';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
-import {MoodStatisticsDTO} from '../../../models/MoodStatistics';
+import {MoodStatisticsDTO} from '../../../../models/MoodStatistics';
 
 @Component({
   selector: 'app-line-chart-component',

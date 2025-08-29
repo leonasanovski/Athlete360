@@ -10,7 +10,6 @@ import sorsix.internship.backend.security.model.UserRole
 @Repository
 interface AppUserRepository : JpaRepository<AppUser, Long> {
     fun findByEmbg(embg: String): AppUser?
-    fun findByUserId(userId: Long): AppUser?
     fun findAllByRole(role: UserRole, pageable: Pageable): Page<AppUser>
     fun findAllByRoleAndEmbgContainingIgnoreCase(role: UserRole, embg: String, pageable: Pageable): Page<AppUser>
 }

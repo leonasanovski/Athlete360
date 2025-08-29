@@ -47,10 +47,6 @@ class MoodServiceImpl(
         val totalScore = calculateTotalMoodScore(aiScore, emotionScore, sleepScore)
         val moodProgress = determineMoodProgress(totalScore)
 
-        println("AiScore is -> ${aiScore}, emotionScore is -> $emotionScore")
-        println("EmotionScore is -> $emotionScore")
-        println("SleepScore is -> $sleepScore")
-        println("TOTAL SCORE: $totalScore with mood progress: $moodProgress")
         val mood = Mood(
             patient = patient,
             moodDescription = dto.moodDescription,
@@ -60,7 +56,6 @@ class MoodServiceImpl(
             moodProgress = moodProgress,
             moodDescriptionScore = totalScore.toInt()
         )
-        println(mood)
         return moodRepository.save(mood)
     }
 
@@ -142,10 +137,9 @@ class MoodServiceImpl(
         MoodEmotion.TIRED -> 4
         MoodEmotion.STRESSED -> 3
         MoodEmotion.SAD -> 2
-        else -> 5
     }
 
-    private fun calculateSleepScore(hoursSlept: Int): Int = when (hoursSlept.toInt()) {
+    private fun calculateSleepScore(hoursSlept: Int): Int = when (hoursSlept) {
         in 0..4 -> 1
         in 5..6 -> 5
         in 7..9 -> 10

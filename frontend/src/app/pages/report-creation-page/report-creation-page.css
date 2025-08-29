@@ -5,3 +5,50 @@
 .list-group-item:hover {
   background-color: #f8f9fa;
 }
+
+.patient-type-search > div {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  padding: 4px 10px;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: #ffffff;
+}
+
+.patient-type-search > div:has(input[type="radio"]:checked) {
+  border-color: #208b57;
+  background-color: #e9ffe7;
+}
+
+.patient-type-search input[type="radio"] {
+  margin-right: 8px;
+  accent-color: #0b9d05;
+  transform: scale(1.1);
+}
+
+.patient-type-search label {
+  cursor: pointer;
+  font-weight: 500;
+  margin: 0;
+  user-select: none;
+}
+
+.patient-type-search > div:has(input[type="radio"]:checked) label {
+  color: #0b9d05;
+  font-weight: 600;
+}
+
+.patient-type-search > div:active {
+  transform: scale(0.98);
+  transition: transform 0.1s ease;
+}
+
+
+.patient-type-search input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+}
