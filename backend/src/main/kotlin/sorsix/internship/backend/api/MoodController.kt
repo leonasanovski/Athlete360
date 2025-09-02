@@ -36,13 +36,18 @@ class MoodController(
         @RequestParam(required = false) moodProgress: List<MoodProgress>?,
         @RequestParam(defaultValue = "4") pageSize: Int,
         @RequestParam(defaultValue = "1") pageNumber: Int
-    ): Page<MoodDTO> {
-        val fromDateTime = from?.let { LocalDateTime.parse(from) }
-        val toDateTime = to?.let { LocalDateTime.parse(to) }
-        return moodService
-            .findAllFiltered(patientId, fromDateTime, toDateTime, moodEmotion, moodProgress, pageSize, pageNumber)
-            .map { MoodMapper.mapMoodToResponseDto(it) }
-    }
+    ): Page<MoodDTO> = moodService
+        .findAllFiltered(
+            patientId,
+            from?.let { LocalDateTime.parse(from) },
+            to?.let { LocalDateTime.parse(to) },
+            moodEmotion,
+            moodProgress,
+            pageSize,
+            pageNumber
+        )
+        .map { MoodMapper.mapMoodToResponseDto(it) }
+
 
     @GetMapping("/{patientId}/all-moods")
     fun getMoodsForPatient(@PathVariable patientId: Long): List<MoodDTO> =
@@ -52,20 +57,16 @@ class MoodController(
 
 
     @GetMapping("/info/{moodId}")
-    fun getSpecificMoodForPatient(
-        @PathVariable moodId: Long
-    ): ResponseEntity<MoodDTO> {
-        val mood = moodRepository.findByMoodId(moodId)
-            ?: return ResponseEntity.notFound().build()
-        return ResponseEntity.ok(MoodMapper.mapMoodToResponseDto(mood))
-    }
+    fun getSpecificMoodForPatient(@PathVariable moodId: Long): ResponseEntity<MoodDTO> =
+        moodRepository.findByMoodId(moodId)
+            ?.let { ResponseEntity.ok(MoodMapper.mapMoodToResponseDto(it)) }
+            ?: ResponseEntity.notFound().build()
 
     @PostMapping
-    fun addMood(@RequestBody dto: MoodCreatingResponseDTO): ResponseEntity<MoodDTO> {
-        val mood = moodService.save(dto)
-        val moodDTO = MoodMapper.mapMoodToResponseDto(mood)
-        return ResponseEntity.status(HttpStatus.CREATED).body(moodDTO)
-    }
+    fun addMood(@RequestBody dto: MoodCreatingResponseDTO): ResponseEntity<MoodDTO> =
+        ResponseEntity.status(HttpStatus.CREATED)
+            .body(moodService.save(dto).let { MoodMapper.mapMoodToResponseDto(it) })
+
 
     @GetMapping("/{id}/statistics")
     fun getPatientMoodStatistics(@PathVariable id: Long): ResponseEntity<MoodStatisticsDTO> =

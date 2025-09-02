@@ -11,11 +11,11 @@ class UserPrincipal(val appUser: AppUser) : UserDetails {
         return Collections.singleton(SimpleGrantedAuthority("PENDING"))
     }
 
-    override fun getPassword(): String? {
+    override fun getPassword(): String {
         return appUser.passwordHash
     }
 
-    override fun getUsername(): String? {
+    override fun getUsername(): String {
         return appUser.embg
     }
 

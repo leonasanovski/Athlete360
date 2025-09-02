@@ -30,9 +30,11 @@ class JWTService(
             UserRole.DOCTOR -> {
                 doctorRepository.findByUserEmbg(username)?.doctorId
             }
+
             UserRole.PATIENT -> {
                 patientRepository.findByUserEmbg(username)?.patientId
             }
+
             else -> {
                 null
             }
@@ -67,15 +69,6 @@ class JWTService(
 
     fun extractEmbg(token: String): String =
         extractAllClaims(token).subject
-
-    fun extractRole(token: String): String? =
-        extractAllClaims(token)["role"] as? String
-
-    fun extractFirstName(token: String): String? =
-        extractAllClaims(token)["firstName"] as? String
-
-    fun extractLastName(token: String): String? =
-        extractAllClaims(token)["lastName"] as? String
 
     private fun isTokenExpired(token: String): Boolean =
         extractAllClaims(token).expiration.before(Date())

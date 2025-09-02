@@ -37,8 +37,5 @@ class SummaryController(val summaryService: SummaryService) {
     fun patchSummary(
         @PathVariable reportId: Long,
         @RequestBody request: SummaryCreateRequest
-    ): ResponseEntity<Long> {
-        val updatedId = summaryService.update(reportId, request)
-        return ResponseEntity.ok(updatedId)
-    }
+    ): ResponseEntity<Long> = ResponseEntity.ok(summaryService.update(reportId, request))
 }

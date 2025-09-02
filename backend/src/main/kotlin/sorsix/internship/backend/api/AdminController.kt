@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 import sorsix.internship.backend.security.dtos.AppUserDTO
-import sorsix.internship.backend.security.model.AppUser
 import sorsix.internship.backend.security.model.UserRole
 import sorsix.internship.backend.security.repository.AppUserRepository
 
@@ -24,14 +23,14 @@ class AdminController(
     fun getAllPending(
         @PageableDefault(size = 20, sort = ["createdAt"], direction = Sort.Direction.DESC) pageable: Pageable,
         @RequestParam("embg", required = false) embg: String?
-    ) : ResponseEntity<Page<AppUserDTO>> {
-        val usersPage: Page<AppUser> = if (embg.isNullOrBlank()) {
-            userRepository.findAllByRole(UserRole.PENDING, pageable)
-        } else {
-            userRepository.findAllByRoleAndEmbgContainingIgnoreCase(UserRole.PENDING, embg, pageable)
-        }
-        return ResponseEntity.ok(usersPage.map { AppUserDTO.fromEntity(it) })
-    }
+    ): ResponseEntity<Page<AppUserDTO>> =
+        ResponseEntity.ok(
+            (if (embg.isNullOrBlank())
+                userRepository.findAllByRole(UserRole.PENDING, pageable)
+            else
+                userRepository.findAllByRoleAndEmbgContainingIgnoreCase(UserRole.PENDING, embg, pageable)
+                    ).map(AppUserDTO::fromEntity)
+        )
 
 
     @PatchMapping("/users/{id}/role")

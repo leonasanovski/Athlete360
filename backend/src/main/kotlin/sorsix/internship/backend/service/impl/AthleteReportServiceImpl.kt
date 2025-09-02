@@ -10,7 +10,6 @@ import sorsix.internship.backend.dto.AthleteReportResponse
 import sorsix.internship.backend.dto.AthleteReportShortDTO
 import sorsix.internship.backend.dto.ReportMetricFlaggerDTO
 import sorsix.internship.backend.mappers.toDto
-import sorsix.internship.backend.model.AthleteReport
 import sorsix.internship.backend.model.enum.Gender
 import sorsix.internship.backend.repository.AthleteReportRepository
 import sorsix.internship.backend.repository.DoctorRepository
@@ -27,7 +26,6 @@ class AthleteReportServiceImpl(
     private val patientRepository: PatientRepository,
     private val metricsFlagHelper: MetricsFlagHelper
 ) : AthleteReportService {
-
     override fun create(requestObject: AthleteReportFormDTO): Long {
         val doctor = doctorRepository.findById(requestObject.doctorId)
             .orElseThrow { EntityNotFoundException("Doctor with id = ${requestObject.doctorId} not found") }
@@ -36,22 +34,19 @@ class AthleteReportServiceImpl(
             ?: throw EntityNotFoundException("Patient with embg = ${requestObject.embg} not found")
 
         if (patient.doctor == null) {
-            patient.doctor = doctor;
+            patient.doctor = doctor
         }
 
-        patient.dateOfLatestCheckUp = LocalDateTime.now();
-        patientRepository.save(patient);
+        patient.dateOfLatestCheckUp = LocalDateTime.now()
+        patientRepository.save(patient)
 
         val report = AthleteReportFormDTO.toEntity(requestObject, doctor, patient)
         return athleteReportRepository.save(report).reportId!!
     }
 
-    override fun findReportById(id: Long): AthleteReportResponse {
-        val report: AthleteReport = athleteReportRepository.findById(id)
+    override fun findReportById(id: Long): AthleteReportResponse =
+        athleteReportRepository.findById(id).map { it.toDto() }
             .orElseThrow { EntityNotFoundException("AthleteReport with id $id not found") }
-
-        return report.toDto();
-    }
 
     override fun reportMetricsFlagging(reportId: Long): ReportMetricFlaggerDTO {
         val report = athleteReportRepository.findById(reportId)

@@ -1,6 +1,5 @@
 package sorsix.internship.backend.service.impl
 
-import jakarta.persistence.EntityNotFoundException
 import org.springframework.stereotype.Service
 import sorsix.internship.backend.model.Doctor
 import sorsix.internship.backend.repository.DoctorRepository
@@ -15,10 +14,7 @@ class DoctorServiceImpl(
     override fun createDoctorFromUser(
         userId: Long,
         specialization: String
-    ): Doctor {
-        val user = userRepository.findById(userId)
-            .orElseThrow { throw EntityNotFoundException("User with id $userId does not exist") }
-        val doctor = Doctor(user = user, specialization = specialization)
-        return doctorRepository.save(doctor)
-    }
+    ): Doctor = doctorRepository.save(
+        Doctor(user = userRepository.findById(userId).orElseThrow(), specialization = specialization)
+    )
 }

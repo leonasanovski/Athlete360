@@ -24,13 +24,10 @@ class MoodServiceImpl(
     private val patientRepository: PatientRepository,
     private val openAiService: OpenAiService
 ) : MoodService {
-
     companion object {
         private const val POOR_SLEEP_PENALTY = 0.6
         private const val DEFAULT_SLEEP_MULTIPLIER = 1.0
         private const val GOOD_SLEEP_BOOST = 1.3
-
-
         private const val MIN_SCORE = 1.0
         private const val MAX_SCORE = 10.0
         private const val BAD_THRESHOLD = 4
@@ -90,12 +87,10 @@ class MoodServiceImpl(
         pageSize: Int,
         pageNumber: Int
     ): Page<Mood> {
-        //switch from and to if from is after too
         val (start, end) = when {
             from != null && to != null && from.isAfter(to) -> to to from
             else -> from to to
         }
-        //building the specification
         val spec: Specification<Mood> = Specification { root, _, criteriaBuilder ->
             val predicates = mutableListOf<Predicate>()
             val createdAt = root.get<LocalDateTime>("createdAt")
@@ -129,7 +124,6 @@ class MoodServiceImpl(
         )
     }
 
-    //helper functions
     private fun calculateEmotionScore(emotion: MoodEmotion): Int = when (emotion) {
         MoodEmotion.EXCITED -> 8
         MoodEmotion.HAPPY -> 10
@@ -168,6 +162,4 @@ class MoodServiceImpl(
         totalScore <= STALL_THRESHOLD -> MoodProgress.STALL
         else -> MoodProgress.GOOD
     }
-
-
 }

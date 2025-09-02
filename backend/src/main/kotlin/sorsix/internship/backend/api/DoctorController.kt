@@ -27,17 +27,14 @@ class DoctorController(
     val athleteReportService: AthleteReportService,
     val patientService: PatientService
 ) {
-
     @GetMapping
     fun getAllDoctors(): List<Doctor> = doctorRepository.findAll()
 
     @GetMapping("/{id}")
-    fun getDoctor(@PathVariable id: Long): ResponseEntity<Doctor> {
-        val d = doctorRepository
-            .findById(id)
+    fun getDoctor(@PathVariable id: Long): ResponseEntity<Doctor> =
+        doctorRepository.findById(id).map { ResponseEntity.ok(it) }
             .orElseThrow { EntityNotFoundException("Doctor not found") }
-        return ResponseEntity.ok(d)
-    }
+
 
     @PostMapping("/create-doctor-user")
     fun createDoctorEntityForExistingUserWithRoleDoctor(
@@ -46,8 +43,7 @@ class DoctorController(
     ): ResponseEntity<Doctor> {
         val principal = authentication.principal as UserPrincipal
         val userId = principal.appUser.userId
-        val doctor = doctorService.createDoctorFromUser(userId!!, doctorData.specialization)
-        return ResponseEntity.ok(doctor)
+        return doctorService.createDoctorFromUser(userId!!, doctorData.specialization).let { ResponseEntity.ok(it) }
     }
 
     @GetMapping("{doctorId}/patients")
@@ -67,13 +63,12 @@ class DoctorController(
         @RequestParam(required = false, defaultValue = "") embg: String,
         @RequestParam(required = false, defaultValue = false.toString()) patientType: Boolean?,
         @PageableDefault(size = 10, sort = ["dateOfLatestCheckUp"], direction = Sort.Direction.DESC) pageable: Pageable
-    ): ResponseEntity<Page<PatientDTO>> {
+    ): ResponseEntity<Page<PatientDTO>> =
         if (patientType == true) {
-            return ResponseEntity.ok(patientService.getUnassignedPatients(embg, pageable))
+            ResponseEntity.ok(patientService.getUnassignedPatients(embg, pageable))
+        } else {
+            ResponseEntity.ok(patientService.searchPatientsByDoctorIdAndEmbg(doctorId, embg, pageable))
         }
-        return ResponseEntity.ok(patientService.searchPatientsByDoctorIdAndEmbg(doctorId, embg, pageable))
-
-    }
 
     @GetMapping("{doctorId}/reports")
     fun getDoctorReports(

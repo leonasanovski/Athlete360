@@ -18,16 +18,12 @@ class SummaryServiceImpl(
     private val athleteReportRepository: AthleteReportRepository,
     private val openAiService: OpenAiService,
     private val recommendationService: RecommendationService
-): SummaryService {
+) : SummaryService {
 
-    override fun findSummaryByReportId(reportId: Long): SummaryDTO {
-        val report = athleteReportRepository.findById(reportId)
-            .orElseThrow { throw EntityNotFoundException("There is no doctor with id=$reportId in the database.") }
-
-        return summaryRepository.findByAthleteReportReportId(reportId)
+    override fun findSummaryByReportId(reportId: Long): SummaryDTO =
+        summaryRepository.findByAthleteReportReportId(reportId)
             ?.toDto()
             ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "Summary for reportId=$reportId not found")
-    }
 
     override fun create(summary: SummaryCreateRequest): Long {
         val report = athleteReportRepository.findById(summary.reportId!!)
@@ -39,12 +35,8 @@ class SummaryServiceImpl(
     }
 
     override fun getSummaryAI(reportId: Long): String {
-        val report = athleteReportRepository.findById(reportId)
-            .orElseThrow { EntityNotFoundException("Report with id = $reportId not found") }
-
         val recommendations = recommendationService.findRecommendationsByReportId(reportId)
         val summarized = openAiService.summarizeRecommendations(recommendations)
-
         return summarized
     }
 

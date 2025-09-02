@@ -9,7 +9,6 @@ import sorsix.internship.backend.security.repository.AppUserRepository
 
 @Service
 class UserDetailsServiceImpl(val userRepository: AppUserRepository) : UserDetailsService {
-
     override fun loadUserByUsername(username: String?): UserDetails? {
         if (username.isNullOrBlank()) {
             throw UsernameNotFoundException("Username cannot be null or empty")

@@ -19,7 +19,6 @@ class AthleteReportController(
     private val summaryService: SummaryService,
     private val athleteReportRepository: AthleteReportRepository
 ) {
-
     @PostMapping
     fun createReport(@RequestBody request: AthleteReportFormDTO): ResponseEntity<Long> =
         ResponseEntity

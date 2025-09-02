@@ -6,7 +6,6 @@ import sorsix.internship.backend.dto.RecommendationCreateRequest
 import sorsix.internship.backend.dto.RecommendationResponse
 import sorsix.internship.backend.mappers.toDto
 import sorsix.internship.backend.repository.AthleteReportRepository
-import sorsix.internship.backend.repository.DoctorRepository
 import sorsix.internship.backend.repository.PatientRepository
 import sorsix.internship.backend.repository.RecommendationRepository
 import sorsix.internship.backend.service.RecommendationService
@@ -14,17 +13,14 @@ import sorsix.internship.backend.service.RecommendationService
 @Service
 class RecommendationServiceImpl(
     private val recommendationRepository: RecommendationRepository,
-    private val doctorRepository: DoctorRepository,
     private val patientRepository: PatientRepository,
     private val athleteReportRepository: AthleteReportRepository
 ) : RecommendationService {
-    override fun findRecommendationsByDoctorId(doctorId: Long): List<RecommendationResponse> {
-        val doctor = doctorRepository.findById(doctorId)
-            .orElseThrow { throw EntityNotFoundException("There is no doctor with id=$doctorId in the database.") }
-        return recommendationRepository.findByReportDoctorDoctorId(doctorId).map { recommendation ->
+    override fun findRecommendationsByDoctorId(doctorId: Long): List<RecommendationResponse> =
+        recommendationRepository.findByReportDoctorDoctorId(doctorId).map { recommendation ->
             recommendation.toDto()
-        };
-    }
+        }
+
 
     override fun findRecommendationsByPatientId(patientId: Long): List<RecommendationResponse> {
         val patient = patientRepository.findById(patientId)

@@ -90,13 +90,13 @@ class OpenAiService(
             promptBuilder.appendLine("type: ${r.type}")
             promptBuilder.appendLine("restrictionLevel: ${r.restrictionLevel}")
             promptBuilder.appendLine("label: ${r.label}")
-            promptBuilder.appendLine("description: \"\"\"${r.description?.trim() ?: ""}\"\"\"")
+            promptBuilder.appendLine("description: \"\"\"${r.description.trim()}\"\"\"")
             promptBuilder.appendLine("costPerMonth: ${r.costPerMonth}")
             promptBuilder.appendLine("durationWeeks: ${r.durationWeeks}")
             promptBuilder.appendLine("frequencyPerDay: ${r.frequencyPerDay}")
             promptBuilder.appendLine("targetGoal: ${r.targetGoal}")
             promptBuilder.appendLine("effectivenessRating: ${r.effectivenessRating}")
-            promptBuilder.appendLine("doctorPersonalizedNotes: \"\"\"${r.doctorPersonalizedNotes?.trim() ?: ""}\"\"\"")
+            promptBuilder.appendLine("doctorPersonalizedNotes: \"\"\"${r.doctorPersonalizedNotes.trim()}\"\"\"")
         }
 
         promptBuilder.appendLine()
@@ -158,22 +158,3 @@ class OpenAiService(
         val content: String
     )
 }
-
-
-/*
-Not a good mood:
-Lately, I’ve been feeling overwhelmed and emotionally drained. I struggle to find motivation, and even small tasks feel like huge obstacles.
-Despite trying to stay on track with my training, I constantly feel like I’m falling behind. My sleep has been poor, and I wake up feeling anxious more often than not.
- I don’t feel like I’m making progress, and it’s frustrating to see others moving forward while I feel stuck. There’s a lingering sense of hopelessness I can’t shake.
- I just feel tired — mentally, physically, emotionally — and I don’t know how to fix it.
-
-
-Happy mood:
-I feel light and joyful today! Everything seems brighter, and I can’t stop smiling.
-It’s one of those days when even the little things — like sunshine, music, or a kind word — feel magical. I’m just genuinely happy to be alive and present.
-
-
-Stressed mood:
-I’m feeling overwhelmed and mentally drained today. There’s too much on my plate, and it feels like I can’t catch a break.
-My thoughts are racing, and even small tasks seem exhausting. I just need some space to breathe and reset.
-*/

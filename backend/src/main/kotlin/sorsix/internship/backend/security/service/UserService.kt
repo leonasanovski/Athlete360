@@ -7,7 +7,6 @@ import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
-import sorsix.internship.backend.security.dtos.ChangeRoleRequest
 import sorsix.internship.backend.security.dtos.LoginRequest
 import sorsix.internship.backend.security.dtos.RegisterRequest
 import sorsix.internship.backend.security.model.AppUser
@@ -21,7 +20,6 @@ class UserService(
     private val authenticationManager: AuthenticationManager,
     private val jwtService: JWTService
 ) {
-
     private val encoder = BCryptPasswordEncoder(12)
 
     fun register(request: RegisterRequest): AppUser {
@@ -56,14 +54,6 @@ class UserService(
         } else {
             "Something went wrong"
         }
-    }
-
-    fun changeAuthority(request: ChangeRoleRequest): AppUser {
-        val user = userRepository.findByEmbg(request.embg)
-            ?: throw UsernameNotFoundException("User Not Found")
-
-        user.role = request.role
-        return userRepository.save(user)
     }
 
     fun getCurrentUser(): AppUser {
