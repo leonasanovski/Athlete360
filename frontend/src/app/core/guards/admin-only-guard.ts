@@ -5,6 +5,7 @@ import {AuthService} from '../services/auth-service';
 export const adminOnlyGuard: CanActivateFn = () => {
   const auth = inject(AuthService);
   const router = inject(Router);
+
   if (!auth.isLoggedIn()) {
     return router.createUrlTree(['/login'])
   }

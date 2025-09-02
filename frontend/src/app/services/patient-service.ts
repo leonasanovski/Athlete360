@@ -56,7 +56,6 @@ export class PatientService {
         } else {
           params = params.set('patientType', String(patientType))
         }
-        console.log('Parameteres: ', params)
         if (patientType === true) {
           return this.http.get<PageResponse<Patient>>(
             `${this.url}/doctor/${user?.personId}/patients/search`,

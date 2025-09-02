@@ -25,7 +25,7 @@ export class DoctorFormSetup {
   submit() {
     if (this.formGroup.invalid) return;
     const formData = this.formGroup.getRawValue()
-    const obj : CreateDoctorDTO = {
+    const obj: CreateDoctorDTO = {
       specialization: formData.specialization
     }
     this.doctorService.saveDoctorEntity(obj)
@@ -35,7 +35,7 @@ export class DoctorFormSetup {
           this.router.navigate(['/login']);
         },
         error: (error) => {
-          console.log('Error creating doctor profile:', error);
+          console.error(`Error creating doctor profile: ${error}`);
         }
       });
   }

@@ -6,7 +6,7 @@ export interface JwtPayload {
   lastName: string;
   personId: number | null;
   userId: number;
-  sub: string;//actually the embg
+  sub: string;//subject (embg)
   iat: number;
   exp: number;
 }

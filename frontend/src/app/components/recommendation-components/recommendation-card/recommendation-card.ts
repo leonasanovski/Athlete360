@@ -24,10 +24,8 @@ export class RecommendationCard implements OnChanges {
   }
 
   private updateClasses() {
-    const t = (this.recommendation?.type ?? '').toString().toUpperCase();
-    console.log(t)
-
-    switch (t) {
+    const recommendationType = (this.recommendation?.type ?? '').toString().toUpperCase();
+    switch (recommendationType) {
       case 'DIET':
         this.typeBadgeClass = 'badge-diet';
         this.typeClass = 'type-diet';

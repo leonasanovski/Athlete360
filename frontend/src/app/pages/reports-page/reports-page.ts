@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {ReportsTable} from '../../components/report-components/reports-table/reports-table';
 
 @Component({
@@ -11,5 +11,4 @@ import {ReportsTable} from '../../components/report-components/reports-table/rep
   styleUrl: './reports-page.css'
 })
 export class ReportsPage {
-
 }

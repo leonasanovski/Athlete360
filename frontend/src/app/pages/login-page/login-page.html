@@ -4,7 +4,7 @@
 
     <div class="mb-3">
       <label class="form-label">EMBG</label>
-      <input type="text" class="form-control" formControlName="embg" placeholder="e.g. 1212005455321" />
+      <input type="text" class="form-control" formControlName="embg" placeholder="e.g. 1212005455321"/>
       @if (this.formGroup.controls['embg'] && this.formGroup.controls['embg'].invalid) {
         <div class="error text-danger small mt-1">EMBG is required</div>
       }
@@ -12,7 +12,7 @@
 
     <div class="mb-3">
       <label class="form-label">Password</label>
-      <input type="password" class="form-control" formControlName="password" placeholder="••••••••" />
+      <input type="password" class="form-control" formControlName="password" placeholder="••••••••"/>
       @if (this.formGroup.controls['password'] && this.formGroup.controls['password'].invalid) {
         <div class="error text-danger small mt-1">Password is required (min 4 chars)</div>
       }

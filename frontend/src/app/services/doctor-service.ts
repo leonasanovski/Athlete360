@@ -20,8 +20,6 @@ export class DoctorService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
     });
-    console.log("DoctorDTO:", doctorData)
-    console.log('Headers: ', headers)
     return this.http.post(`${this.url}/create-doctor-user`, doctorData, {headers});
   }
 }

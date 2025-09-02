@@ -11,7 +11,7 @@ import {CurrentUser} from '../../models/CurrentUser';
 import {PatientService} from '../../services/patient-service';
 import {Patient} from '../../models/Patient';
 import {MoodService} from '../../services/mood-service';
-import { NgxGaugeModule } from 'ngx-gauge';
+import {NgxGaugeModule} from 'ngx-gauge';
 
 @Component({
   selector: 'patient-page',

@@ -5,7 +5,7 @@ export interface Patient {
   patientId: number,
   name: string,
   embg: string,
-  doctorInfo: string,
+  doctor: string,
   gender: Gender,
   sportsmanCategory: SportsmanCategory,
   email: string,

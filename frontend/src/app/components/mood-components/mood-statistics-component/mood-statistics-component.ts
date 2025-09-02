@@ -36,7 +36,7 @@ export class MoodStatisticsComponent implements OnInit {
       filter(id => !!id),
       switchMap(patientId => this.patientService.getPatientById(+patientId!).pipe(
         tap(patient => this.patient = patient),
-        switchMap(patient => this.moodService.getMoodStatisticsForPatient(patient.patientId))
+        switchMap(patient => this.moodService.getMoodStatisticsForPatient(patient.patientId)),
       ))
     ).subscribe(data => {
       this.moodStatistics = data

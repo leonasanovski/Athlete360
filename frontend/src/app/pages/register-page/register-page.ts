@@ -50,17 +50,15 @@ export class RegisterPage implements OnInit {
     this.auth.register(formValues).subscribe({
       next: () => {
         const user = this.auth.getCurrentUser();
-        console.log('User: ', user)
         this.router.navigate(['/pending']);
       },
       error: (err: unknown) => {
-        console.log('Error: ', err)
+        console.error(`Error: ${err}`)
       }
     })
   }
 
   ngOnInit() {
-    // re-validate EMBG when DOB or Gender change
     this.formGroup.get('dateOfBirth')!.valueChanges.subscribe(() =>
       this.formGroup.get('embg')!.updateValueAndValidity({onlySelf: true})
     );

@@ -37,7 +37,6 @@
         </div>
       </div>
 
-      <!-- Information Section -->
       <div class="card-body bg-white p-4">
         <div class="row mb-3 py-3 border-bottom align-items-center"
              style="border-color: rgba(168, 201, 87, 0.3) !important;">
@@ -65,15 +64,14 @@
           </div>
         </div>
 
-        <div class="row py-3 align-items-center">
-          <div class="col-sm-4">
-            <div class="d-flex align-items-center">
-            <span class="fw-semibold text-uppercase small"
-                  style="color: #224228; letter-spacing: 1px;">Assigned Doctor</span>
-            </div>
+        <div class="row py-3 align-items-center text-center">
+          <div>
+            <h5 style="color: #386641; letter-spacing: 1px;">Assigned Doctor Info</h5>
           </div>
-          <div class="col-sm-8 text-sm-end">
-            <span class="fw-semibold" style="{{ patient?.doctorInfo ? 'color: #6A994E;' : 'color: #224228;' }}">{{ patient?.doctorInfo ?? 'No Doctor Assigned Yet' }}</span>
+          <hr>
+          <div class="col">
+            <span class="fw-semibold"
+                  style="{{ patient?.doctor ? 'color: #6A994E;' : 'color: #224228;' }}">{{ patient?.doctor }}</span>
           </div>
         </div>
       </div>
@@ -97,7 +95,6 @@
           </button>
         </div>
       </div>
-      <!-- Progress Statistics Section -->
       <div class="stats-section">
         <h4 class="section-title">
           {{ moodStatisticsSelectedView === 'pie' ? 'Progress Percentage PIE Chart' : 'Progress Percentage Statistics' }}

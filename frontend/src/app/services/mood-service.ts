@@ -22,7 +22,6 @@ export class MoodService {
   }
 
   getMoodStatisticsForPatient(id: number): Observable<MoodStatisticsDTO> {
-    console.log(id)
     const url = `${this.mood_url}/${id}/statistics`
     return this.http.get<MoodStatisticsDTO>(url)
   }

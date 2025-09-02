@@ -93,8 +93,6 @@ export class ReportCreationPage implements OnInit{
       }),
       switchMap(query => {
         this.showEmbgDropdown = true;
-        console.log('Query:', query)
-        console.log('Patient type: ', this.patientType ? 'New' : 'Old')
         return this.patientService.searchPatientsByEmbg(query, this.patientType)
       })
     ).subscribe(res => {

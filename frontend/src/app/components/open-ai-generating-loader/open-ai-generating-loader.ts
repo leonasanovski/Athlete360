@@ -7,5 +7,4 @@ import {Component} from '@angular/core';
   styleUrl: './open-ai-generating-loader.css'
 })
 export class OpenAiGeneratingLoader {
-
 }

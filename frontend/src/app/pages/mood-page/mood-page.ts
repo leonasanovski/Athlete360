@@ -90,7 +90,6 @@ export class MoodPage implements OnInit {
 
   loadData(patientId: number) {
     const filters = this.filterForm.value;
-    console.log(filters)
     this.moodService.filterSearch(
       patientId,
       filters.from,

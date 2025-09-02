@@ -48,7 +48,7 @@ export class LineChartComponent implements OnChanges {
   ngOnChanges() {
     this.chartData = this.moodStatistics?.progressOverTime ? [{
       name: 'Progress',
-      series: [...this.moodStatistics.progressOverTime] // take every element from it and put it into array
+      series: [...this.moodStatistics.progressOverTime]
         .sort((time_a, time_b) => new Date(time_a.date).getTime() - new Date(time_b.date).getTime())
         .map(data => ({
           name: new Date(data.date),

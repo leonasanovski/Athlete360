@@ -27,18 +27,15 @@ export class ReportService {
       .set('size', size.toString())
       .set('sort', sort);
 
-    return id==null ? this.auth.currentUser$.pipe(
+    return id == null ? this.auth.currentUser$.pipe(
       take(1),
       switchMap(user => {
-
         return this.http.get<PageResponse<ReportShort>>(
           `${this.url}/${user?.role.toLowerCase()}/${user?.personId}/reports`,
           {params}
         )
       })
-    ) : this.http.get<PageResponse<ReportShort>>(
-      `${this.url}/patient/${id}/reports`,
-      { params }
+    ) : this.http.get<PageResponse<ReportShort>>(`${this.url}/patient/${id}/reports`, {params}
     )
   }
 

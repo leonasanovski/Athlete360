@@ -40,7 +40,7 @@ export class PatientFormSetup {
         this.router.navigate(['/login']);
       },
       error: (err) => {
-        console.log('Error creating patient profile:', err);
+        console.error(`Error creating patient profile: ${err}`);
       }
     });
   }

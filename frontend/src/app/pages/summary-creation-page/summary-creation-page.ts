@@ -144,7 +144,7 @@ export class SummaryCreationPage implements OnInit{
 
     if (this.hasSummary) {
       this.summaryService.patchSummary(this.reportId, payload).subscribe({
-        next: (resp) => {
+        next: () => {
           this.saving = false;
           this.successMessage = 'Summary updated successfully.';
           setTimeout(() => this.successMessage = null, 3000);
@@ -158,7 +158,7 @@ export class SummaryCreationPage implements OnInit{
       });
     } else {
       this.summaryService.createSummary(payload).subscribe({
-        next: (newId) => {
+        next: () => {
           this.saving = false;
           this.hasSummary = true;
           this.successMessage = 'Summary created successfully.';

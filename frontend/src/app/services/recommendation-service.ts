@@ -1,8 +1,7 @@
 import {inject, Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Recommendation} from '../models/Recommendation';
-import {catchError, Observable, of, tap} from 'rxjs';
-import {ReportForm} from '../models/ReportForm';
+import {catchError, Observable, of} from 'rxjs';
 import {RecommendationFormDTO} from '../models/RecommendationFormDTO';
 
 @Injectable({
@@ -19,7 +18,6 @@ export class RecommendationService {
   getLatestRecommendations(id: number): Observable<Recommendation[]> {
     return this.http
       .get<Recommendation[]>(`${this.url}/patient/${id}/latest/recommendations`).pipe(
-        tap(obj => console.log('Object: ', obj)),
         catchError(() => of([]))
       )
   }
